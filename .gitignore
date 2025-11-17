@@ -74,3 +74,4 @@ target/
 *.rej
 *.swp
 *.swo
+./venv/
