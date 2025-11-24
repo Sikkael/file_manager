@@ -1,0 +1,1000 @@
+  993  sudo apt install libminiupnpc-dev
+  994  sudo apt install libzmq3-dev
+  995  sudo apt install git curl
+  996  history > hist.txt
+  997  cat hi*
+  998  git clone https://github.com/bitcoin/bitcoin.git
+  999  cd bitcoin
+ 1000  git checkout v26.0  # (ou autre version stable)
+ 1001  git clone https://github.com/bitcoin/bitcoin.git
+ 1002  cd bitcoin
+ 1003  git checkout v26.0  # (ou autre version stable)
+ 1004  cd src
+ 1005  cd ..
+ 1006  code .
+ 1007  ./autogen.sh
+ 1008  ./configure --without-gui
+ 1009  make -j$(nproc)
+ 1010  ls
+ 1011  history > bash/history.txt
+ 1012  cat  bash/history.txt
+ 1013  ls
+ 1014  find bitcoin
+ 1015  cd Ap*
+ 1016  ls
+ 1017  cd ..
+ 1018  dir code 
+ 1019  cd code/vs*
+ 1020  ls
+ 1021  [200~/home/mike/Téléchargements/Harmonium Serge Fiori Live La Guitare des Pays d'en Haut Marc Déry Stéphanie Lapointe [heF3GdazXP0].mp4
+ 1022  /home/mike/Téléchargements/Harmonium Serge Fiori Live Aujourd'hui je dis Bonjour à la Vie Marc Déry [_qa5MPeZupU].mp4
+ 1023  /home/mike/Téléchargements/Harmonium Serge Fiori Live Pour Un Instant Catherine Durand [zl6MfruINAI].mp4
+ 1024  /home/mike/Téléchargements/Harmonium Serge Fiori Live Vieilles Courroies Catherine Durand Marie-Jo Thério [k6hJ4ZtxUsU].mp4
+ 1025  /home/mike/Téléchargements/Harmonium Serge Fiori Live Viens Danser Mes Aïeux [m6rrUDGXH3I].mp4
+ 1026  /home/mike/Téléchargements/Harmonium Serge Fiori Live Si Bien Louis Jean Cormier [jnuFSuYFjbI].mp4
+ 1027  /home/mike/Téléchargements/Harmonium Serge Fiori Live L'Exil Éric Lapointe [jy343jPXZ4I].mp4
+ 1028  /home/mike/Téléchargements/Harmonium Serge Fiori Live Le Corridor Monique Fauteux [QsQ_wkRuGjw].mp4
+ 1029  cd code/vs*
+ 1030  cd bitcoin ; code .
+ 1031  code .
+ 1032  cd ..
+ 1033  ls
+ 1034  cd *-vscode ; code .
+ 1035  sudo find / -name code 
+ 1036  sudo apt update
+ 1037  sudo apt upgrade
+ 1038  cd code ; cd vs* ; code .
+ 1039  sudo apt update
+ 1040  sudo apt upgrade
+ 1041  src/bitcoind -regtest
+ 1042  cd code ; cd vs* 
+ 1043  ls
+ 1044  history > history.txt
+ 1045  cd bitcoin 
+ 1046  src/bitcoind -regtest
+ 1047  src/bitcoin-cli -regtest getdifficulty
+ 1048  bitcoin-cli -regtest getdifficulty
+ 1049  bitcoin-cli -regtest -rpcuser=admin -rpcpassword=admin123 getdifficulty
+ 1050  clear
+ 1051  [200~src/bitcoind -regtest
+ 1052  src/bitcoind -regtest
+ 1053  cd code ; cd vs* 
+ 1054  src/bitcoind -regtest
+ 1055  cd bitcoin 
+ 1056  src/bitcoind -regtest
+ 1057  src/bitcoind -regtest stop
+ 1058  src/bitcoind -h
+ 1059  /bin/python3 /home/mike/.vscode/extensions/ms-python.python-2025.8.0-linux-x64/python_files/printEnvVariablesToFile.py /home/mike/.vscode/extensions/ms-python.python-2025.8.0-linux-x64/python_files/deactivate/bash/envVars.txt
+ 1060  /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/python /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/main.py
+ 1061  sudo apt update
+ 1062  sudo apt upgrade
+ 1063  cd code;cd vs* ; dir
+ 1064  cat *.txt
+ 1065  rm -help
+ 1066  rm -h
+ 1067  rm --help
+ 1068  clear ; dir
+ 1069  rm *.gz
+ 1070  clear ; dir
+ 1071  cd ancr* ; code
+ 1072  code .
+ 1073  ls
+ 1074  cat *.txt
+ 1075  /bin/python3 /home/mike/code/vscode/bitcoinlib_project/main.py
+ 1076  /home/mike/code/vscode/bitcoinlib_project/env/bin/python /home/mike/code/vscode/bitcoinlib_project/main.py
+ 1077  pip install bitcoinlib
+ 1078  pip3 install bitcoinlib
+ 1079  /bin/python3 /home/mike/.vscode/extensions/ms-python.python-2025.8.0-linux-x64/python_files/printEnvVariablesToFile.py /home/mike/.vscode/extensions/ms-python.python-2025.8.0-linux-x64/python_files/deactivate/bash/envVars.txt
+ 1080  sudo apt update 
+ 1081  sudo apt list
+ 1082  sudo apt list --upgradable
+ 1083  sudo apt upgrade -h
+ 1084  sudo  upgrade -h
+ 1085  sudo apt upgrade -f
+ 1086  sudo apt autoremove
+ 1087  clear
+ 1088  cd co* ; cd vs* ; dir
+ 1089  cp an* bitcoinlib_project
+ 1090  cp an* -r bitcoinlib_project
+ 1091  dir
+ 1092  cd bitcoinlib* ; dir 
+ 1093  code .
+ 1094  sudo apt upgrade
+ 1095  sudo apt update
+ 1096  sudo apt upgrade
+ 1097  sudo apt update
+ 1098  sudo apt upgrade
+ 1099  sudo apt update
+ 1100  sudo apt upgrade
+ 1101  sudo apt update
+ 1102  sudo apt upgrade
+ 1103  cat h*
+ 1104  ls
+ 1105  history > history.txt 
+ 1106  sudo apt install libappindicator1
+ 1107  sudo apt install keeweb-desktop
+ 1108  clear
+ 1109  dpkg -i libindicator7_0.5.0-3+b1_amd64.deb
+ 1110  sudo -i
+ 1111  webapp-manager 
+ 1112  exit
+ 1113  sudo apt install lptk
+ 1114  sudo apt upgrade
+ 1115  sudo apt update
+ 1116  sudo apt upgrade
+ 1117  pypass init
+ 1118  pypass init --help
+ 1119  sudo apt-get install -y gnupg tree
+ 1120  make setup_gpg
+ 1121  pypass init 907
+ 1122  pypass insert test.com 
+ 1123  ls
+ 1124  dir
+ 1125  sudo -i
+ 1126  sudo install python-gpg
+ 1127  sudo install python-gpgme
+ 1128  sudo apt install python-gpg
+ 1129  sudo install apt python-gpgme
+ 1130  sudo apt install  python-gpgme
+ 1131  sudo apt-get install  python-gpgme
+ 1132  sudo apt-get install  python-gpg
+ 1133  cd code ; cd vs*
+ 1134  dir
+ 1135  cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+ 1136  ~/.dropbox-dist/dropboxd
+ 1137  npm i 
+ 1138  npm run dev
+ 1139  start node
+ 1140  curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh | bash
+ 1141  .\dev-env.sh
+ 1142  dev-env.sh
+ 1143  sudo dev-env.sh
+ 1144  sudo ./dev-env.sh
+ 1145  ls k*
+ 1146  history > history.txt 
+ 1147  dropbox help 
+ 1148  ls
+ 1149  cp help
+ 1150  cp --help
+ 1151  cp history.txt ./dropbox
+ 1152  cd d*
+ 1153  ls
+ 1154  cd Dropbox ; ls
+ 1155  ls
+ 1156  cp history.txt ./Dropbox/history.txt
+ 1157  ls
+ 1158  cd.
+ 1159  cd ..
+ 1160  cp history.txt ./Dropbox/history.txt
+ 1161  cd Dropbox ; ls
+ 1162  rm hi*
+ 1163  ls
+ 1164  cd ..
+ 1165  cd code 
+ 1166  ls
+ 1167  cd v*
+ 1168  ls
+ 1169  cd k*
+ 1170  code .
+ 1171  cd ..
+ 1172  curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh | bash
+ 1173  curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh | bash -
+ 1174  curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh 
+ 1175  rm k*
+ 1176  rmdir k*
+ 1177  rmdir k* -f
+ 1178  rmdir k* --help
+ 1179  rmdir k*  --ignore-fail-on-non-empty
+ 1180  dir 
+ 1181  rmdir k*  -p
+ 1182  rmdir -r k*  
+ 1183  rmdir -r keeweb-1.18.7
+ 1184  rm -r keeweb-1.18.7
+ 1185  ls
+ 1186  ls *
+ 1187  ls k*
+ 1188  ls 
+ 1189  cd k*
+ 1190  ls
+ 1191  cd k*
+ 1192  rm -r keeweb
+ 1193  cd ..
+ 1194  rm -r keeweb
+ 1195  rm --help
+ 1196  rm -r -f keeweb
+ 1197  cd ..
+ 1198  rm -r -f keeweb*
+ 1199  ls
+ 1200  curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh 
+ 1201  wget https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh 
+ 1202  code .
+ 1203  sudo https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh 
+ 1204  source /home/mike/code/vscode/python-vscode/.venv/bin/activate
+ 1205  /home/mike/code/vscode/python-vscode/.venv/bin/python /home/mike/code/vscode/python-vscode/main.py
+ 1206  source /home/mike/code/vscode/python-vscode/.venv/bin/activate
+ 1207  /home/mike/code/vscode/python-vscode/.venv/bin/python /home/mike/code/vscode/python-vscode/brouillons.py
+ 1208  source /home/mike/code/vscode/python-vscode/.venv/bin/activate
+ 1209  /home/mike/code/vscode/python-vscode/.venv/bin/python /home/mike/code/vscode/python-vscode/app.py
+ 1210  /bin/python3 /home/mike/.vscode/extensions/ms-python.python-2025.12.0-linux-x64/python_files/printEnvVariablesToFile.py /home/mike/.vscode/extensions/ms-python.python-2025.12.0-linux-x64/python_files/deactivate/bash/envVars.txt
+ 1211  cd code; cd vs* ; ls 
+ 1212  cd pyth*
+ 1213  cd python-code
+ 1214  cd python-vscode
+ 1215  ls
+ 1216  code .
+ 1217  sudo apt update
+ 1218  exit
+ 1219  sudo apt update
+ 1220  sudo apt upgrade
+ 1221  unzip Photos-1-001.zip
+ 1222  get-help unzip 
+ 1223  unzip Photos-1-001.zip -d Téléchargements/Ben 
+ 1224  unzip Photos-1-001.zip -d /Ben 
+ 1225  unzip Photos-1-001.zip -d Ben 
+ 1226  ls
+ 1227  unzip Photos-1-001.zip(1) -d Ben/2024/mai 
+ 1228  rm Photos-1-001.zip
+ 1229  ls
+ 1230  rn -h
+ 1231  unzip Photos-1-001.zip -d Ben/2024/mai 
+ 1232  unzip Photos-1-001.zip -d Ben/2024/avril
+ 1233  rm Photos-1-001.zip
+ 1234  unzip Photos-1-001.zip -d Ben/2024/mars
+ 1235  ls
+ 1236  unzip Photos-1-001.zip -d Ben/2024/janvier
+ 1237  rm Photos-1-001.zip
+ 1238  history > hist.txt
+ 1239  mkdir mois
+ 1240  ls
+ 1241  rmdir mois
+ 1242  $mois = "août"
+ 1243  mois = "août"
+ 1244  mkdir "août"
+ 1245  cd 2025
+ 1246  ls
+ 1247  clear
+ 1248  mkdir "mai"
+ 1249  mkdir "avril"
+ 1250  ls
+ 1251  mkdir "mars"
+ 1252  mkdir "janvier"
+ 1253  cd ..
+ 1254  mkdir "Ben"
+ 1255  cd B8
+ 1256  cd B* ;clear
+ 1257  ls
+ 1258  mkdir 2024
+ 1259  cd 2024
+ 1260  mkdir "mai"
+ 1261  mkdir "avril"
+ 1262  mkdir "mars"
+ 1263  cd .. ; mkdir "2025" 
+ 1264  cd .. ; mkdir "2015" 
+ 1265  ls
+ 1266  history > hist.txt
+ 1267  cat *.txt
+ 1268  zip Ben
+ 1269  ls
+ 1270  zip Ben.zip Ben
+ 1271  cd .. / cd Té*
+ 1272  cd .. 
+ 1273  ls
+ 1274  sudo apt update
+ 1275  sudo apt upgrade
+ 1276  reboot
+ 1277  mkdir "2021" ; cd "2021" ; mkdir mars
+ 1278  ls
+ 1279  mkdir novembre
+ 1280  ls
+ 1281  move -h
+ 1282  clear
+ 1283  ls
+ 1284  clear
+ 1285  ls
+ 1286  mv 8 nov. 2015 .jpg novembre
+ 1287  mv '8 nov. 2015 .jpg' novembre
+ 1288  ls
+ 1289  mv sam, 14 nov. 2015.jpg' novembre
+ 1290  mv sam, '14 nov. 2015.jpg' novembre
+ 1291  ls
+ 1292  mv 'sam, 14 nov. 2015.jpg' novembre
+ 1293  ls
+ 1294  cd mars
+ 1295  mkdir
+ 1296  mkdir mars
+ 1297  rmdir mars
+ 1298  cd ..
+ 1299  cd 2021
+ 1300  ls
+ 1301  cd ..
+ 1302  cd B*
+ 1303  cd 2015 ; mkdir février
+ 1304  cd ..
+ 1305  ls
+ 1306  cd .. ; mkdir 2016 
+ 1307  rmdir 2016
+ 1308  cd ben
+ 1309  cd Ben
+ 1310  mkdir 2016 ;ls
+ 1311  cd 2015 ; mkdir mai ; mv 20150523_192417.jpg
+ 1312  cd 2015 ; mkdir mai ; mv 20150523_192417.jpg mai
+ 1313  mv 20150523_192417.jpg mai
+ 1314  ls
+ 1315  cd .. ;ls
+ 1316  ls
+ 1317  mv *.jpg Ben
+ 1318  cd Ben ;ls
+ 1319  mv *.jpg 2015
+ 1320  cd 2015
+ 1321  mv *.jpg mai
+ 1322  ls
+ 1323  mv *.jpg 2015
+ 1324  mv *.jpg Ben
+ 1325  mv *.jpeg Ben
+ 1326  mv *.jpg Ben
+ 1327  cd Ben ;ls
+ 1328  mv *.jpg 2015
+ 1329  cd 2015
+ 1330  mv *.jpg mai
+ 1331  cd ..
+ 1332  ls
+ 1333  mv 'zNEb4eXlzGSaWPyk7kY0qzjE6fGIwJvbXZvP-RUK6mA=w122-h162-p-no.jpg'  '21 nov. 2015'
+ 1334  mv *.jpg Ben ; cd Ben
+ 1335  cd ..
+ 1336  ls
+ 1337  rm 20*
+ 1338  rm 21*
+ 1339  ls
+ 1340  mv 'zNEb4eXlzGSaWPyk7kY0qzjE6fGIwJvbXZvP-RUK6mA=w122-h162-p-no.jpg'  '21 nov. 2015.jpg'
+ 1341  mv *.jpg Ben ; cd Ben ; mv 2015/novembre
+ 1342  cd .. ; mv *.jpg Ben ; cd Ben ; mv *.jpg  2015/novembre
+ 1343  ls
+ 1344  cd 
+ 1345  cd Té*
+ 1346  cd Ben
+ 1347  ls
+ 1348  cd..
+ 1349  ls
+ 1350  cd ..
+ 1351  ls
+ 1352  mv *.jpg  '21 nov. 2015-1.jpg'
+ 1353  cd .. ; mv *.jpg Ben ; cd Ben ; mv *.jpg  2015/novembre
+ 1354  cd Ben
+ 1355  cd T*
+ 1356  cd .. ; mv *.jpg Ben ; cd Ben ; mv *.jpg  2015/novembre
+ 1357  mv *.jpg Ben ; cd Ben ; mv *.jpg  2015/novembre
+ 1358  cd T*
+ 1359  mv *.jpg Ben ; cd Ben ; mv *.jpg  2015/novembre
+ 1360  sudo apt upgrade
+ 1361  sudo apt update
+ 1362  sudo apt upgrade
+ 1363  clear
+ 1364  grep -i "Using input driver" /var/log/Xorg.0.log
+ 1365  sudo apt install xserver-xorg-input-synaptics
+ 1366  reboot
+ 1367  "Je t'aime Ben" > Ben.txt
+ 1368  echo "Je t'aime Ben" > Ben.txt
+ 1369  ls
+ 1370  cat Ben*
+ 1371  sudo apt update
+ 1372  sudo apt upgrade
+ 1373  cd code ; cd vs*
+ 1374  code .
+ 1375  cd ls
+ 1376  ls
+ 1377  cd *lib*
+ 1378  code .
+ 1379  source /home/mike/code/vscode/bitcoinlib_project/.venv/bin/activate
+ 1380  /home/mike/code/vscode/bitcoinlib_project/.venv/bin/python /home/mike/code/vscode/bitcoinlib_project/main.py
+ 1381  pip install bitcoinlib
+ 1382  /home/mike/code/vscode/bitcoinlib_project/.venv/bin/python /home/mike/code/vscode/bitcoinlib_project/main.py
+ 1383  cd code ; cd vs* ; cd sti* ; code .
+ 1384  python3 -m  pip install -r requirements.txt
+ 1385  cd code ; cd vs* ; cd *lib* ; code .
+ 1386  cd .
+ 1387  cd ..
+ 1388  mkdir rptodo_project ; cd rpto*
+ 1389  python -m venv ./venv ; source venv/bin/activate
+ 1390  python3 -m venv ./venv ; source venv/bin/activate
+ 1391  touch requirement.txt
+ 1392  code .
+ 1393  mv requirement.txtrequirements.txt
+ 1394  mv requirement.txt requirements.txt
+ 1395  python3 -m  pip install requirements.txt
+ 1396  python3 -m  pip install -r requirements.txt
+ 1397  git remote add origin https://github.com/Sikkael/rptodo_project.git
+ 1398  git remote -v
+ 1399  git pull
+ 1400  git pull main
+ 1401  git pull https://github.com/Sikkael/rptodo_project.git main
+ 1402  mkdir rptodo
+ 1403  touch rptodo/__init__.py
+ 1404  git add .
+ 1405  git -m commit "New start"
+ 1406  git commit -m "New start"
+ 1407  git push
+ 1408  git push --set-upstream origin main
+ 1409  cd code ; cd vsc* ; cd rto*
+ 1410  ls
+ 1411  cd  rp*
+ 1412  ls
+ 1413  code .
+ 1414  cd code. ; cd vscode ;cd rt*
+ 1415  cd code ; cd vscode ;cd rt*
+ 1416  ls
+ 1417  cd rp* 
+ 1418  code .
+ 1419  sudo apt update 
+ 1420  sudo apt upgrade 
+ 1421  git add .
+ 1422  git commit -m "One more step closer."
+ 1423  git push
+ 1424  git push --set-upstream origin main
+ 1425  sudo apt update ; sudo apt upgrde
+ 1426  sudo apt upgrade
+ 1427  cd code ; cd vs* ; ls
+ 1428  cd rpt* ;code .
+ 1429  clear
+ 1430  start python 
+ 1431  python 
+ 1432  python3 
+ 1433  source venv/bin/activate
+ 1434  git add .
+ 1435  git commit -m "One more step closer."
+ 1436  git push
+ 1437  start chrome
+ 1438  clear 
+ 1439  touch rptodo/cli.py 
+ 1440  git add .
+ 1441  git commit -m "Using a explicit Typer application."
+ 1442  git push
+ 1443  touch rptodo/__main__.py 
+ 1444  python -m rptodo -v
+ 1445  python -m rptodo 
+ 1446  python -m rptodo -h
+ 1447  python -m rptodo --help
+ 1448  mkdir tests ;touch tests/test_rptodo.py
+ 1449  git add .
+ 1450  git commit -m "Adding entry point and test suite"
+ 1451  git push
+ 1452  touch tests/__init__.py
+ 1453  git add .
+ 1454  git commit -m "Adding entry point and test suite"
+ 1455  git push
+ 1456  sudo apt update ; sudo apt upgrade
+ 1457  python -m rptodo -h
+ 1458  source venv/bin/activate
+ 1459  python -m rptodo -h
+ 1460  python -m rptodo --help
+ 1461  python -m rptodo --install-completion
+ 1462  source /home/mike/code/vscode/rptodo_project/venv/bin/activate
+ 1463  python -m rptodo --help
+ 1464  python -m rptodo -v
+ 1465  python -m rptodo --show-completion
+ 1466  clear
+ 1467  source /home/mike/code/vscode/rptodo_project/venv/bin/activate
+ 1468  /home/mike/code/vscode/rptodo_project/venv/bin/python /home/mike/code/vscode/rptodo_project/tests/test_rptodo.py
+ 1469  python -m pytest tests
+ 1470  lear
+ 1471  clear
+ 1472  touch rptodo/config.py
+ 1473  touch rptodo/rptodo.py
+ 1474  touch rptodo/database.py
+ 1475  touch rptodo/clear
+ 1476  rm rptodo/clear
+ 1477  git add .
+ 1478  source venv/bin/activate
+ 1479  git add .
+ 1480  git commit -m "Preparing app configuration"
+ 1481  git push
+ 1482  cd code ; cd vscode
+ 1483  code .
+ 1484  clear
+ 1485  cd rpt*
+ 1486  code .
+ 1487  sudo apt update ; sudo apt upgrade -y
+ 1488  cd code ; cd vscode ; dir
+ 1489  cd anc* ; code .
+ 1490  cd ..
+ 1491  dir
+ 1492  cd bitcoinlib_project
+ 1493  code .
+ 1494  source /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/activate
+ 1495  /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/python /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/import_wallet.py
+ 1496  touch import_wallet.py
+ 1497  cd bitcoinlib_project
+ 1498  cd code . ; cd vs*
+ 1499  cd code ; cd vs*
+ 1500  cd bitcoinlib_project
+ 1501  code .
+ 1502  cd ls
+ 1503  cd /
+ 1504  cd dropbox
+ 1505  l
+ 1506  cd home
+ 1507  ls
+ 1508  cd mike
+ 1509  ls
+ 1510  cd dropbox
+ 1511  cd Dropbox
+ 1512  ls
+ 1513  source /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/activate
+ 1514  /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/python /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/import_wallet.py
+ 1515  cd code ; cd vs*
+ 1516  cd anc*
+ 1517  code .
+ 1518  source /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/activate
+ 1519  /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/env/bin/python /home/mike/code/vscode/ancre_dans_la_chaîne_de_bloc/import_wallet.py
+ 1520  cd code ; cd vs* ; cd anc* ; code .
+ 1521  cd ..
+ 1522  cd rpt*
+ 1523  code .
+ 1524  sudo apt update ; sudo apt upgrade -y
+ 1525  cd code ; cd vs ; cd rpt*
+ 1526  code .
+ 1527  sudo apt upgrade -y
+ 1528  sudo apt autoremove
+ 1529  sudo apt update
+ 1530  sudo apt upgrade -y
+ 1531  clear
+ 1532  cd code ; cd vsc* ; cd rpt* 
+ 1533  code . 
+ 1534  exit
+ 1535  python -m pytest tests/ 
+ 1536  python3 -m pytest tests/ 
+ 1537  python -m .env activate
+ 1538  python3 -m .env activate
+ 1539  clear
+ 1540  source /venv activate
+ 1541  source venv activate
+ 1542  source .venv activate
+ 1543  [200~source mon_env/bin/activate
+ 1544  source venv/bin/activate
+ 1545  python3 -m pytest tests/ 
+ 1546  git add . 
+ 1547  history > hist.txt
+ 1548  cat hist.txt
+ 1549  rm hist.txt
+ 1550  ls
+ 1551  git commit -m "Provide your to-do app with a configuration file"
+ 1552  git push
+ 1553  history > hist.txt
+ 1554  git push --set-upstream origin main
+ 1555  git push --force 
+ 1556  git add .
+ 1557  git commit -m "Provide your to-do app with a configuration file"
+ 1558  git push
+ 1559  git add .
+ 1560  git commit -m "Provide your to-do app with a configuration file"
+ 1561  git push
+ 1562  git rm hist.txt
+ 1563  git add .
+ 1564  git commit -m "Provide your to-do app with a configuration file"
+ 1565  git push
+ 1566  git add .
+ 1567  git commit -m "Setting up database"
+ 1568  history > hist.txt
+ 1569  source venv/bin/activate
+ 1570  git add .
+ 1571  git commit -m "Setting up database"
+ 1572  git push
+ 1573  source venv/bin/deactivate
+ 1574  deactivate
+ 1575  git commit -m "Setting up database"
+ 1576  git push
+ 1577  source venv/bin/activate
+ 1578  git add .
+ 1579  git commit -m "Setting up database"
+ 1580  git push
+ 1581  rm hist.txt
+ 1582  python -m rptodo init
+ 1583  ls
+ 1584  python -m rptodo init
+ 1585  git add .
+ 1586  git commit -m "Setting up database"
+ 1587  git push
+ 1588  python -m rptodo init
+ 1589  cd code ; cd vsco* ; cd rpt* ; code . 
+ 1590  cd code ; cd vsc* ;cd rpt* ; code .
+ 1591  cd rpt*
+ 1592  ls
+ 1593  cat rptodo_proj
+ 1594  rm rptodo_proj
+ 1595  ls
+ 1596  cd rpt*
+ 1597  code .
+ 1598  source venv/bin/activate
+ 1599  git add .
+ 1600  git commit -m "Communicate With the CLI and database."
+ 1601  git push
+ 1602  git add .
+ 1603  git commit -m "Define a single todo."
+ 1604  git push
+ 1605  sudo apt update
+ 1606  sudo apt upgrade -y
+ 1607  cd code ; cd vsc* ; cd rpt* ; code .
+ 1608  sudo apt upgrade -y
+ 1609  [200~python -m rptodo list
+ 1610  clear
+ 1611  python -m rptodo list
+ 1612  source venv/bin/activate
+ 1613  python -m rptodo list
+ 1614  python -m rptodo add Passer au guichet
+ 1615  python -m rptodo list
+ 1616  python -m rptodo complete 3
+ 1617  python -m rptodo list
+ 1618  git commit -m "Setting todo completion statuts."
+ 1619  git add
+ 1620  git add .
+ 1621  git commit -m "Setting todo completion statuts."
+ 1622  git push
+ 1623  python -m rptodo list
+ 1624  python -m rptodo remove 3
+ 1625  python -m rptodo add Laver le vestibule. 3
+ 1626  python -m rptodo add Laver le vestibule. -p 3
+ 1627  python -m rptodo list
+ 1628  python -m rptodo remove 3
+ 1629  python -m rptodo remove 3 -f
+ 1630  python -m rptodo list
+ 1631  clear
+ 1632  python -m rptodo remove_all
+ 1633  python -m rptodo --help
+ 1634  python -m rptodo clear 
+ 1635  python -m rptodo clear -y
+ 1636  python -m rptodo clear -f
+ 1637  python -m rptodo clear 
+ 1638  python -m rptodo list
+ 1639  git add .
+ 1640  git commit -m "Implementing deletion functionnality"
+ 1641  git push
+ 1642  cd code ; cd vsc* ; cd rpt* ; code .
+ 1643  sudo apt upgrade -y
+ 1644  code .
+ 1645  reboot
+ 1646  python -m rptodo list
+ 1647  python source activat
+ 1648  python source activate
+ 1649  pytho3n source activate
+ 1650  python3 source activate
+ 1651  source venv/bin/activate
+ 1652  clear
+ 1653  python -m rptodo list
+ 1654  source /home/mike/code/vscode/projet_x/venv/bin/activate
+ 1655  python add 
+ 1656  python -m rptodo list
+ 1657  python -m rptodo add 
+ 1658  python -m rptodo add "Laver la vaisselle
+ 1659  "
+ 1660  python -m rptodo list
+ 1661  python -m rptodo -h
+ 1662  python -m rptodo --help
+ 1663  sudo apt update 
+ 1664  sudo apt upgrade -y
+ 1665  clear 
+ 1666  cd code ; cd vsc* ; cd rpt* ; code .
+ 1667  cd ..
+ 1668  cp ?
+ 1669  cp --help
+ 1670  cp rptodo projet_x
+ 1671  cp rptodo* projet_x
+ 1672  cp -r rptodo* projet_x
+ 1673  ls pr*
+ 1674  dir
+ 1675  dir p*
+ 1676  cd projet_x
+ 1677  ls
+ 1678  code .
+ 1679  cd .
+ 1680  cd ..
+ 1681  rm projet_x
+ 1682  rm projet_x -f
+ 1683  rmdir projet_x
+ 1684  rmdir projet_x -f
+ 1685  rmdir projet_x -y
+ 1686  rmdir --help
+ 1687  rmdir -p projet_x 
+ 1688  i-ip
+ 1689  cd code ; cd vsc*
+ 1690  ls
+ 1691  rmdir -p projet_x 
+ 1692  rmdir -ignore-fail-on-nonempty  projet_x 
+ 1693  rmdir --help
+ 1694  source venv/bin/activate
+ 1695  /usr/bin/python3 /home/mike/code/vscode/file_manager/file_manager/__main__.py
+ 1696  python3 -m venv venv
+ 1697  ls
+ 1698  cd .. ; ls rptodo_project
+ 1699  cd fi* 
+ 1700  source venv/bin/activate
+ 1701  cd code ; cd vsc*; ls
+ 1702  rm projet_x
+ 1703  rmdir projet_x
+ 1704  history > history.txt
+ 1705  cat hist*
+ 1706  rmdir -ignore-fail-on-nonempty  projet_x
+ 1707  rmdir -p  -ignore-fail-on-nonempty  projet_x
+ 1708  rmdir -h
+ 1709  rmdir --help
+ 1710  rmdir --ignore-fail-on-non-empty 
+ 1711  rmdir  --ignore-fail-on-nonempty  projet_x
+ 1712  rmdir  --ignore-fail-on-non-empty  projet_x
+ 1713  ls
+ 1714  ls projet_x
+ 1715  rmdir  -p projet_x/venv
+ 1716  rm --help
+ 1717  rm -r projet_x
+ 1718  rm -r -f projet_x
+ 1719  ls
+ 1720  mkdir file_manager
+ 1721  ls
+ 1722  cd fil*
+ 1723  code .
+ 1724  cd .
+ 1725  cd ..
+ 1726  ls rpt*
+ 1727  ls rptodo/rptodo
+ 1728  ls rptodo/rptodo/
+ 1729  ls rptodo/
+ 1730  ls rptodo
+ 1731  ls
+ 1732  ls rptodo_project/rptodo
+ 1733  cd f*
+ 1734  mkdir file_manager
+ 1735  cd fi* ; touch __main__.py
+ 1736  ls file_manager
+ 1737  cd ..
+ 1738  ls file_manager
+ 1739  cd code ; cd vs* ; cd f* ; code .
+ 1740  cp ../vscode/rptodo/requirement.txt .
+ 1741  cp ./vscode/rptodo/requirement.txt .
+ 1742  cp /vscode/rptodo/requirement.txt .
+ 1743  cp ~/code/vscode/file_manager .
+ 1744  cp --help
+ 1745  cp ~/code/vscode/file_manager .
+ 1746  cp /home/mike/code/vscode/rptodo_project/requirement.txt /home/mike/code/vscode/file_manager
+ 1747  cd .. ; ls ; cd f*
+ 1748  cp --help
+ 1749  touch file_manager/file_manager/__init__.py
+ 1750  cd code ; cd vsc*
+ 1751  touch file_manager/file_manager/__init__.py
+ 1752  rm file_manager/file_manager/__init__.py
+ 1753  source /home/mike/code/vscode/file_manager/venv/bin/activate
+ 1754  /home/mike/code/vscode/file_manager/venv/bin/python /home/mike/code/vscode/file_manager/file_manager/__init__.py
+ 1755  cp /home/mike/code/vscode/rptodo_project/requirement.txt
+ 1756  cp --help
+ 1757  cp /home/mike/code/vscode/rptodo_project/requirement.txt -v
+ 1758  cp /home/mike/code/vscode/rptodo_project/requirement.txt -d .
+ 1759  cp /home/mike/code/vscode/rptodo_project/requirements.txt -d .
+ 1760  ls
+ 1761  python3 pip install requirements.txt
+ 1762  python -m pip install requirements.txt
+ 1763  python -m pip install -r requirements.txt
+ 1764  clear
+ 1765  cp /home/mike/code/vscode/rptodo_project/rptodo/__init__.py -d /file_manager
+ 1766  cp /home/mike/code/vscode/rptodo_project/rptodo/__init__.py -d ./file_manager
+ 1767  ls ./file_manager
+ 1768  cd code ; cd vscode 
+ 1769  ls
+ 1770  dir
+ 1771  cd rpt* ; code
+ 1772  code . 
+ 1773  source venv/bin/activate
+ 1774  clear
+ 1775  source venv/bin/deactivate
+ 1776  cd .. ; cat *.txt
+ 1777  deactivate
+ 1778  cd code ; cd vscode ; cd file*
+ 1779  rn --help
+ 1780  rename --help
+ 1781  rename file_manager fileman
+ 1782  rename file_manager fileman--path
+ 1783  mv file_manager fileman
+ 1784  dir
+ 1785  clear
+ 1786  code .
+ 1787  mkdir tests touch tests/__init__.py tests/test_fileman.py
+ 1788  touch fileman/cli.py
+ 1789  clear
+ 1790  python -m fileman
+ 1791  python -m fileman -v
+ 1792  python3 -m fileman -v
+ 1793  pip install typer
+ 1794  source venv/bin/activate
+ 1795  python -m fileman -v
+ 1796  python -m fileman -h
+ 1797  sudo apt update ; sudo apt upgrade -y
+ 1798  cd code ; cd vs* ; cd file_manager ; code . 
+ 1799  start chrome
+ 1800  chrome
+ 1801  ./chrome
+ 1802  .\chrome
+ 1803  start python 
+ 1804  start python3
+ 1805  python3
+ 1806  exit
+ 1807  source venv/bin/activate
+ 1808  clear
+ 1809  python -m fileman -h
+ 1810  python -m fileman -v
+ 1811  clear
+ 1812  mkdir tests 
+ 1813  cd t*
+ 1814  cd ..
+ 1815  python -m fileman --help
+ 1816  clear
+ 1817  touch tests/test_rptodo.py
+ 1818  rm  tests/test_rptodo.py
+ 1819  rm  tests/test_fileman.py
+ 1820  touch tests/test_fileman.py
+ 1821  source /home/mike/code/vscode/file_manager/venv/bin/activate
+ 1822  /home/mike/code/vscode/file_manager/venv/bin/python /home/mike/code/vscode/file_manager/tests/test_fileman.py
+ 1823  touch ./tests/__init__.py
+ 1824  /home/mike/code/vscode/file_manager/venv/bin/python /home/mike/code/vscode/file_manager/tests/test_fileman.py
+ 1825  python -m pytest tests/test_fileman.py
+ 1826  touch ./fileman/config.py
+ 1827  cd code ; cd vs* ; cd file_manager ; code . 
+ 1828  touch ./fileman/database.py
+ 1829  clear
+ 1830  sudo apt update ; sudo apt upgrade -y
+ 1831  cd code ; cd vs* ; cd fileman ;code .
+ 1832  cd code ; cd vs* ; cd file* ; code .
+ 1833  source venv/bin/activate
+ 1834  cd code ; cd vs* ; cd file* ; code .
+ 1835  exit
+ 1836  clear
+ 1837  source bin/venv/activate
+ 1838  source venv/bin/activate
+ 1839  clear
+ 1840  python -m fileman init
+ 1841  touch ./fileman/fileman.py
+ 1842  clear
+ 1843  python -m pytest tests/. 
+ 1844  cd code ; cd vs* ; cd file* ; code .
+ 1845  exit
+ 1846  cd code ; cd vs* ; cd file* ; code . ; exit
+ 1847  ls
+ 1848  clear ; python -minit
+ 1849  source venv/bin/activate
+ 1850  clear ; python -m fileman init
+ 1851  clear ; python -m fileman init -db data.json
+ 1852  clear ; python -m fileman init
+ 1853  remove salut
+ 1854  rm salut
+ 1855  rm data.json
+ 1856  clear
+ 1857  clear ; python -m fileman init
+ 1858  clear ; python -m fileman init -h
+ 1859  clear ; python -m fileman init --help
+ 1860  python -m fileman init 
+ 1861  sudo apt update
+ 1862  sudo apt list --upgradable
+ 1863  sudo apt upgrade
+ 1864  cd code ; cd vsc*; cd fil* ; code .
+ 1865  python -m fileman init 
+ 1866  source venv/bin/activate
+ 1867  python -m fileman init 
+ 1868  source venv/bin/activate
+ 1869  python -m fileman init 
+ 1870  rm dossier
+ 1871  ls
+ 1872  rm ' dossier'
+ 1873  rmdir ' dossier'
+ 1874  ls
+ 1875  source /home/mike/code/vscode/file_manager/venv/bin/activate
+ 1876  python -m fileman init 
+ 1877  python -m fileman init -dest dossier
+ 1878  sudo apt update ; sudo apt upgrade -y
+ 1879  sudo apt upgrade -y
+ 1880  sudo apt autoremove
+ 1881  sudo apt upgrade -y
+ 1882  cd code ; cd vsc*; cd fil* ; code .
+ 1883  cd code ; cd vsc*; cd fil* ; code . ;clear
+ 1884  python3
+ 1885  python -m fileman init 
+ 1886  source /home/mike/code/vscode/file_manager/venv/bin/activate
+ 1887  python -m fileman init 
+ 1888  source /home/mike/code/vscode/file_manager/venv/bin/activate
+ 1889  /home/mike/code/vscode/file_manager/venv/bin/python /home/mike/code/vscode/file_manager/fileman/config.py
+ 1890  clear
+ 1891  python fileman init
+ 1892  python -m fileman init 
+ 1893  touch fileman/filehandler.py
+ 1894  python -m fileman init 
+ 1895  python -m fileman init -dst Ben
+ 1896  rmdir Ben
+ 1897  clear
+ 1898  ls
+ 1899  rmdir fileman
+ 1900  ls
+ 1901  cd code ; cd vsc*; cd fil* ; code . ; clear
+ 1902  cd code ; cd vsc*; ls
+ 1903  cd ..
+ 1904  ls
+ 1905  cd rpt* ; code .
+ 1906  echo "# file_manager" >> README.md
+ 1907  git init
+ 1908  git add README.md
+ 1909  git commit -m "first commit"
+ 1910  git branch -M main
+ 1911  git remote add origin https://github.com/Sikkael/file_manager.git
+ 1912  git push -u origin main
+ 1913  rmdir rien
+ 1914  git commit -m "first commit"
+ 1915  git branch -M main
+ 1916  git remote add origin https://github.com/Sikkael/file_manager.git
+ 1917  git push -u origin main
+ 1918  git add .
+ 1919  git commit -m "file manager"
+ 1920  git push
+ 1921  git  add .gitignore
+ 1922  touch .gitignore
+ 1923  rm file
+ 1924  rm dossier
+ 1925  git commit -m "file manager"
+ 1926  git rm dossier
+ 1927  git rm file
+ 1928  git add 
+ 1929  git add .
+ 1930  git commit -m "file manager"
+ 1931  git push
+ 1932  source venv/bin/activate
+ 1933  git push
+ 1934  git pull
+ 1935  git config pull.rebase false
+ 1936  git push
+ 1937  git config pull.rebase true
+ 1938  git add .
+ 1939  git commit -m "file manager"
+ 1940  git push
+ 1941  git pull
+ 1942  git push
+ 1943  clear
+ 1944  git pull
+ 1945  git add .
+ 1946  git commit -m "file manager"
+ 1947  git push
+ 1948  sudo apt update ; sudo apt upgrade -y
+ 1949  clear
+ 1950  cd code ; cd vsc*; cd fil* ; code . ; clear
+ 1951  cd ..
+ 1952  mkdir json_demo
+ 1953  ls 
+ 1954  cd j* 
+ 1955  cd .. 
+ 1956  cd f*
+ 1957  code .
+ 1958  cd .. ;cd js*
+ 1959  code .
+ 1960  python main.py 
+ 1961  python3 main.py 
+ 1962  clear
+ 1963  rm *json
+ 1964  ls
+ 1965  clear
+ 1966  python3 main.py 
+ 1967  rm *json
+ 1968  clear
+ 1969  python3 main.py 
+ 1970  rm *json
+ 1971  python3 main.py 
+ 1972  clear
+ 1973  rm *json
+ 1974  python3 main.py 
+ 1975  python3 main.py /home/mike/Dropbox/Photos de Ben/Google/Google Photos (jeangalactique@gmail.com)
+ 1976  python3 main.py 
+ 1977  clear
+ 1978  python3 main.py 
+ 1979  clear
+ 1980  python3 main.py 
+ 1981  clear
+ 1982  rm *json
+ 1983  python3 main.py 
+ 1984  /bin/python3 /home/mike/code/vscode/json_demo/photo_utils.py
+ 1985  clear
+ 1986  python3 main.py
+ 1987  /bin/python3 /home/mike/code/vscode/json_demo/photo_utils.py
+ 1988  python3 main.py
+ 1989  source venv/bin/activate
+ 1990  clear
+ 1991  source venv/bin/activate
+ 1992  history > hist.txt
