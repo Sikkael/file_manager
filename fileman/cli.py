@@ -61,6 +61,22 @@ def init(
         typer.secho(f"The fileman database is {db_path}", fg=typer.colors.GREEN)
         typer.secho(f"The destination folder is {dest_path}", fg=typer.colors.BLUE)
             
+@app.command()
+def add(dirname: str = typer.Option( "--dirname", "-dir") )-> None:
+    """Add a new directory to the database."""
+    file_manager = get_file_manager()
+    current_directory = file_manager.add(dirname)
+    if current_directory.error:
+        typer.secho(
+            f'Adding directory failed with "{ERRORS[current_directory.error]}"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f'Directory "{dirname}" added successfully.',
+            fg=typer.colors.GREEN,
+        )
 
 def get_file_manager() -> fileman.FileManager:
     if config.CONFIG_FILE_PATH.exists():

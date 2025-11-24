@@ -36,8 +36,10 @@ def _init_config_file() -> int:
 
 def _create_database(db_path: str,dest_path: str) -> int:
     config_parser = configparser.ConfigParser()
-    config_parser["General"] = {"database": db_path}
-    config_parser["General"] = {"destination directory": dest_path}
+    config_parser["General"] = {
+                                  "database": db_path,                              
+                                  "dest_dir": dest_path
+                              }
     try:
         with CONFIG_FILE_PATH.open("w") as file:
             config_parser.write(file)
