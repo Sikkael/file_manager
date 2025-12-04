@@ -2,7 +2,7 @@
 # fileman/fileman.py
 
 from pathlib import Path
-from typing import Any, Dict, NamedTuple
+from typing import NamedTuple
 
 from fileman import DIR_ERROR
 from fileman.database import DatabaseHandler
@@ -30,3 +30,7 @@ class FileManager:
         read.file_list.append(dirname)
         write = self._db_handler.write_file_data(read.file_list)
         return CurrentDirectory(dirname, write.error)
+    
+    def list(self, path:str)-> dict:
+        """List files in a directory recursively."""
+        return list_files_recursive(path)
