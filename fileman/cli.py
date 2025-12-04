@@ -1,6 +1,7 @@
 """This module provides the RP fileman CLI."""
 # rptodo/cli.py
 
+import configparser
 import os
 from pathlib import Path
 from typing import Optional
@@ -126,3 +127,11 @@ def main(
     )
 ) -> None:
     return
+
+@app.command(name="list")
+def list_all() -> None:
+    """List files in a directory recursively."""
+    file_manager = get_file_manager()
+    files_infos = file_manager.list("/home/mike/Bureau/Photos de Ben")
+    for hash_value, file_path in files_infos.items():
+        print(f"Hash: {hash_value[0:5]}.... => File Path: {file_path}")

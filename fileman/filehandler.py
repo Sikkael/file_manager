@@ -63,9 +63,3 @@ class FileHandler:
     def __init__(self, dest_path: Path) -> None:
         self._dest_path = dest_path
         
-
-# Running the function and printing the output
-files = list_files_recursive("/home/mike/Bureau/Photos de Ben")
-
-for hash_value, file_path in files.items():
-    print(f"Hash: {hash_value[0:5]}.... => File Path: {file_path}")
