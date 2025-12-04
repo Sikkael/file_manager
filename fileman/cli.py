@@ -33,6 +33,8 @@ def init(
         prompt="Destination folder location?",
         help="Path to the estination folder.",
     ),
+    
+    
 ) -> None:
     """Initialize the fileman database."""
     app_init_error = config.init_app(db_path, dest_path)
@@ -62,10 +64,20 @@ def init(
         typer.secho(f"The destination folder is {dest_path}", fg=typer.colors.BLUE)
             
 @app.command()
-def add(dirname: str = typer.Option( "--dirname", "-dir") )-> None:
+def add(
+         dirname: str = typer.Option( 
+        "--dirname", 
+        "-dir"),
+         not_found_ok:bool = typer.Option(
+        False,
+        "--not-found-ok",
+        "-nfo",
+        help="If the directory does not exist, do not raise an error.",
+    ),
+      )-> None:
     """Add a new directory to the database."""
     file_manager = get_file_manager()
-    current_directory = file_manager.add(dirname)
+    current_directory = file_manager.add(dirname, not_found_ok)
     if current_directory.error:
         typer.secho(
             f'Adding directory failed with "{ERRORS[current_directory.error]}"',

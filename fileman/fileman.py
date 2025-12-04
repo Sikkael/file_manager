@@ -18,10 +18,10 @@ class FileManager:
     def __init__(self, db_path: Path) -> None:
         self._db_handler = DatabaseHandler(db_path)
         
-    def add(self, dirname:str) -> CurrentDirectory:
+    def add(self, dirname:str, _not_found_ok:bool) -> CurrentDirectory:
         
         """Add a new directory to the database."""
-        if not Path(dirname).exists():
+        if not Path(dirname).exists() and _not_found_ok == False:
            print("Directory does not exists.")
            return CurrentDirectory("", DIR_ERROR)
         read = self._db_handler.read_file_data()
