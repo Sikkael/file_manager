@@ -2,7 +2,7 @@
 # fileman/fileman.py
 
 from pathlib import Path
-from typing import NamedTuple
+from typing import Any, Dict, List, NamedTuple
 
 from fileman import DIR_ERROR
 from fileman.database import DatabaseHandler
@@ -31,6 +31,8 @@ class FileManager:
         write = self._db_handler.write_file_data(read.file_list)
         return CurrentDirectory(dirname, write.error)
     
-    def list(self, path:str)-> dict:
-        """List files in a directory recursively."""
-        return list_files_recursive(path)
+    def get_dir_list(self)-> List[Dict[str, Any]]:
+        """List database directories."""
+        dir_list = self._db_handler.read_file_data()
+        return dir_list.file_list   
+        

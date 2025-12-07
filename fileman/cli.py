@@ -130,8 +130,28 @@ def main(
 
 @app.command(name="list")
 def list_all() -> None:
-    """List files in a directory recursively."""
+    """List directories"""
     file_manager = get_file_manager()
-    files_infos = file_manager.list("/home/mike/Bureau/Photos de Ben")
-    for hash_value, file_path in files_infos.items():
-        print(f"Hash: {hash_value[0:5]}.... => File Path: {file_path}")
+    dir_list = file_manager.get_dir_list()
+    if len(dir_list) == 0:
+        typer.secho(
+            "There are no dir list yet", fg=typer.colors.RED
+        )
+        raise typer.Exit()
+    typer.secho("\ndir list:\n", fg=typer.colors.BLUE, bold=True)
+    columns = (
+        "ID.  ",
+        "| Directory Name |\n  ----------------\n",
+     
+    )
+    headers = "".join(columns)
+    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+    id = 0
+    for dirname in dir_list:
+        
+        typer.secho(
+            f"{id+1}. | {dirname} |",
+            fg=typer.colors.BLUE,
+        )
+        typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
