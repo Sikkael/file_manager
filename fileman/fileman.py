@@ -15,8 +15,9 @@ class CurrentDirectory(NamedTuple):
     
 class FileManager:
     
-    def __init__(self, db_path: Path) -> None:
+    def __init__(self, db_path: Path,dest_path) -> None:
         self._db_handler = DatabaseHandler(db_path)
+        self._dest_path = FilesHandler(dest_path)
         
     def add(self, dirname:str, _not_found_ok:bool) -> CurrentDirectory:
         

@@ -94,6 +94,7 @@ def add(
 def get_file_manager() -> fileman.FileManager:
     if config.CONFIG_FILE_PATH.exists():
         db_path = database.get_database_path(config.CONFIG_FILE_PATH)
+        dest_path = filehandler.get_dest_path(config.CONFIG_FILE_PATH)
     else:
         typer.secho(
             'Config file not found. Please, run "fileman init"',
@@ -101,7 +102,7 @@ def get_file_manager() -> fileman.FileManager:
         )
         raise typer.Exit(1)
     if db_path.exists():
-        return fileman.FileManager(db_path)
+        return fileman.FileManager(db_path,dest_path)
     else:
         typer.secho(
             'Database not found. Please, run "fileman init"',
@@ -141,17 +142,18 @@ def list_all() -> None:
     typer.secho("\ndir list:\n", fg=typer.colors.BLUE, bold=True)
     columns = (
         "ID.  ",
-        "| Directory Name |\n  ----------------\n",
+        "| Directory Name |",
      
     )
     headers = "".join(columns)
     typer.secho(headers, fg=typer.colors.BLUE, bold=True)
-    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
-    id = 0
+    typer.secho("-" * len(headers)+ "\n", fg=typer.colors.BLUE)
+    id = -1
     for dirname in dir_list:
-        
+        id+=1
         typer.secho(
             f"{id+1}. | {dirname} |",
             fg=typer.colors.BLUE,
+            bold=True
         )
-        typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+        typer.secho("\n"+"-" * len(headers) + "\n", fg=typer.colors.BLUE)

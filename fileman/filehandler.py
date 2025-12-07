@@ -57,9 +57,10 @@ def list_files_recursive(path:str, _files_infos:dict = dict())-> dict:
     return _files_infos
 
 
-class FileHandler:
+class FilesHandler:
     """Class to handle file operations."""
     
     def __init__(self, dest_path: Path) -> None:
-        self._dest_path = dest_path
+        self._files_infos = list_files_recursive(dest_path)
+        
         
