@@ -4,6 +4,7 @@ import configparser
 import hashlib
 import os
 from pathlib import Path
+from typing import Dict
 
 from fileman import DB_WRITE_ERROR, DEST_DIR_ERROR, SUCCESS
 
@@ -20,7 +21,7 @@ def get_dest_path(config_file: Path) -> Path:
     """Return the current path to the database."""
     config_parser = configparser.ConfigParser()
     config_parser.read(config_file)
-    return Path(config_parser["General"]["destination directory"])
+    return Path(config_parser["General"]["dest_dir"])
 
 def compute_file_hash(file_path, algorithm='sha256'):
     """Compute the hash of a file using the specified algorithm."""
@@ -33,8 +34,8 @@ def compute_file_hash(file_path, algorithm='sha256'):
     
     return hash_func.hexdigest()
 
-def list_files_recursive(path:str, _files_infos:dict = dict())-> dict:
-    _files_infos = {}
+def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
+    
     count = 0
     duplicates = 0
     for root, _, files in os.walk(path):
@@ -61,6 +62,15 @@ class FilesHandler:
     """Class to handle file operations."""
     
     def __init__(self, dest_path: Path) -> None:
-        self._files_infos = list_files_recursive(dest_path)
+        self._files_infos:Dict = list_files_recursive(dest_path)
         
+        
+    def get_files_infos(self) -> Dict:
+        """Get the files information."""
+        return self._files_infos
+    
+    def update_files_infos(self, _folder: Path) -> None:
+        """Update the files information."""
+        _files_infos = self._files_infos
+        self._files_infos = list_files_recursive(_folder, _files_infos)
         
