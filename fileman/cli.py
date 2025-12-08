@@ -173,3 +173,35 @@ def list_all() -> None:
             bold=True
         )
         typer.secho("\n"+"-" * len(headers) + "\n", fg=typer.colors.BLUE)
+        
+@app.command(name="update")
+def update_files(
+    folder: str = typer.Option(
+        ...,
+        "--folder",
+        "-f",
+        help="Folder to update files information.",
+    )
+) -> None:
+    """Update files information in destination folder."""
+    file_manager = get_file_manager()
+    file_manager.update_files(Path(folder))
+    typer.secho(
+        f'Files information in destination folder updated successfully.',
+        fg=typer.colors.GREEN,
+    )
+
+@app.command(name="update-all")
+def update_all(
+    
+    
+) -> None:
+    """Update files information in destination folder."""
+    file_manager = get_file_manager()
+    dir_list = file_manager.get_dir_list()
+    for dirname in dir_list:
+        file_manager.update_files(Path(dirname))
+    typer.secho(
+        f'Files information in destination folder updated successfully.',
+        fg=typer.colors.GREEN,
+    )

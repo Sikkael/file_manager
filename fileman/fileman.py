@@ -19,10 +19,9 @@ class FileManager:
     def __init__(self, db_path: Path,dest_path) -> None:
         self._db_handler = DatabaseHandler(db_path)
         self._dest_path = dest_path
-        self._files_handler = FilesHandler(self._dest_path)
+        self._files_infos = {}
         
     def add(self, dirname:str, _not_found_ok:bool) -> CurrentDirectory:
-        
         """Add a new directory to the database."""
         if not Path(dirname).exists() and _not_found_ok == False:
            print("Directory does not exists.")
@@ -41,17 +40,17 @@ class FileManager:
     
     def get_files_infos(self) -> Dict:
         """Get the files information."""
-        return self._files_handler.get_files_infos()
+        return FilesHandler(self._dest_path).get_files_infos()
     
     def update_files(self, _folder: Path) -> None:
         """Update the files information."""
-        self._files_handler.update_files_infos(_folder)
-        self._save_files()
+        self._files_infos = list_files_recursive(self._dest_path, self._files_infos)
+        self._save_files(_folder)
         
-    def _save_files(self) -> None:
+    def _save_files(self, _folder) -> None:
         """Save the files to destination folders."""
-        files = self.get_files_infos()
-        for hash_value, file_path in files.items():
+        _files_infos = list_files_recursive(_folder, self._files_infos)
+        for hash_value, file_path in _files_infos.items():
             dest_path = os.path.join(self._dest_path, os.path.basename(file_path))
             if not os.path.exists(dest_path):
                shutil.copy2(file_path, dest_path)
