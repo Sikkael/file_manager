@@ -185,6 +185,13 @@ def update_files(
 ) -> None:
     """Update files information in destination folder."""
     file_manager = get_file_manager()
+    _folder = Path(folder)
+    if not _folder.exists():
+        typer.secho(
+            f'Folder "{folder}" does not exist.',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
     file_manager.update_files(Path(folder))
     typer.secho(
         f'Files information in destination folder updated successfully.',
@@ -200,6 +207,12 @@ def update_all(
     file_manager = get_file_manager()
     dir_list = file_manager.get_dir_list()
     for dirname in dir_list:
+        if not Path(dirname).exists():
+            typer.secho(
+                f'Folder "{dirname}" does not exist. Skipping.',
+                fg=typer.colors.YELLOW,
+            )
+            continue
         file_manager.update_files(Path(dirname))
     typer.secho(
         f'Files information in destination folder updated successfully.',
