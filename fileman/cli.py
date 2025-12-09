@@ -199,24 +199,21 @@ def update_files(
     )
 
 @app.command(name="update-all")
-def update_all(
-    
-    
-) -> None:
+def update_all() -> None:
     """Update files information in destination folder."""
     file_manager = get_file_manager()
     dir_list = file_manager.get_dir_list()
     for dirname in dir_list:
-        if Path(dirname).exists():
-            file_manager.update_files(Path(dirname))
-        else:
-            typer.secho(
-                f'Folder "{dirname}" does not exist. Skipping.',
-                fg=typer.colors.YELLOW,
-            )
-            
-        
+        file_manager.update_files(Path(dirname))
     typer.secho(
         f'Files information in destination folder updated successfully.',
         fg=typer.colors.GREEN,
     )
+
+@app.command(name="remove")
+def remove_files(
+    
+    
+) -> None:
+    """Remove remove files with the specified criteria in dest folder."""
+    pass
