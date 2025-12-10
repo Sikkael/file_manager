@@ -12,6 +12,8 @@ from fileman import DB_WRITE_ERROR, DEST_DIR_ERROR, SUCCESS
 def init_dest_dir(dest_path: Path) -> int:
     """Create the database."""
     try:
+        if dest_path.exists():
+           return SUCCESS
         dest_path.mkdir(parents=True, exist_ok=True)
         return SUCCESS
     except OSError:
@@ -34,6 +36,10 @@ def compute_file_hash(file_path, algorithm='sha256'):
     
     return hash_func.hexdigest()
 
+def write_log(message: str, log_file="process.log")-> None:
+    with open(log_file, 'a') as log:
+        log.write(message + "\n")
+
 def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
     
     count = 0
@@ -42,7 +48,9 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
         
         for file_name in files:
             count += 1
-            print(f"Processing file {count}: {file_name}")
+            mess = f"Processing file {count}: {file_name}"
+            write_log(mess)
+            print(mess)
             file_path = os.path.join(root, file_name)
             h = compute_file_hash(file_path)    
             
@@ -53,6 +61,7 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
                  duplicates += 1
                  
     mess = f"Total files processed: {count}­\nTotal duplicates found: {duplicates}"
+    write_log(mess)
     print(mess)
     
     return _files_infos
