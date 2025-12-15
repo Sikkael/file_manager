@@ -8,6 +8,7 @@ from typing import Dict
 
 from fileman import DB_WRITE_ERROR, DEST_DIR_ERROR, SUCCESS
 
+DEFAULT_DEST_FOLDER_PATH = Path(os.path.expanduser("~/fileman"))
 
 def init_dest_dir(dest_path: Path) -> int:
     """Create the database."""

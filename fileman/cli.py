@@ -1,7 +1,6 @@
 """This module provides the RP fileman CLI."""
 # rptodo/cli.py
 
-import configparser
 import os
 from pathlib import Path
 from typing import Optional
@@ -14,8 +13,11 @@ from typing import List, Optional
 from fileman import (ERRORS, __app__name__, __version__, config, database, fileman, filehandler)
 
 app = typer.Typer()
-DEFAULT_DEST_FOLDER_PATH = Path(os.path.expanduser("~/fileman"))
 
+# TODO: Rendre la journalisaton des fichiers optionnelle lors de l'ajout d'un répertoire
+# TODO: Ajouter une commande pour supprimer un répertoire de la base de données
+# TODO: Rendre la jjournalisation plus performante (par lots)
+# TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
 
 @app.command()
 def init(
@@ -28,14 +30,12 @@ def init(
     ),
     
     dest_path: str = typer.Option(
-        str(DEFAULT_DEST_FOLDER_PATH),
+        str(filehandler.DEFAULT_DEST_FOLDER_PATH),
         "--dest-path",
         "-dst",
         prompt="Destination folder location?",
         help="Path to the estination folder.",
     ),
-    
-    
 ) -> None:
     """Initialize the fileman database."""
     app_init_error = config.init_app(db_path, dest_path)
@@ -63,6 +63,7 @@ def init(
     else:
         typer.secho(f"The fileman database is {db_path}", fg=typer.colors.GREEN)
         typer.secho(f"The destination folder is {dest_path}", fg=typer.colors.BLUE)
+            
             
 @app.command()
 def add(
