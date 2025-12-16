@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from typing import Dict
 
-from fileman import DB_WRITE_ERROR, DEST_DIR_ERROR, SUCCESS
+from fileman import DEST_DIR_ERROR, SUCCESS
 
 DEFAULT_DEST_FOLDER_PATH = Path(os.path.expanduser("~/fileman"))
 
@@ -66,6 +66,13 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
     print(mess)
     
     return _files_infos
+
+class FileInfos:
+    """Class to store file information."""
+    
+    def __init__(self, file_path: Path, hash_value: str) -> None:
+        self.file_path = file_path
+        self.hash_value = hash_value
 
 
 class FilesHandler:

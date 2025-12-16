@@ -10,7 +10,7 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (ERRORS, __app__name__, __version__, config, database, fileman, filehandler)
+from fileman import (ERRORS, __app__name__, __version__, config, database, filehandler, fileman)
 
 app = typer.Typer()
 
