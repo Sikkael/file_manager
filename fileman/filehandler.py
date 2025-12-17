@@ -2,6 +2,7 @@
 
 import configparser
 import hashlib
+import json
 import os
 from pathlib import Path
 from typing import Dict
@@ -10,10 +11,14 @@ from fileman import DEST_DIR_ERROR, SUCCESS
 
 DEFAULT_DEST_FOLDER_PATH = Path(os.path.expanduser("~/fileman"))
 
+
+
 def init_dest_dir(dest_path: Path) -> int:
     """Create the database."""
     try:
         if dest_path.exists():
+           d = list_files_recursive(dest_path)
+           print(f"Destination folder {dest_path} already exists with {len(d)} files.")
            return SUCCESS
         dest_path.mkdir(parents=True, exist_ok=True)
         return SUCCESS
@@ -48,7 +53,7 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
     for root, _, files in os.walk(path):
         
         for file_name in files:
-            count += 1
+            
             mess = f"Processing file {count}: {file_name}"
             write_log(mess)
             print(mess)
@@ -61,7 +66,7 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
                  print(f"Duplicate found: {file_path} and {_files_infos[h]} have the same hash {h}")
                  duplicates += 1
                  
-    mess = f"Total files processed: {count}­\nTotal duplicates found: {duplicates}"
+    mess = f"Total files processed: {len(_files_infos)}­\nTotal duplicates found: {duplicates}"
     write_log(mess)
     print(mess)
     

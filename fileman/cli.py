@@ -41,21 +41,7 @@ def init(
     app_init_error = config.init_app(db_path, dest_path)
     if app_init_error:
         typer.secho(
-            f'Creating config file failed with "{ERRORS[app_init_error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    db_init_error = database.init_database(Path(db_path))
-    if db_init_error:
-        typer.secho(
-            f'Creating database failed with "{ERRORS[db_init_error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    dest_init_error = filehandler.init_dest_dir(Path(dest_path))
-    if dest_init_error:
-        typer.secho(
-            f'Creating destination directory failed with "{ERRORS[dest_init_error]}"',
+            f'App initialisation failed with "{ERRORS[app_init_error]}"',
             fg=typer.colors.RED,
         )
         raise typer.Exit(1)

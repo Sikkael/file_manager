@@ -10,6 +10,9 @@ from fileman import (
     DB_WRITE_ERROR, DIR_ERROR, FILE_ERROR, SUCCESS, DEST_DIR_ERROR,__app__name__
 )
 
+from fileman.filehandler import init_dest_dir
+from fileman.database import init_database
+
 CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))
 CONFIG_FILE_PATH = CONFIG_DIR_PATH / "config.ini"
 
@@ -43,8 +46,16 @@ def _create_database(db_path: str,dest_path: str) -> int:
     try:
         with CONFIG_FILE_PATH.open("w") as file:
             config_parser.write(file)
+        if init_database(Path(db_path)) != SUCCESS:
+            return DB_WRITE_ERROR
     except OSError:
         return DB_WRITE_ERROR
+    
+    try:
+        if init_dest_dir(Path(dest_path)) != SUCCESS:
+            return DEST_DIR_ERROR
+    except OSError:
+        return DEST_DIR_ERROR
     return SUCCESS
 
 
