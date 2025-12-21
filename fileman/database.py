@@ -39,7 +39,7 @@ def init_database(db_path: Path) -> int:
         return DB_WRITE_ERROR
     
 class DBResponse(NamedTuple):
-    file_list: List[Dict[str, Any]]
+    file_infos: Dict[str, str]
     error: int
 
 class DatabaseHandler:
@@ -52,14 +52,14 @@ class DatabaseHandler:
                 try:
                     return DBResponse(json.load(db), SUCCESS)
                 except json.JSONDecodeError:  # Catch wrong JSON format
-                    return DBResponse([], JSON_ERROR)
+                    return DBResponse({}, JSON_ERROR)
         except OSError:  # Catch file IO problems
-            return DBResponse([], DB_READ_ERROR)
+            return DBResponse({}, DB_READ_ERROR)
 
-    def write_file_data(self, file_list: List[Dict[str, Any]]) -> DBResponse:
+    def write_file_data(self, file_infos: List[Dict[str, Any]]) -> DBResponse:
         try:
             with self._db_path.open("w") as db:
-                json.dump(file_list, db, indent=4)
-            return DBResponse(file_list, SUCCESS)
+                json.dump(file_infos, db, indent=4)
+            return DBResponse(file_infos, SUCCESS)
         except OSError:  # Catch file IO problems
-            return DBResponse(file_list, DB_WRITE_ERROR)
+            return DBResponse(file_infos, DB_WRITE_ERROR)

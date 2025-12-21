@@ -25,12 +25,6 @@ def init_dest_dir(dest_path: Path) -> int:
     except OSError:
         return DEST_DIR_ERROR
     
-def get_dest_path(config_file: Path) -> Path:
-    """Return the current path to the database."""
-    config_parser = configparser.ConfigParser()
-    config_parser.read(config_file)
-    return Path(config_parser["General"]["dest_dir"])
-
 def compute_file_hash(file_path, algorithm='sha256'):
     """Compute the hash of a file using the specified algorithm."""
     hash_func = hashlib.new(algorithm)
@@ -39,7 +33,6 @@ def compute_file_hash(file_path, algorithm='sha256'):
         # Read the file in chunks of 8192 bytes
         while chunk := file.read(8192):
             hash_func.update(chunk)
-    
     return hash_func.hexdigest()
 
 def write_log(message: str, log_file="process.log")-> None:

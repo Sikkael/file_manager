@@ -42,7 +42,30 @@ def init(
     else:
         typer.secho(f"The fileman database is {db_path}", fg=typer.colors.GREEN)
         
-            
+@app.command(name="set-dest")
+def set_dest(
+    dest_path: str = typer.Option(
+        ..., 
+        "--dest-path",
+        "-dp",
+        help="Path to the destination folder.",
+    )
+) -> None:
+    """Set the destination folder."""
+    file_manager = get_file_manager()
+    dest_dit_init = file_manager.init_dest_dir(Path(dest_path))
+    
+    if dest_dit_init.error:
+        typer.secho(
+            f'Setting destination folder failed with "{ERRORS[dest_dit_init.error]}"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f'Destination folder set to "{dest_path}" successfully.',
+            fg=typer.colors.GREEN,
+        )
             
 @app.command()
 def add(
@@ -86,7 +109,7 @@ def add(
 def get_file_manager() -> fileman.FileManager:
     if config.CONFIG_FILE_PATH.exists():
         db_path = database.get_database_path(config.CONFIG_FILE_PATH)
-        dest_path = filehandler.get_dest_path(config.CONFIG_FILE_PATH)
+        
     else:
         typer.secho(
             'Config file not found. Please, run "fileman init"',
@@ -99,13 +122,8 @@ def get_file_manager() -> fileman.FileManager:
             fg=typer.colors.RED,
         )
         raise typer.Exit(1)
-    if not dest_path.exists():
-        typer.secho(
-            'Destination folder not found. Please, run "fileman init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)        
-    return fileman.FileManager(db_path,dest_path)
+        
+    return fileman.FileManager(db_path)
 
 def _version_callback(value: bool) -> None:
     if value:
