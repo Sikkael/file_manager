@@ -53,7 +53,7 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
     for root, _, files in os.walk(path):
         
         for file_name in files:
-            
+            count += 1
             mess = f"Processing file {count}: {file_name}"
             write_log(mess)
             print(mess)

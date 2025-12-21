@@ -16,12 +16,12 @@ from fileman.database import init_database
 CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))
 CONFIG_FILE_PATH = CONFIG_DIR_PATH / "config.ini"
 
-def init_app(db_path: str, dst_path:str) -> int:
+def init_app(db_path: str) -> int:
     """Initialize the application."""
     config_code = _init_config_file()
     if config_code != SUCCESS:
         return config_code
-    database_code = _create_database(db_path,dst_path)
+    database_code = _create_database(db_path)
     if database_code != SUCCESS:
         return database_code
     return SUCCESS
@@ -37,11 +37,11 @@ def _init_config_file() -> int:
         return FILE_ERROR
     return SUCCESS
 
-def _create_database(db_path: str,dest_path: str) -> int:
+def _create_database(db_path: str) -> int:
     config_parser = configparser.ConfigParser()
     config_parser["General"] = {
                                   "database": db_path,                              
-                                  "dest_dir": dest_path
+            
                               }
     try:
         with CONFIG_FILE_PATH.open("w") as file:
@@ -50,12 +50,6 @@ def _create_database(db_path: str,dest_path: str) -> int:
             return DB_WRITE_ERROR
     except OSError:
         return DB_WRITE_ERROR
-    
-    try:
-        if init_dest_dir(Path(dest_path)) != SUCCESS:
-            return DEST_DIR_ERROR
-    except OSError:
-        return DEST_DIR_ERROR
     return SUCCESS
 
 

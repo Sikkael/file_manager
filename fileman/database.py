@@ -15,6 +15,7 @@ DEFAULT_DB_FILE_PATH = Path.home().joinpath(
 """"Empty database structure"""""
 __dict__= {
     "directories":[],
+    "dest_directory": "",
     "file_infos":{
         "stats":{},
         "files":{}

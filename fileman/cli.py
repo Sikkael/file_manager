@@ -27,18 +27,11 @@ def init(
         "-db",
         prompt="fileman database location?",
         help="Path to the fileman database file.",
-    ),
+    )
     
-    dest_path: str = typer.Option(
-        str(filehandler.DEFAULT_DEST_FOLDER_PATH),
-        "--dest-path",
-        "-dst",
-        prompt="Destination folder location?",
-        help="Path to the estination folder.",
-    ),
 ) -> None:
     """Initialize the fileman database."""
-    app_init_error = config.init_app(db_path, dest_path)
+    app_init_error = config.init_app(db_path)
     if app_init_error:
         typer.secho(
             f'App initialisation failed with "{ERRORS[app_init_error]}"',
@@ -48,7 +41,7 @@ def init(
     
     else:
         typer.secho(f"The fileman database is {db_path}", fg=typer.colors.GREEN)
-        typer.secho(f"The destination folder is {dest_path}", fg=typer.colors.BLUE)
+        
             
             
 @app.command()
