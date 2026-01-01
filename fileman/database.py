@@ -18,7 +18,9 @@ __dict__= {
     "dest_directory": "",
     "file_infos":{
         "stats":{},
-        "files":{}
+        "files":{
+            
+        }
     }
         
 }

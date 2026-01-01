@@ -69,7 +69,7 @@ class FileManager:
             else:
                print(f"File {dest_path} already exists. Skipping copy.")
     
-    def init_dest_dir(self, dest_dir: Path) -> None:
+    def set_dest_dir(self, dest_dir: Path) -> None:
         """Set the destination path."""
         if not dest_dir.exists():
            try:

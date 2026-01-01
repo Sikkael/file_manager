@@ -53,7 +53,7 @@ def set_dest(
 ) -> None:
     """Set the destination folder."""
     file_manager = get_file_manager()
-    dest_dit_init = file_manager.init_dest_dir(Path(dest_path))
+    dest_dit_init = file_manager.set_dest_dir(Path(dest_path))
     
     if dest_dit_init.error:
         typer.secho(
