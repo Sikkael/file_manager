@@ -98,3 +98,8 @@ Ben/
 fileman.json
 history.txt
 history.*
+*.local
+*.global
+*.backup
+*.temp
+*.json 
