@@ -65,6 +65,13 @@ def list_files_recursive(path:str, _files_infos:dict = {})-> dict:
     
     return _files_infos
 
+def build_dest_dir(dest_path: Path)-> None:
+    """Build the destination directory structure."""
+    for root, _, files in os.walk(dest_path):
+        
+        for file_name in files:  
+            print(f"File: {file_name} in {root}")
+    
 class FileInfos:
     """Class to store file information."""
     
@@ -88,4 +95,7 @@ class FilesHandler:
         """Update the files information."""
         _files_infos = self._files_infos
         self._files_infos = list_files_recursive(_folder, _files_infos)
-        
+
+
+if __name__ == "__main__":
+    build_dest_dir(DEFAULT_DEST_FOLDER_PATH)        
