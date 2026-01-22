@@ -215,3 +215,26 @@ def remove_files(
 ) -> None:
     """Remove remove files with the specified criteria in dest folder."""
     pass
+
+@app.command(name="build-dest")
+def build_dest(
+    dest_path: str = typer.Option(
+        filehandler.DEFAULT_DEST_FOLDER_PATH,
+        "--dest-path",
+        "-dp",
+        help="Path to the destination folder.",
+    )
+) -> None:
+    """Build the destination folder structure."""
+    _dest_path = Path(dest_path)
+    if not _dest_path.exists():
+        typer.secho(
+            f'Destination folder "{dest_path}" does not exist.',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    filehandler.build_dest_dir(_dest_path)
+    typer.secho(
+        f'Destination folder structure built successfully.',
+        fg=typer.colors.GREEN,
+    )

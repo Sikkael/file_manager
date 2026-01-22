@@ -85,4 +85,4 @@ class FileManager:
         write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
-        return CurrentDirectory(str(dest_dir), write.error)
+        return CurrentDirectory(str(dest_dir), SUCCESS)
