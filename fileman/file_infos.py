@@ -125,10 +125,10 @@ class FilesData(NamedTuple):
             modified_at=data.get("modified_at", ""),
         )
 class FilesInfos(NamedTuple):
-    directories: List[str]
-    dest_directory: str
-    files_stats:FilesStats
-    files_data: FilesData
+    directories: List[str] = []
+    dest_directory: str = ""
+    files_stats:FilesStats = FilesStats(0,0,0,0,"","")
+    files_data: Dict[str, Dict[str,str]] = {}
     
     def to_dict(self) -> Dict[str, Any]:
         return {
