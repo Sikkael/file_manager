@@ -78,9 +78,11 @@ class FileManager:
            except OSError:
                return CurrentDirectory(dirname=dest_dir.name, error=DEST_DIR_ERROR)
         else:
+            # Directory exists, get the file data
             read = self._db_handler.read_file_data()
             if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
                return CurrentDirectory("", read.error)
+        # No read errors, 
         read.file_infos["dest_directory"] = str(dest_dir)
         write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
