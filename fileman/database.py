@@ -7,23 +7,15 @@ from pathlib import Path
 from typing import Any, Dict, List, NamedTuple
 
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
+from fileman.file_infos import FilesInfos
 
 DEFAULT_DB_FILE_PATH = Path.home().joinpath(
     "." + Path.home().stem + "_fileman.json"
 )
 
-""""Empty database structure"""""
-__dict__= {
-    "directories":[],
-    "dest_directory": "",
-    "file_infos":{
-        "stats":{},
-        "files":{
-            
-        }
-    }
+
         
-}
+
 
 def get_database_path(config_file: Path) -> Path:
     """Return the current path to the database."""
@@ -33,6 +25,7 @@ def get_database_path(config_file: Path) -> Path:
 
 def init_database(db_path: Path) -> int:
     """Create the database."""
+    __dict__ = FilesInfos(directories=[], dest_directory="", files_stats={}, files_data={}).to_dict()
     try:
         with db_path.open("w") as db:
            json.dump(__dict__, db, indent=4)
@@ -41,7 +34,7 @@ def init_database(db_path: Path) -> int:
         return DB_WRITE_ERROR
     
 class DBResponse(NamedTuple):
-    file_infos: Dict[str, str]
+    file_infos: FilesInfos
     error: int
 
 class DatabaseHandler:
@@ -52,16 +45,16 @@ class DatabaseHandler:
         try:
             with self._db_path.open("r") as db:
                 try:
-                    return DBResponse(json.load(db), SUCCESS)
+                    return DBResponse(FilesInfos.from_dict(json.load(db)), SUCCESS)
                 except json.JSONDecodeError:  # Catch wrong JSON format
                     return DBResponse({}, JSON_ERROR)
         except OSError:  # Catch file IO problems
-            return DBResponse({}, DB_READ_ERROR)
+            return DBResponse(FilesInfos.from_dict(directories=[],dest_directory="",files_stats={},files_data={} ), DB_READ_ERROR)
 
-    def write_file_data(self, file_infos: List[Dict[str, Any]]) -> DBResponse:
+    def write_file_data(self, file_infos: FilesInfos) -> DBResponse:
         try:
             with self._db_path.open("w") as db:
-                json.dump(file_infos, db, indent=4)
+                json.dump(file_infos.to_dict(), db, indent=4)
             return DBResponse(file_infos, SUCCESS)
         except OSError:  # Catch file IO problems
             return DBResponse(file_infos, DB_WRITE_ERROR)

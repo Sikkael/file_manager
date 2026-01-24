@@ -5,7 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
-from typing import Dict
+from typing import Any, Dict, List, NamedTuple
 
 from fileman import DEST_DIR_ERROR, SUCCESS
 
@@ -72,12 +72,80 @@ def build_dest_dir(dest_path: Path)-> None:
         for file_name in files:  
             print(f"File: {file_name} in {root}")
     
-class FileInfos:
-    """Class to store file information."""
+class FilesStats(NamedTuple):
+    total_files: int
+    total_size: int
+    max_file_size: int
+    min_file_size: int
+    newest_file: str
+    oldest_file: str
     
-    def __init__(self, file_path: Path, hash_value: str) -> None:
-        self.file_path = file_path
-        self.hash_value = hash_value
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "total_files": self.total_files,
+            "total_size": self.total_size,
+            "max_file_size": self.max_file_size,
+            "min_file_size": self.min_file_size,
+            "newest_file": self.newest_file,
+            "oldest_file": self.oldest_file,
+        }
+        
+    def from_dict(data: Dict[str, Any]) -> 'FilesStats':
+        return FilesStats(
+            total_files=data.get("total_files", 0),
+            total_size=data.get("total_size", 0),
+            max_file_size=data.get("max_file_size", 0),
+            min_file_size=data.get("min_file_size", 0),
+            newest_file=data.get("newest_file", ""),
+            oldest_file=data.get("oldest_file", ""),
+        )
+        
+class FilesData(NamedTuple):
+    file_path: str
+    file_size: int
+    file_hash: str
+    created_at: str
+    modified_at: str
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "file_path": self.file_path,
+            "file_size": self.file_size,
+            "file_hash": self.file_hash,
+            "created_at": self.created_at,
+            "modified_at": self.modified_at,
+        }
+        
+    def from_dict(data: Dict[str, Any]) -> 'FilesData':
+        return FilesData(
+            file_path=data.get("file_path", ""),
+            file_size=data.get("file_size", 0),
+            file_hash=data.get("file_hash", ""),
+            created_at=data.get("created_at", ""),
+            modified_at=data.get("modified_at", ""),
+        )
+class FilesInfos(NamedTuple):
+    directories: List[str]
+    dest_directory: str
+    files_stats:FilesStats
+    files_data: FilesData
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "directories": self.directories,
+            "dest_directory": self.dest_directory,
+            "files_stats": self.files_stats.to_dict(),
+            "files_data": self.files_data.to_dict(),
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'FilesInfos':
+        return FilesInfos(
+            directories=data.get("directories", []),
+            dest_directory=data.get("dest_directory", ""),
+            files_stats=FilesStats.from_dict(data.get("files_stats", {})),
+            files_data=FilesData.from_dict(data.get("files_data", {})),
+        )
 
 
 class FilesHandler:

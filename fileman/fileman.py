@@ -7,7 +7,7 @@ from typing import Any, Dict, List, NamedTuple
 
 from fileman import DB_READ_ERROR, DIR_ERROR, JSON_ERROR
 from fileman.database import DatabaseHandler
-from fileman.filehandler import *
+from fileman.file_infos import *
 
 def init_dest_dir(dest_path: Path) -> int:
     """Initialize the destination directory."""
@@ -22,7 +22,8 @@ def init_dest_dir(dest_path: Path) -> int:
 class CurrentDirectory(NamedTuple):
     dirname: str
     error: int
-    
+
+
 class FileManager:
     
     def __init__(self, db_path: Path) -> None:
@@ -83,8 +84,9 @@ class FileManager:
             if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
                return CurrentDirectory("", read.error)
         # No read errors, 
-        read.file_infos["dest_directory"] = str(dest_dir)
-        write = self._db_handler.write_file_data(read.file_infos)
+        files_infos = FileInfos.from_dict(read.file_infos)
+        files_infos.dest_directory = str(dest_dir)
+        write = self._db_handler.write_file_data(files_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(str(dest_dir), SUCCESS)

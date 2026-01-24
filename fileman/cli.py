@@ -10,7 +10,7 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (ERRORS, __app__name__, __version__, config, database, filehandler, fileman)
+from fileman import (ERRORS, __app__name__, __version__, config, database, file_infos, fileman)
 
 app = typer.Typer()
 
@@ -219,7 +219,7 @@ def remove_files(
 @app.command(name="build-dest")
 def build_dest(
     dest_path: str = typer.Option(
-        filehandler.DEFAULT_DEST_FOLDER_PATH,
+        file_infos.DEFAULT_DEST_FOLDER_PATH,
         "--dest-path",
         "-dp",
         help="Path to the destination folder.",
@@ -233,7 +233,7 @@ def build_dest(
             fg=typer.colors.RED,
         )
         raise typer.Exit(1)
-    filehandler.build_dest_dir(_dest_path)
+    file_infos.build_dest_dir(_dest_path)
     typer.secho(
         f'Destination folder structure built successfully.',
         fg=typer.colors.GREEN,
