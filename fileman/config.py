@@ -10,7 +10,6 @@ from fileman import (
     DB_WRITE_ERROR, DIR_ERROR, FILE_ERROR, SUCCESS, DEST_DIR_ERROR,__app__name__
 )
 
-from fileman.file_infos import init_dest_dir
 from fileman.database import init_database
 
 CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))

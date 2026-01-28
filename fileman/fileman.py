@@ -5,9 +5,9 @@ from pathlib import Path
 import shutil
 from typing import Any, Dict, List, NamedTuple
 
-from fileman import DB_READ_ERROR, DIR_ERROR, JSON_ERROR
+from fileman import DB_READ_ERROR, DEST_DIR_ERROR, DIR_ERROR, JSON_ERROR, SUCCESS
 from fileman.database import DatabaseHandler
-from fileman.file_infos import *
+
 
 def init_dest_dir(dest_path: Path) -> int:
     """Initialize the destination directory."""
@@ -48,27 +48,9 @@ class FileManager:
         """List database directories."""
         dir_list = self._db_handler.read_file_data()
         return dir_list.file_infos   
-    
-    def get_files_infos(self) -> Dict:
-        """Get the files information."""
-        return FilesHandler(self._dest_dir).get_files_infos()
-    
-    def update_files(self, _folder: Path) -> None:
-        """Update the files information."""
-        self._files_infos = list_files_recursive(self._dest_dir, self._files_infos)
-        self._save_files(_folder)
+   
         
-    def _save_files(self, _folder) -> None:
-        """Save the files to destination folders."""
-        _files_infos = list_files_recursive(_folder, self._files_infos)
-        for hash_value, file_path in _files_infos.items():
-            dest_path = os.path.join(self._dest_dir, os.path.basename(file_path))
-            if not os.path.exists(dest_path):
-               shutil.copy2(file_path, dest_path)
-               print(f"Copied {file_path} to {dest_path}")
-               print(f"hashed {hash_value}")
-            else:
-               print(f"File {dest_path} already exists. Skipping copy.")
+  
     
     def set_dest_dir(self, dest_dir: Path) -> None:
         """Set the destination path."""
@@ -84,7 +66,7 @@ class FileManager:
             if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
                return CurrentDirectory("", read.error)
         # No read errors, 
-        files_infos = FileInfos.from_dict(read.file_infos)
+        files_infos = FilesInfos.from_dict(read.file_infos)
         files_infos.dest_directory = str(dest_dir)
         write = self._db_handler.write_file_data(files_infos)
         if write.error != SUCCESS:
