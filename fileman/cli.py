@@ -10,7 +10,7 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (ERRORS, __app__name__, __version__, config, database, file_infos, fileman)
+from fileman import (ERRORS, __app__name__, __version__, config, database, fileman)
 
 app = typer.Typer()
 
@@ -214,27 +214,4 @@ def remove_files(
     
 ) -> None:
     """Remove remove files with the specified criteria in dest folder."""
-    pass
-
-@app.command(name="build-dest")
-def build_dest(
-    dest_path: str = typer.Option(
-        file_infos.DEFAULT_DEST_FOLDER_PATH,
-        "--dest-path",
-        "-dp",
-        help="Path to the destination folder.",
-    )
-) -> None:
-    """Build the destination folder structure."""
-    _dest_path = Path(dest_path)
-    if not _dest_path.exists():
-        typer.secho(
-            f'Destination folder "{dest_path}" does not exist.',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    file_infos.build_dest_dir(_dest_path)
-    typer.secho(
-        f'Destination folder structure built successfully.',
-        fg=typer.colors.GREEN,
-    )
+    raise NotImplementedError("This command is not implemented yet.")

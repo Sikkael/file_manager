@@ -8,6 +8,9 @@ from typing import Any, Dict, List, NamedTuple
 from fileman import DB_READ_ERROR, DEST_DIR_ERROR, DIR_ERROR, JSON_ERROR, SUCCESS
 from fileman.database import DatabaseHandler
 
+DEFAULT_DEST_FOLDER_PATH = Path.home().joinpath(
+    "." + Path.home().stem + "_fileman"
+)
 
 def init_dest_dir(dest_path: Path) -> int:
     """Initialize the destination directory."""
@@ -57,18 +60,19 @@ class FileManager:
         if not dest_dir.exists():
            try:
                dest_dir.mkdir(parents=True, exist_ok=True)
-               return CurrentDirectory(dirname=dest_dir.name, error=SUCCESS)
            except OSError:
                return CurrentDirectory(dirname=dest_dir.name, error=DEST_DIR_ERROR)
         else:
             # Directory exists, get the file data
             read = self._db_handler.read_file_data()
+            print(read.file_infos)
+            
             if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
                return CurrentDirectory("", read.error)
         # No read errors, 
-        files_infos = FilesInfos.from_dict(read.file_infos)
-        files_infos.dest_directory = str(dest_dir)
-        write = self._db_handler.write_file_data(files_infos)
+        read.file_infos["dest_directory"] = str(dest_dir)
+        
+        write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(str(dest_dir), SUCCESS)

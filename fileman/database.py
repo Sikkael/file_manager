@@ -45,7 +45,7 @@ class DatabaseHandler:
         try:
             with self._db_path.open("r") as db:
                 try:
-                    return DBResponse(Dict[str,Any].from_dict(json.load(db)), SUCCESS)
+                    return DBResponse(json.load(db), SUCCESS)
                 except json.JSONDecodeError:  # Catch wrong JSON format
                     return DBResponse({}, JSON_ERROR)
         except OSError:  # Catch file IO problems
@@ -54,7 +54,7 @@ class DatabaseHandler:
     def write_file_data(self, file_infos: Dict[str,Any]) -> DBResponse:
         try:
             with self._db_path.open("w") as db:
-                json.dump(file_infos.to_dict(), db, indent=4)
+                json.dump(file_infos, db, indent=4)
             return DBResponse(file_infos, SUCCESS)
         except OSError:  # Catch file IO problems
             return DBResponse(file_infos, DB_WRITE_ERROR)
