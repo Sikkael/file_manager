@@ -8,7 +8,7 @@ import sys
 import time
 from typing import Any, Dict, List, NamedTuple
 
-from fileman import DB_READ_ERROR, DEST_DIR_ERROR, DIR_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS
+from fileman import DB_READ_ERROR,  DIR_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS
 from fileman.database import DatabaseHandler
 from fileman.hashfiles import compute_file_hash
 

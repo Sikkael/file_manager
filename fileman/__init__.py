@@ -14,9 +14,8 @@ __version__ = "0.1.0"
     DB_WRITE_ERROR,
     JSON_ERROR,
     ID_ERROR,
-    DEST_DIR_ERROR,
     DIR_EXIST_ERROR,
-) = range(11)
+) = range(10)
 
 ERRORS = {
     DIR_ERROR: "directory error",
@@ -27,6 +26,5 @@ ERRORS = {
     DB_WRITE_ERROR: "database write error",
     ID_ERROR: "fileman id error",
     JSON_ERROR: "json decode error",
-    DEST_DIR_ERROR: "destination directory error",
     DIR_EXIST_ERROR: "destination directory already exist error",
 }

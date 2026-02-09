@@ -7,10 +7,11 @@ from pathlib import Path
 import typer
 
 from fileman import (
-    DB_WRITE_ERROR, DIR_ERROR, DIR_EXIST_ERROR, FILE_ERROR, SUCCESS, DEST_DIR_ERROR,__app__name__
+    CONFIG_FILE_ERROR, DB_WRITE_ERROR, DIR_ERROR, DIR_EXIST_ERROR, FILE_ERROR, SUCCESS, __app__name__
 )
 
 from fileman.database import init_database
+from fileman.fileman import init_dest_dir
 
 CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))
 CONFIG_FILE_PATH = CONFIG_DIR_PATH / "config.ini"
@@ -24,12 +25,11 @@ def init_app(db_path: str, dest_path:str) -> int:
     config_code = _init_config_file()
     if config_code != SUCCESS:
         return config_code
-    database_code = _create_database(db_path)
-    destination_code = _create_dest_dir(Path(dest_path))
-    if database_code != SUCCESS:
-        return database_code
-    if destination_code != SUCCESS:
-        return destination_code
+    ressource_code = _create_ressource(db_path,dest_path)
+    
+    if ressource_code != SUCCESS:
+        return ressource_code
+    
     return SUCCESS
 
 def _init_config_file() -> int:
@@ -43,7 +43,13 @@ def _init_config_file() -> int:
         return FILE_ERROR
     return SUCCESS
 
-def _create_database(db_path: str) -> int:
+def _create_ressource(db_path: str, dest_path:str) -> int:
+   
+    if init_database(Path(db_path)) != SUCCESS:
+            return DB_WRITE_ERROR
+    if init_dest_dir(Path(dest_path)) != SUCCESS:
+        return DIR_EXIST_ERROR
+        
     config_parser = configparser.ConfigParser()
     config_parser["General"] = {
                                   "database": db_path, 
@@ -52,11 +58,9 @@ def _create_database(db_path: str) -> int:
                               }
     try:
         with CONFIG_FILE_PATH.open("w") as file:
-            config_parser.write(file)
-        if init_database(Path(db_path)) != SUCCESS:
-            return DB_WRITE_ERROR
+            config_parser.write(file)    
     except OSError:
-        return DB_WRITE_ERROR
+        return CONFIG_FILE_ERROR
     return SUCCESS
 
 def _create_dest_dir(dest_path: Path) -> int:
@@ -72,4 +76,4 @@ def _create_dest_dir(dest_path: Path) -> int:
             config_parser.write(file)
         return SUCCESS
     except OSError:
-        return DEST_DIR_ERROR
+        return DIR_EXIST_ERROR
