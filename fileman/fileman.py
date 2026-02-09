@@ -8,13 +8,11 @@ import sys
 import time
 from typing import Any, Dict, List, NamedTuple
 
-from fileman import DB_READ_ERROR, DEST_DIR_ERROR, DIR_ERROR, JSON_ERROR, SUCCESS
+from fileman import DB_READ_ERROR, DEST_DIR_ERROR, DIR_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS
 from fileman.database import DatabaseHandler
 from fileman.hashfiles import compute_file_hash
 
-DEFAULT_DEST_FOLDER_PATH = Path.home().joinpath(
-    "." + Path.home().stem + "_fileman"
-)
+
 
 def write_log(message: str, log_file="process.log")-> None:
     with open(log_file, 'a') as log:
@@ -62,7 +60,7 @@ def list_files_recursive(path=".")-> dict:
 def init_dest_dir(dest_path: Path) -> int:
     """Initialize the destination directory."""
     if dest_path.exists():
-       return SUCCESS
+       return DIR_EXIST_ERROR
     try:
         dest_path.mkdir(parents=True, exist_ok=True)
         return SUCCESS
@@ -71,7 +69,7 @@ def init_dest_dir(dest_path: Path) -> int:
 
 
 class FilesStats:
-    def __init__(self, total_files: int = 0, total_size: int = 0, max_size:int = sys.maxsize, min_size:int = sys.minsize) -> None:
+    def __init__(self, total_files: int = 0, total_size: int = 0, max_size:int = (-sys.maxsize), min_size:int = sys.maxsize) -> None:
         self._total_files = total_files
         self._total_size = total_size
         self._max_size = max_size
