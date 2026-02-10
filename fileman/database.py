@@ -25,7 +25,7 @@ def get_database_path(config_file: Path) -> Path:
 
 def init_database(db_path: Path) -> int:
     """Create the database."""
-    __dict__ = { "directories": [], "dest_directory": "", "files_stats": {}, "files_data": {} }
+    __dict__ = { "directories": [],  "files_stats": {}, "files_metadata": {} }
     try:
         with db_path.open("w") as db:
            json.dump(__dict__, db, indent=4)
@@ -49,7 +49,7 @@ class DatabaseHandler:
                 except json.JSONDecodeError:  # Catch wrong JSON format
                     return DBResponse({}, JSON_ERROR)
         except OSError:  # Catch file IO problems
-            return DBResponse(Dict[str,Any](directories=[],dest_directory="",files_stats={},files_data={} ), DB_READ_ERROR)
+            return DBResponse({}, DB_READ_ERROR)
 
     def write_file_data(self, file_infos: Dict[str,Any]) -> DBResponse:
         try:

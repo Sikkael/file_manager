@@ -19,6 +19,31 @@ app = typer.Typer()
 # TODO: Rendre la jjournalisation plus performante (par lots)
 # TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
 
+
+def get_file_manager() -> fileman.FileManager:
+    if config.CONFIG_FILE_PATH.exists():
+        db_path = database.get_database_path(config.CONFIG_FILE_PATH)
+        
+    else:
+        typer.secho(
+            'Config file not found. Please, run "fileman init"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    if not db_path.exists():
+        typer.secho(
+            'Database not found. Please, run "fileman init"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+        
+    return fileman.FileManager(db_path)
+
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo(f"{__app__name__} v{__version__}")
+        raise typer.Exit()
+
 @app.command()
 def init(
     db_path: str = typer.Option(
@@ -86,12 +111,7 @@ def add(
         "-nfo",
         help="If the directory does not exist, do not raise an error.",
     ),
-        update_now:bool = typer.Option(
-        True,
-        "--update-now",
-        "-upn",
-        help="Add all files infos to destination folder.",
-    ),
+       
       )-> None:
     """Add a new directory to the database."""
     file_manager = get_file_manager()
@@ -107,36 +127,9 @@ def add(
             f'Directory "{dirname}" added successfully.',
             fg=typer.colors.GREEN,
         )
-    if update_now:
-        file_manager.update_files(Path(dirname))
-        typer.secho(
-            f'Files information in destination folder updated successfully.',
-            fg=typer.colors.GREEN,
-        )
+    
 
-def get_file_manager() -> fileman.FileManager:
-    if config.CONFIG_FILE_PATH.exists():
-        db_path = database.get_database_path(config.CONFIG_FILE_PATH)
-        
-    else:
-        typer.secho(
-            'Config file not found. Please, run "fileman init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    if not db_path.exists():
-        typer.secho(
-            'Database not found. Please, run "fileman init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-        
-    return fileman.FileManager(db_path)
 
-def _version_callback(value: bool) -> None:
-    if value:
-        typer.echo(f"{__app__name__} v{__version__}")
-        raise typer.Exit()
 
 @app.callback()
 def main(

@@ -98,7 +98,8 @@ class FileManager:
         read = self._db_handler.read_file_data()
         if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
             return CurrentDirectory("", read.error)
-        read.file_infos.append(dirname)
+        if not dirname in read.file_infos["directories"]:
+            read.file_infos["directories"].append(dirname)
         write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
