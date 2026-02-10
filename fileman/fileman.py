@@ -100,6 +100,7 @@ class FileManager:
             return CurrentDirectory("", read.error)
         if not dirname in read.file_infos["directories"]:
             read.file_infos["directories"].append(dirname)
+        
         write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)

@@ -25,7 +25,7 @@ def get_database_path(config_file: Path) -> Path:
 
 def init_database(db_path: Path) -> int:
     """Create the database."""
-    __dict__ = { "directories": [],  "files_stats": {}, "files_metadata": {} }
+    __dict__ = { "directories": [],  "file_infos":{"files_stats": {}, "files_metadata": {}} }
     try:
         with db_path.open("w") as db:
            json.dump(__dict__, db, indent=4)
