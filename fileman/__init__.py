@@ -15,7 +15,9 @@ __version__ = "0.1.0"
     JSON_ERROR,
     ID_ERROR,
     DIR_EXIST_ERROR,
-) = range(10)
+    DEST_DIR_ERROR,
+    DIR_ALREADY_ADDED_ERROR,
+) = range(12)
 
 ERRORS = {
     DIR_ERROR: "directory error",
@@ -27,4 +29,6 @@ ERRORS = {
     ID_ERROR: "fileman id error",
     JSON_ERROR: "json decode error",
     DIR_EXIST_ERROR: "destination directory already exist error",
+    DIR_ALREADY_ADDED_ERROR: "directory already added error",
+    DEST_DIR_ERROR: "destination directory error",
 }

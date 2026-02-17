@@ -10,7 +10,7 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (ERRORS, __app__name__, __version__, config, database, fileman)
+from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, database, fileman)
 
 app = typer.Typer()
 
@@ -116,10 +116,11 @@ def add(
     """Add a new directory to the database."""
     file_manager = get_file_manager()
     current_directory = file_manager.add(dirname, not_found_ok)
+    
     if current_directory.error:
         typer.secho(
             f'Adding directory failed with "{ERRORS[current_directory.error]}"',
-            fg=typer.colors.RED,
+            fg=typer.colors.YELLOW if current_directory.error == DIR_ALREADY_ADDED_ERROR else typer.colors.RED,
         )
         raise typer.Exit(1)
     else:

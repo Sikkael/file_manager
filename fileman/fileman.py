@@ -8,7 +8,7 @@ import sys
 import time
 from typing import Any, Dict, List, NamedTuple
 
-from fileman import DB_READ_ERROR,  DIR_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS
+from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS, DIR_ALREADY_ADDED_ERROR
 from fileman.database import DatabaseHandler
 from fileman.hashfiles import compute_file_hash
 
@@ -98,9 +98,18 @@ class FileManager:
         read = self._db_handler.read_file_data()
         if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
             return CurrentDirectory("", read.error)
-        if not dirname in read.file_infos["directories"]:
-            read.file_infos["directories"].append(dirname)
-        files_infos = read.file_infos["file_infos"]
+        
+        files_infos = read.file_infos
+        
+        if dirname in files_infos["directories"]:
+           return CurrentDirectory("", DIR_ALREADY_ADDED_ERROR)
+       
+        files_infos["directories"].append(dirname)
+        count = 0
+        for root, _, files in os.walk(dirname):
+          for file_name in files:
+                count += 1
+                print(f"Processing file {count}: {file_name}")
         write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
