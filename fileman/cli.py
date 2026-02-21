@@ -105,17 +105,10 @@ def add(
          dirname: str = typer.Option( 
         "--dirname", 
         "-dir"),
-         not_found_ok:bool = typer.Option(
-        False,
-        "--not-found-ok",
-        "-nfo",
-        help="If the directory does not exist, do not raise an error.",
-    ),
-       
       )-> None:
     """Add a new directory to the database."""
     file_manager = get_file_manager()
-    current_directory = file_manager.add(dirname, not_found_ok)
+    current_directory = file_manager.add(dirname)
     
     if current_directory.error:
         typer.secho(

@@ -6,7 +6,7 @@ __version__ = "0.1.0"
 
 (
     SUCCESS,
-    DIR_ERROR,
+    DIR_NOT_FOUND_ERROR,
     FILE_ERROR,
     CONFIG_DIR_ERROR,
     CONFIG_FILE_ERROR,
@@ -20,7 +20,7 @@ __version__ = "0.1.0"
 ) = range(12)
 
 ERRORS = {
-    DIR_ERROR: "directory error",
+    DIR_NOT_FOUND_ERROR: "directory not found error",
     FILE_ERROR: "file error",
     CONFIG_DIR_ERROR: "config directory error",
     CONFIG_FILE_ERROR: "config file error",

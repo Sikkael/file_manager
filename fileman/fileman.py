@@ -8,7 +8,7 @@ import sys
 import time
 from typing import Any, Dict, List, NamedTuple
 
-from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS, DIR_ALREADY_ADDED_ERROR
+from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, JSON_ERROR, SUCCESS, DIR_ALREADY_ADDED_ERROR
 from fileman.database import DatabaseHandler
 from fileman.hashfiles import compute_file_hash
 
@@ -90,11 +90,11 @@ class FileManager:
         self._db_handler = DatabaseHandler(db_path)
         self._files_infos = {}
         
-    def add(self, dirname:str, _not_found_ok:bool) -> CurrentDirectory:
+    def add(self, dirname:str) -> CurrentDirectory:
         """Add a new directory to the database."""
-        if not Path(dirname).exists() and _not_found_ok == False:
-           print("Directory does not exists.")
-           return CurrentDirectory("", DIR_ERROR)
+        if not Path(dirname).exists():
+           write_log(f"This directory does not exists --> {dirname}", "error.log")
+           return CurrentDirectory("", DIR_NOT_FOUND_ERROR)
         read = self._db_handler.read_file_data()
         if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
             return CurrentDirectory("", read.error)

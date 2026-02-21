@@ -7,7 +7,7 @@ from pathlib import Path
 import typer
 
 from fileman import (
-    CONFIG_FILE_ERROR, DB_WRITE_ERROR, DIR_ERROR, DIR_EXIST_ERROR, FILE_ERROR, SUCCESS, __app__name__
+    CONFIG_FILE_ERROR, DB_WRITE_ERROR, DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, FILE_ERROR, SUCCESS, __app__name__
 )
 
 from fileman.database import init_database
@@ -36,7 +36,7 @@ def _init_config_file() -> int:
     try:
         CONFIG_DIR_PATH.mkdir(exist_ok=True)
     except OSError:
-        return DIR_ERROR
+        return DIR_NOT_FOUND_ERROR
     try:
         CONFIG_FILE_PATH.touch(exist_ok=True)
     except OSError:
