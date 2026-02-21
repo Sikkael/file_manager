@@ -76,7 +76,6 @@ class FileData(NamedTuple):
     modified: str
     
 
-
 class FilesStats:
     def __init__(self, total_files: int = 0, total_size: int = 0, biggest_file:dict = {"size": -sys.maxsize, "path": ""}, 
                  smallest_file:dict = {"size": sys.maxsize, "path": ""}) -> None:
