@@ -69,6 +69,13 @@ def init_dest_dir(dest_path: Path) -> int:
     except OSError:
         return DEST_DIR_ERROR
 
+class FileData(NamedTuple):
+    file_path: str
+    size: int
+    created: str
+    modified: str
+    
+
 
 class FilesStats:
     def __init__(self, total_files: int = 0, total_size: int = 0, biggest_file:dict = {"size": -sys.maxsize, "path": ""}, 
@@ -103,7 +110,7 @@ class FileManager:
         
         if dirname in files_infos["directories"]:
            return CurrentDirectory("", DIR_ALREADY_ADDED_ERROR)
-       
+        # add the directory and the file data to files_infos
         files_infos["directories"].append(dirname)
         count = 0
         for root, _, files in os.walk(dirname):
