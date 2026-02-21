@@ -14,9 +14,11 @@ from fileman.hashfiles import compute_file_hash
 
 
 
-def write_log(message: str, log_file="process.log")-> None:
+def write_log(message: str, log_file:str ="process.log", verbose:bool=False)-> None:
     with open(log_file, 'a') as log:
         log.write(message + "\n")
+        if verbose:
+            print(message)
         
 def get_file_info(file_path: str) -> Dict[str, Any]:
     """Get file information."""
@@ -69,16 +71,14 @@ def init_dest_dir(dest_path: Path) -> int:
 
 
 class FilesStats:
-    def __init__(self, total_files: int = 0, total_size: int = 0, max_size:int = (-sys.maxsize), min_size:int = sys.maxsize) -> None:
+    def __init__(self, total_files: int = 0, total_size: int = 0, biggest_file:dict = {"size": -sys.maxsize, "path": ""}, 
+                 smallest_file:dict = {"size": sys.maxsize, "path": ""}) -> None:
         self._total_files = total_files
         self._total_size = total_size
-        self._max_size = max_size
-        self._min_size = min_size
+        self._biggest_file = biggest_file
+        self._smallest_file = smallest_file
         self._avg_size = 0
-        self._biggest_file = None
-        self._smallest_file = None
         
-
 class CurrentDirectory(NamedTuple):
     dirname: str
     error: int
@@ -109,7 +109,7 @@ class FileManager:
         for root, _, files in os.walk(dirname):
           for file_name in files:
                 count += 1
-                print(f"Processing file {count}: {file_name}")
+                write_log(f"Processing file {count}: {file_name}", verbose=True)
         write = self._db_handler.write_file_data(read.file_infos)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)

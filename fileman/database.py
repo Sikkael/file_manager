@@ -14,9 +14,6 @@ DEFAULT_DB_FILE_PATH = Path.home().joinpath(
 )
 
 
-        
-
-
 def get_database_path(config_file: Path) -> Path:
     """Return the current path to the database."""
     config_parser = configparser.ConfigParser()
