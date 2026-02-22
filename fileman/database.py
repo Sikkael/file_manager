@@ -22,7 +22,7 @@ def get_database_path(config_file: Path) -> Path:
 
 def init_database(db_path: Path) -> int:
     """Create the database."""
-    __dict__ = { "directories": [],  "file_infos":{"files_stats": {}, "files_metadata": {}} }
+    __dict__ = { "directories": [], "files_stats": {}, "files_metadata": {} }
     try:
         with db_path.open("w") as db:
            json.dump(__dict__, db, indent=4)
@@ -31,7 +31,7 @@ def init_database(db_path: Path) -> int:
         return DB_WRITE_ERROR
     
 class DBResponse(NamedTuple):
-    file_infos: Dict[str, Any]
+    files_infos: Dict[str, Any]
     error: int
 
 class DatabaseHandler:
@@ -48,10 +48,10 @@ class DatabaseHandler:
         except OSError:  # Catch file IO problems
             return DBResponse({}, DB_READ_ERROR)
 
-    def write_file_data(self, file_infos: Dict[str,Any]) -> DBResponse:
+    def write_file_data(self, files_infos: Dict[str,Any]) -> DBResponse:
         try:
             with self._db_path.open("w") as db:
-                json.dump(file_infos, db, indent=4)
-            return DBResponse(file_infos, SUCCESS)
+                json.dump(files_infos, db, indent=4)
+            return DBResponse(files_infos, SUCCESS)
         except OSError:  # Catch file IO problems
-            return DBResponse(file_infos, DB_WRITE_ERROR)
+            return DBResponse(files_infos, DB_WRITE_ERROR)

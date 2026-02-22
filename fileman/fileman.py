@@ -74,17 +74,31 @@ class FileData(NamedTuple):
     size: int
     created: str
     modified: str
-    
+    name: str
+    hash: str
+    ext: str
+    duplicates: List[str]
 
 class FilesStats:
     def __init__(self, total_files: int = 0, total_size: int = 0, biggest_file:dict = {"size": -sys.maxsize, "path": ""}, 
-                 smallest_file:dict = {"size": sys.maxsize, "path": ""}) -> None:
+                 smallest_file:dict = {"size": sys.maxsize, "path": ""}, exts:List[Dict[str,int]] =[]) -> None:
         self._total_files = total_files
         self._total_size = total_size
         self._biggest_file = biggest_file
         self._smallest_file = smallest_file
         self._avg_size = 0
+        # list of files extensions found and their numbers
+        self._exts = exts
+
+class Filesinfos:
+    
+    def __init__(self,directories:List, files_stats:Dict[str,Any], files_metadata:Dict[str,Any]):
+        self._directorie = directories
+        self._files_stats = files_stats
+        self._files_metadata = files_metadata
         
+    
+
 class CurrentDirectory(NamedTuple):
     dirname: str
     error: int
