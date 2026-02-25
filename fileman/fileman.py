@@ -80,6 +80,7 @@ class FileData(NamedTuple):
     duplicates: List[str]
 
 class FilesStats:
+    
     def __init__(self, total_files: int = 0, total_size: int = 0, biggest_file:dict = {"size": -sys.maxsize, "path": ""}, 
                  smallest_file:dict = {"size": sys.maxsize, "path": ""}, exts:List[Dict[str,int]] =[]) -> None:
         self._total_files = total_files
@@ -90,6 +91,8 @@ class FilesStats:
         # list of files extensions found and their numbers
         self._exts = exts
 
+    def __dict__(self):
+        pass 
 class Filesinfos:
     
     def __init__(self,directories:List, files_stats:Dict[str,Any], files_metadata:Dict[str,Any]):
