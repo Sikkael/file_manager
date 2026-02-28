@@ -106,6 +106,7 @@ def add(
         "--dirname", 
         "-dir"),
       )-> None:
+
     """Add a new directory to the database."""
     file_manager = get_file_manager()
     current_directory = file_manager.add(dirname)
