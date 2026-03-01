@@ -17,62 +17,15 @@ def get_destination_path(config_file: Path) -> Path:
     """Return the current path to the dest_directory."""
     config_parser = configparser.ConfigParser()
     config_parser.read(config_file)
-    print(config_parser["General"]["dest_directory"])
     return Path(config_parser["General"]["dest_directory"])
 
-def write_log(message: str, log_file:str ="process.log", verbose:bool=False)-> None:
-    with open(log_file, 'a') as log:
+def write_log(message: str, log_file:str ="process.log", verbose:bool=False, append:bool=True)-> None:
+    mode = 'a' if append else 'w'
+    with open(log_file, mode) as log:
         log.write(message + "\n")
         if verbose:
             print(message)
         
-def get_file_info(file_path: Path) -> Dict[str, Any]:
-    """Get file information."""
-    return {
-        "file_path: ": file_path,
-        "size": os.path.getsize(file_path),
-        "created": time.ctime(os.path.getctime(file_path)),
-        "modified": time.ctime(os.path.getmtime(file_path)),
-    }
-    
-class FileMetadata:
-    file_path: str
-    size: int
-    created: str
-    modified: str
-    name: str
-    hash: str
-    ext: str
-    duplicates: List[str]
-
-def list_files_recursive(path=".")-> dict:
-    files_paths = {}
-    count = 0
-    duplicates = 0
-    for root, _, files in os.walk(path):
-        
-        for file_name in files:
-            count += 1
-            print(f"Processing file {count}: {file_name}")
-            file_path = os.path.join(root, file_name)
-            h = compute_file_hash(file_path)    
-            
-            if h not in files_paths:
-                 files_paths[h] = get_file_info(file_path)
-                 print(f"File: {file_path}")
-                 print(f"Size (bytes): {os.path.getsize(file_path)}")
-                 print(f"Created: {time.ctime(os.path.getctime(file_path))}")
-                 print(f"Modified: {time.ctime(os.path.getmtime(file_path))}")
-            else: 
-                 print(f"Duplicate found: {file_path} and {files_paths[h]} have the same hash {h}")
-                 duplicates += 1
-                 write_log(f"Duplicate found: {file_path} and {files_paths[h]} have the same hash {h}")
-                 
-    mess = f"Total files processed: {count}­\nTotal duplicates found: {duplicates}"
-    print(mess)
-    write_log(mess,"count.log")
-    
-    return files_paths
 
 def resolve_path(path: str, ext:str) -> Path:
     _pth = os.path.join(path, ext)
@@ -81,8 +34,6 @@ def resolve_path(path: str, ext:str) -> Path:
     return Path(_pth)
          
     
-    
-
 def init_dest_dir(dest_path: Path) -> int:
     """Initialize the destination directory."""
     if dest_path.exists():
@@ -100,7 +51,7 @@ class FilesHandler:
         self._directories = directories
         self._files_stats = files_stats
         self._files_metadata = files_metadata
-        
+        self._destination_path = get_destination_path(config.CONFIG_FILE_PATH)
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -123,14 +74,14 @@ class FilesHandler:
         for root, _, files in os.walk(dirname):
           for file_name in files:
                 count += 1
-                # write_log(f"Processing file {count}: {file_name}", verbose=True)
+                write_log(f"Processing file {count}: {file_name}", verbose=True)
                 files_path = os.path.join(root, file_name)
                 if self._update_metadata(Path(files_path)) == NEW:
                    
-                   _destination_path = resolve_path(get_destination_path(config.CONFIG_FILE_PATH), Path(files_path).suffix)
+                   _destination_path = resolve_path(self._destination_path, Path(files_path).suffix)
                    
                    shutil.copy2(files_path, _destination_path)  
-                
+    
     def _update_metadata(self, file_path):
         
         h = compute_file_hash(file_path=file_path)
@@ -185,7 +136,6 @@ class FileManager:
             return CurrentDirectory("", read.error)
         
         files_infos = read.files_infos
-        
         
         if dirname in files_infos["directories"]:
            return CurrentDirectory("", DIR_ALREADY_ADDED_ERROR)
