@@ -4,6 +4,7 @@
 import configparser
 import json
 from pathlib import Path
+import sys
 from typing import Any, Dict, List, NamedTuple
 
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
@@ -13,6 +14,16 @@ DEFAULT_DB_FILE_PATH = Path.home().joinpath(
     "." + Path.home().stem + "_fileman.json"
 )
 
+_file_stats = {
+    "total_files": 0, 
+    "total_size": 0, 
+    "biggest_file":"",
+    "biggest_file_size":-sys.maxsize,
+    "smallest_file":"",
+    "smallest_file_size":sys.maxsize,
+    "average_file_size":0,
+    "extensions": {}
+    }
 
 def get_database_path(config_file: Path) -> Path:
     """Return the current path to the database."""
@@ -22,7 +33,7 @@ def get_database_path(config_file: Path) -> Path:
 
 def init_database(db_path: Path) -> int:
     """Create the database."""
-    __dict__ = { "directories": [], "files_stats": {}, "files_metadata": {} }
+    __dict__ = {"version": "1.0","latest_index": 0, "directories": [], "files_stats": _file_stats, "files_metadata": {} }
     try:
         with db_path.open("w") as db:
            json.dump(__dict__, db, indent=4)
