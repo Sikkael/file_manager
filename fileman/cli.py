@@ -74,31 +74,6 @@ def init(
     else:
         typer.secho(f"The fileman database is {db_path}\nThe destination path is {dest_path}", fg=typer.colors.GREEN)
         
-        
-@app.command(name="set-dest")
-def set_dest(
-    dest_path: str = typer.Option(
-        ..., 
-        "--dest-path",
-        "-dp",
-        help="Path to the destination folder.",
-    )
-) -> None:
-    """Set the destination folder."""
-    file_manager = get_file_manager()
-    dest_dit_init = file_manager.set_dest_dir(Path(dest_path))
-    
-    if dest_dit_init.error:
-        typer.secho(
-            f'Setting destination folder failed with "{ERRORS[dest_dit_init.error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    else:
-        typer.secho(
-            f'Destination folder set to "{dest_path}" successfully.',
-            fg=typer.colors.GREEN,
-        )
             
 @app.command()
 def add(
@@ -141,71 +116,3 @@ def main(
 def list_all() -> None:
     """List directories"""
     file_manager = get_file_manager()
-    dir_list = file_manager.get_dir_list()
-    if len(dir_list) == 0:
-        typer.secho(
-            "There are no dir list yet", fg=typer.colors.RED
-        )
-        raise typer.Exit()
-    typer.secho("\ndir list:\n", fg=typer.colors.BLUE, bold=True)
-    columns = (
-        "ID.  ",
-        "| Directory Name |",
-     
-    )
-    headers = "".join(columns)
-    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
-    typer.secho("-" * len(headers)+ "\n", fg=typer.colors.BLUE)
-    id = -1
-    for dirname in dir_list:
-        id+=1
-        typer.secho(
-            f"{id+1}. | {dirname} |",
-            fg=typer.colors.BLUE,
-            bold=True
-        )
-        typer.secho("\n"+"-" * len(headers) + "\n", fg=typer.colors.BLUE)
-        
-@app.command(name="update")
-def update_files(
-    folder: str = typer.Option(
-        ...,
-        "--folder",
-        "-f",
-        help="Folder to update files information.",
-    )
-) -> None:
-    """Update files information in destination folder."""
-    file_manager = get_file_manager()
-    _folder = Path(folder)
-    if not _folder.exists():
-        typer.secho(
-            f'Folder "{folder}" does not exist.',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    file_manager.update_files(Path(folder))
-    typer.secho(
-        f'Files information in destination folder updated successfully.',
-        fg=typer.colors.GREEN,
-    )
-
-@app.command(name="update-all")
-def update_all() -> None:
-    """Update files information in destination folder."""
-    file_manager = get_file_manager()
-    dir_list = file_manager.get_dir_list()
-    for dirname in dir_list:
-        file_manager.update_files(Path(dirname))
-    typer.secho(
-        f'Files information in destination folder updated successfully.',
-        fg=typer.colors.GREEN,
-    )
-
-@app.command(name="remove")
-def remove_files(
-    
-    
-) -> None:
-    """Remove remove files with the specified criteria in dest folder."""
-    raise NotImplementedError("This command is not implemented yet.")

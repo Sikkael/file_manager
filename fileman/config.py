@@ -16,7 +16,7 @@ from fileman.fileman import init_dest_dir
 CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))
 CONFIG_FILE_PATH = CONFIG_DIR_PATH / "config.ini"
 DEFAULT_DEST_FOLDER_PATH = Path.home().joinpath(
-     Path.home().stem + "_fileman"
+    "." + Path.home().stem + "_fileman"
 )
 
 
@@ -53,7 +53,7 @@ def _create_ressource(db_path: str, dest_path:str) -> int:
     config_parser = configparser.ConfigParser()
     config_parser["General"] = {
                                   "database": db_path, 
-                                  "dest_directory": "",                            
+                                  "dest_directory": dest_path,                            
             
                               }
     try:

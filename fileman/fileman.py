@@ -126,9 +126,9 @@ class FilesHandler:
                 # write_log(f"Processing file {count}: {file_name}", verbose=True)
                 files_path = os.path.join(root, file_name)
                 if self._update_metadata(Path(files_path)) == NEW:
-                   print(f"Destination path {get_destination_path(config.CONFIG_FILE_PATH)}")
+                   
                    _destination_path = resolve_path(get_destination_path(config.CONFIG_FILE_PATH), Path(files_path).suffix)
-                   print(_destination_path)
+                   
                    shutil.copy2(files_path, _destination_path)  
                 
     def _update_metadata(self, file_path):
@@ -152,7 +152,7 @@ class FilesHandler:
             
         else:
             
-            write_log(f"Duplicate found: {file_path} and {self._files_metadata[h]['file_path']} have the same hash {h}", "process.log")
+            write_log(f"Duplicate found: {file_path} and {self._files_metadata[h]['file_path']} have the same hash {h}", "dup.log")
             if str(file_path) not in self._files_metadata[h]["duplicates"]:
                 self._files_metadata[h]["duplicates"].append(str(file_path))
                 
@@ -202,26 +202,3 @@ class FileManager:
         """List database directories."""
         dir_list = self._db_handler.read_file_data()
         return dir_list.file_infos   
-    
-    def set_dest_dir(self, dest_dir: Path) -> None:
-        """Set the destination path."""
-        if not dest_dir.exists():
-           try:
-               dest_dir.mkdir(parents=True, exist_ok=True)
-           except OSError:
-               return CurrentDirectory(dirname=dest_dir.name, error=DEST_DIR_ERROR)
-        else:
-            # Directory exists, get the file data
-            read = self._db_handler.read_file_data()
-            
-            
-            if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
-               return CurrentDirectory("", read.error)
-        # No read errors, 
-        
-        read.file_infos["dest_directory"] = str(dest_dir)
-        read.file_infos["files_data"] = list_files_recursive(dest_dir)
-        write = self._db_handler.write_file_data(read.file_infos)
-        if write.error != SUCCESS:
-            return CurrentDirectory("", write.error)
-        return CurrentDirectory(str(dest_dir), SUCCESS)
