@@ -62,14 +62,14 @@ class FilesHandler:
             "files_metadata": self._files_metadata
         }
     
-    def add(self, dirname:str):
+    def add(self, dirname:str)-> input:
         """Add a new directory to the database."""
         if not Path(dirname).exists():
            write_log(f"This directory does not exists --> {dirname}", "error.log")
-           return CurrentDirectory("", DIR_NOT_FOUND_ERROR)
+           return DIR_NOT_FOUND_ERROR
         
         if dirname in self._directories:
-           return CurrentDirectory("", DIR_ALREADY_ADDED_ERROR)
+           return DIR_ALREADY_ADDED_ERROR
         # add the directory and the file data to files_infos
         self._directories.append(dirname)
         count = 0
@@ -108,7 +108,7 @@ class FilesHandler:
                         copy_count += 1
                     except FILE_PROCESSING_ERRORS as e:
                         write_log(f"Error copying file {file_path}: {e}", "error.log")
-                        return CurrentDirectory("", FILE_HANDLING_ERROR)
+                        return FILE_HANDLING_ERROR
                     self._update_stats(self._files_metadata[h])
                     
                 else:
@@ -116,12 +116,13 @@ class FilesHandler:
                     write_log(f"Duplicate found: {file_path} and {self._files_metadata[h]['file_path']} have the same hash {h}", "dup.log", verbose=True)
                     if str(file_path) not in self._files_metadata[h]["duplicates"] and self._files_metadata[h]["file_path"] != str(file_path):
                        self._files_metadata[h]["duplicates"].append(str(file_path))
+        self._final_stats()
         write_log(f"Finished processing directory {dirname}. \nTotal files: {count} \nCopied: {copy_count} \nDuplicates: {dup_count}", "result.log", append=False)
-        return CurrentDirectory(dirname, SUCCESS)       
+        return SUCCESS       
                  
     
     def _update_stats(self, data:Dict[str, Any]) -> None:
-        self._files_stats["total_files"] += 1
+        
         self._files_stats["total_size"] += data["size"]
         if data["size"] > self._files_stats["biggest_file_size"]:
             self._files_stats["biggest_file_size"] = data["size"]
@@ -129,14 +130,20 @@ class FilesHandler:
         if data["size"] < self._files_stats["smallest_file_size"]:
             self._files_stats["smallest_file_size"] = data["size"]
             self._files_stats["smallest_file"] = data["file_path"]
-        if self._files_stats["total_files"] > 0:
-            self._files_stats["average_file_size"] = self._files_stats["total_size"]//self._files_stats["total_files"]
+        
         if data['ext'] not in self._files_stats['extensions']:
             self._files_stats['extensions'][data['ext']] = 1
         else:
             self._files_stats['extensions'][data['ext']] += 1
-           
+    
                 
+    def _final_stats(self) -> None:
+        """Calculate final statistics after processing all files."""
+        self._files_stats["total_files"] = len(self._files_metadata)
+        if self._files_stats["total_files"] > 0:
+            self._files_stats["average_file_size"] = self._files_stats["total_size"]//self._files_stats["total_files"]
+        
+        
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
     """Initialize the files handler."""
     return FilesHandler(latest_index=files_infos["latest_index"],directories=files_infos["directories"], 
@@ -154,24 +161,16 @@ class FileManager:
         self._files_infos = {}
         
     def add(self, dirname:str) -> CurrentDirectory:
-        """Add a new directory to the database."""
-        if not Path(dirname).exists():
-           write_log(f"This directory does not exists --> {dirname}", "error.log")
-           return CurrentDirectory("", DIR_NOT_FOUND_ERROR)
+        
         read = self._db_handler.read_file_data()
         if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
             return CurrentDirectory("", read.error)
         
-        files_infos = read.files_infos
-        
-        if dirname in files_infos["directories"]:
-           return CurrentDirectory("", DIR_ALREADY_ADDED_ERROR)
-        # add the directory and the file data to files_infos
-        
-        file_handler = init_files_handler(files_infos)
-        result = file_handler.add(dirname)
-        if result.error != SUCCESS:
-            return CurrentDirectory("", result.error)
+        # initailize the files handler with the data from the database 
+        file_handler = init_files_handler(read.files_infos)
+        result_code = file_handler.add(dirname)
+        if result_code != SUCCESS:
+            return CurrentDirectory("", result_code)
         write = self._db_handler.write_file_data(file_handler.to_dict())
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
