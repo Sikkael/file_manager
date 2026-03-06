@@ -61,8 +61,8 @@ class FilesHandler:
             "files_stats": self._files_stats,
             "files_metadata": self._files_metadata
         }
-    
-    def add(self, dirname:str)-> input:
+
+    def add(self, dirname:str)-> int:
         """Add a new directory to the database."""
         if not Path(dirname).exists():
            write_log(f"This directory does not exists --> {dirname}", "error.log")
