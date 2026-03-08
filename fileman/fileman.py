@@ -27,11 +27,13 @@ def write_log(message: str, log_file:str ="process.log", verbose:bool=False, app
             print(message)
         
 
-def resolve_path(path: str, ext:str) -> Path:
-    _pth = os.path.join(path, ext)
+def resolve_path(path: str, fname:Path) -> Path:
+    _pth = os.path.join(path, fname.suffix)
     if not os.path.exists(_pth):
        os.makedirs(_pth)
-    return Path(_pth)
+    f_path = Path(os.path.join(_pth, fname.name)) 
+    return f_path if not f_path.exists() else Path(os.path.join(_pth, f"{compute_file_hash(fname)}-{fname.name}"))
+    
          
     
 def init_dest_dir(dest_path: Path) -> int:
@@ -84,6 +86,8 @@ class FilesHandler:
                 h = compute_file_hash(file_path=file_path)
         
                 if h not in self._files_metadata:
+                    _destination_path = resolve_path(self._destination_path, 
+                        file_path)
                     self._latest_index += 1
                     self._files_metadata[h] = {
                         "id": self._latest_index,
@@ -93,18 +97,15 @@ class FilesHandler:
                         "created": time.ctime(os.path.getctime(file_path)),
                         "modified": time.ctime(os.path.getmtime(file_path)),
                         "hash": h,
-                        "name": file_path.name,
+                        "name": _destination_path.name,
                         "ext": file_path.suffix,
                         "duplicates": []
                         }
-                    
-                    _destination_path = resolve_path(self._destination_path, Path(file_path).suffix)
+                
                     
                     try:
-                        if _destination_path.joinpath(file_path.name).exists():
-                           shutil.copy2(file_path, _destination_path.joinpath(f"{h}-{file_path.name}"))
-                        else:
-                           shutil.copy2(file_path, _destination_path)
+                        assert not _destination_path.exists(), f"Destination file {str(_destination_path)} already exists."
+                        shutil.copy2(file_path, _destination_path)
                         copy_count += 1
                     except FILE_PROCESSING_ERRORS as e:
                         write_log(f"Error copying file {file_path}: {e}", "error.log")
