@@ -10,7 +10,7 @@ import time
 from typing import Any, Dict, List, NamedTuple
 
 from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
-from fileman.database import DatabaseHandler
+from fileman.database import DatabaseHandler,__blank_file_infos__
 from fileman.hashfiles import compute_file_hash
 
 def get_destination_path(config_file: Path) -> Path:
@@ -49,9 +49,10 @@ def init_dest_dir(dest_path: Path) -> int:
 
 class FilesHandler:
     
-    def __init__(self,latest_index,directories:List, files_stats:Dict[str, Any], files_metadata:Dict[str, Any]):
+    def __init__(self,latest_index,directories:List,parent_directories:List, files_stats:Dict[str, Any], files_metadata:Dict[str, Any]):
         self._latest_index = latest_index
         self._directories = directories
+        self._parent_directories = parent_directories
         self._files_stats = files_stats
         self._files_metadata = files_metadata
         self._destination_path = get_destination_path(config.CONFIG_FILE_PATH)
@@ -60,11 +61,12 @@ class FilesHandler:
         return {
             "latest_index": self._latest_index,
             "directories": self._directories,
+            "parent_directories": self._parent_directories,
             "files_stats": self._files_stats,
             "files_metadata": self._files_metadata
         }
-
-    def add(self, dirname:str)-> int:
+    
+    def _add_directory(self, dirname:str) -> int:
         """Add a new directory to the database."""
         if not Path(dirname).exists():
            write_log(f"This directory does not exists --> {dirname}", "error.log")
@@ -72,8 +74,19 @@ class FilesHandler:
         
         if dirname in self._directories:
            return DIR_ALREADY_ADDED_ERROR
-        # add the directory and the file data to files_infos
-        self._directories.append(dirname)
+        
+        for dir in self._directories:
+            if Path(dirname).is_relative_to(dir):
+                _p_dir = [d for d in self._parent_directories if not Path(d).is_relative_to(Path(dir))]
+                _p_dir.append(dir)
+                self._parent_directories = _p_dir
+                write_log(f"Directory {dirname} is a subdirectory of {dir}", "subdir.log", verbose=True)
+        self._directories.append(dirname)       
+        return SUCCESS
+    
+    def add(self, dirname:str)-> int:
+        """Add a new directory to the database."""
+        self._add_directory(dirname)
         count = 0
         dup_count = 0
         copy_count = 0
@@ -148,6 +161,7 @@ class FilesHandler:
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
     """Initialize the files handler."""
     return FilesHandler(latest_index=files_infos["latest_index"],directories=files_infos["directories"], 
+                        parent_directories=files_infos["parent_directories"],
                         files_stats= files_infos["files_stats"], 
                         files_metadata=files_infos["files_metadata"])
 class CurrentDirectory(NamedTuple):
@@ -160,6 +174,21 @@ class FileManager:
     def __init__(self, db_path: Path) -> None:
         self._db_handler = DatabaseHandler(db_path)
         self._files_infos = {}
+        
+    def add_directory(self, dirname:str) -> CurrentDirectory:
+        read = self._db_handler.read_file_data()
+        if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
+            return CurrentDirectory("", read.error)
+        
+        # initailize the files handler with the data from the database 
+        file_handler = init_files_handler(read.files_infos)
+        result_code = file_handler.add(dirname)
+        if result_code != SUCCESS:
+            return CurrentDirectory("", result_code)
+        write = self._db_handler.write_file_data(file_handler.to_dict())
+        if write.error != SUCCESS:
+            return CurrentDirectory("", write.error)
+        return CurrentDirectory(dirname, write.error)
         
     def add(self, dirname:str) -> CurrentDirectory:
         
@@ -176,6 +205,23 @@ class FileManager:
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(dirname, write.error)
+    
+    def clear(self) -> CurrentDirectory:
+        """Clean the database and the destination directory."""
+        dest_path = get_destination_path(config.CONFIG_FILE_PATH)
+        try:
+            if dest_path.exists():
+                shutil.rmtree(dest_path)
+            init_dest_dir(dest_path)
+            self._db_handler.write_file_data(__blank_file_infos__)
+            logfs = ("process.log", "error.log", "dup.log", "result.log")
+            for logf in logfs:
+                if Path(logf).exists():
+                    Path(logf).unlink()
+            return CurrentDirectory("", SUCCESS)
+        except OSError as e:
+            write_log(f"Error cleaning destination directory: {e}", "error.log")
+            return CurrentDirectory("", DEST_DIR_ERROR)
     
     def get_dir_list(self)-> List[Dict[str, Any]]:
         """List database directories."""

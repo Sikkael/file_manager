@@ -116,3 +116,35 @@ def main(
 def list_all() -> None:
     """List directories"""
     file_manager = get_file_manager()
+    
+@app.command(name="clear")
+def clear_database() -> None:
+    """Clear the database and the destination directory."""
+    file_manager = get_file_manager()
+    result = file_manager.clear()
+    if result.error:
+        typer.secho(
+            f'Clearing failed with "{ERRORS[result.error]}"',
+            fg=typer.colors.RED,
+        )
+    else:
+        typer.secho("Database and destination directory cleared successfully.", fg=typer.colors.GREEN)
+        
+@app.command(name="add-dir")
+def add_directory(
+         dirname: str = typer.Option( 
+        "--dirname", 
+        "-dir"),
+      )-> None:     
+    file_manager = get_file_manager()
+    result = file_manager.add_directory(dirname)
+    if result.error:
+        typer.secho(
+            f'Adding directory failed with "{ERRORS[result.error]}"',
+            fg=typer.colors.YELLOW if result.error == DIR_ALREADY_ADDED_ERROR else typer.colors.RED,
+        )
+    else:
+        typer.secho(
+            f'Directory "{dirname}" added successfully.',
+            fg=typer.colors.GREEN,
+        )   

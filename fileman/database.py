@@ -25,6 +25,15 @@ _file_stats = {
     "extensions": {}
     }
 
+__blank_file_infos__ = {
+    "version": "1.0",
+    "latest_index": 0,
+    "parent_directories": [],
+    "directories": [],
+    "files_stats": _file_stats,
+    "files_metadata": {}
+}
+
 def get_database_path(config_file: Path) -> Path:
     """Return the current path to the database."""
     config_parser = configparser.ConfigParser()
@@ -33,10 +42,10 @@ def get_database_path(config_file: Path) -> Path:
 
 def init_database(db_path: Path) -> int:
     """Create the database."""
-    __dict__ = {"version": "1.0","latest_index": 0, "directories": [], "files_stats": _file_stats, "files_metadata": {} }
+    
     try:
         with db_path.open("w") as db:
-           json.dump(__dict__, db, indent=4)
+           json.dump(__blank_file_infos__, db, indent=4)
         return SUCCESS
     except OSError:
         return DB_WRITE_ERROR
