@@ -75,13 +75,13 @@ class FilesHandler:
         if dirname in self._directories:
            return DIR_ALREADY_ADDED_ERROR
         
-        for dir in self._directories:
-            if Path(dirname).is_relative_to(dir):
-                _p_dir = [d for d in self._parent_directories if not Path(d).is_relative_to(Path(dir))]
-                _p_dir.append(dir)
-                self._parent_directories = _p_dir
-                write_log(f"Directory {dirname} is a subdirectory of {dir}", "subdir.log", verbose=True)
-        self._directories.append(dirname)       
+        self._directories.append(dirname)    
+           
+        _top_dirs_ = self._parent_directories
+        if len(_top_dirs_) == len([d for d in _top_dirs_ if not Path(dirname).is_relative_to(d)]):
+            self._parent_directories = [d for d in _top_dirs_ if not Path(d).is_relative_to(dirname)]
+            self._parent_directories.append(dirname)
+        
         return SUCCESS
     
     def add(self, dirname:str)-> int:
