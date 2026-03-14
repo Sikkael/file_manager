@@ -172,6 +172,10 @@ class FilesHandler:
         if self._files_stats["total_files"] > 0:
             self._files_stats["average_file_size"] = self._files_stats["total_size"]//self._files_stats["total_files"]
         
+    def get_directories(self) -> List[Dict[str, Any]]:
+        """Return the list of directories in the database."""
+        return self._directories
+        
         
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
     """Initialize the files handler."""
@@ -256,5 +260,8 @@ class FileManager:
     
     def get_dir_list(self)-> List[Dict[str, Any]]:
         """List database directories."""
-        dir_list = self._db_handler.read_file_data()
-        return dir_list.file_infos   
+        read = self._db_handler.read_file_data()
+        if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
+            return CurrentDirectory("", read.error)
+        file_handler = init_files_handler(read.files_infos)
+        return file_handler.get_directories()

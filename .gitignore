@@ -103,3 +103,4 @@ history.*
 *.backup
 *.temp
 *.json 
+infos.txt

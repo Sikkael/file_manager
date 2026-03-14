@@ -112,11 +112,36 @@ def main(
 ) -> None:
     return
 
-@app.command(name="list")
-def list_all() -> None:
+@app.command(name="list-dir")
+def list_dir() -> None:
     """List directories"""
     file_manager = get_file_manager()
+    directories = file_manager.get_dir_list()
+    if len(directories) == 0:
+        typer.secho(
+            "There are no directories in the database yet", fg=typer.colors.RED
+        )
+        raise typer.Exit()
     
+    typer.secho("\ndirectories:\n", fg=typer.colors.BLUE, bold=True)
+    columns = (
+        "ID.  ",
+        "| Directory path  ",
+    )
+    headers = "".join(columns)
+    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+    id = 1
+    for dir in directories:
+        
+        typer.secho(
+            f"{id}{(len(columns[0]) - len(str(id))) * ' '}"
+            f"| {dir}",
+            fg=typer.colors.BLUE,
+        )
+        id += 1
+    typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+
 @app.command(name="clear")
 def clear_database() -> None:
     """Clear the database and the destination directory."""
@@ -161,3 +186,13 @@ def update_all() -> None:
         )
     else:
         typer.secho("All directories updated successfully.", fg=typer.colors.GREEN)
+        
+@app.command(name="update")
+def update_directory(
+    dirname: str = typer.Option(
+        "--dirname",
+        "-dir",
+        help="The directory to update."
+    )
+) -> None:
+    """Update a specific directory in the database."""
