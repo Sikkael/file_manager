@@ -41,8 +41,7 @@ def get_database_path(config_file: Path) -> Path:
     return Path(config_parser["General"]["database"])
 
 def init_database(db_path: Path) -> int:
-    """Create the database."""
-    
+    """Create the database.""" 
     try:
         with db_path.open("w") as db:
            json.dump(__blank_file_infos__, db, indent=4)

@@ -148,3 +148,16 @@ def add_directory(
             f'Directory "{dirname}" added successfully.',
             fg=typer.colors.GREEN,
         )   
+        
+@app.command(name="update-all")
+def update_all() -> None:
+    """Update all directories in the database."""
+    file_manager = get_file_manager()
+    result = file_manager.update_all()
+    if result.error:
+        typer.secho(
+            f'Updating failed with "{ERRORS[result.error]}"',
+            fg=typer.colors.RED,
+        )
+    else:
+        typer.secho("All directories updated successfully.", fg=typer.colors.GREEN)

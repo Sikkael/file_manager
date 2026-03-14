@@ -84,9 +84,7 @@ class FilesHandler:
         
         return SUCCESS
     
-    def add(self, dirname:str)-> int:
-        """Add a new directory to the database."""
-        self._add_directory(dirname)
+    def _process_directory(self, dirname: Path) -> int:
         count = 0
         dup_count = 0
         copy_count = 0
@@ -105,7 +103,7 @@ class FilesHandler:
                     self._files_metadata[h] = {
                         "id": self._latest_index,
                         "file_path": str(file_path),
-                        "parent":dirname,
+                        "parent":str(dirname),
                         "size": file_path.stat().st_size,
                         "created": time.ctime(os.path.getctime(file_path)),
                         "modified": time.ctime(os.path.getmtime(file_path)),
@@ -133,7 +131,24 @@ class FilesHandler:
         self._final_stats()
         write_log(f"Finished processing directory {dirname}. \nTotal files: {count} \nCopied: {copy_count} \nDuplicates: {dup_count}", "result.log", append=False)
         return SUCCESS       
-                 
+        
+    def add(self, dirname:str)-> int:
+        """Add a new directory to the database."""
+        dir_code = self._add_directory(dirname)
+        if dir_code != SUCCESS:
+            return dir_code
+        process_code = self._process_directory(Path(dirname))
+        if process_code != SUCCESS:
+            return process_code
+        return SUCCESS       
+    
+    def update_all(self) -> int:
+        """Update all directories in the database."""
+        for dirname in self._parent_directories:
+            process_code = self._process_directory(Path(dirname))
+            if process_code != SUCCESS:
+                return process_code
+        return SUCCESS
     
     def _update_stats(self, data:Dict[str, Any]) -> None:
         
@@ -205,6 +220,22 @@ class FileManager:
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(dirname, write.error)
+    
+    def update_all(self) -> CurrentDirectory:
+        """Update all directories in the database."""
+        read = self._db_handler.read_file_data()
+        if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
+            return CurrentDirectory("", read.error)
+        
+        # initailize the files handler with the data from the database 
+        file_handler = init_files_handler(read.files_infos)
+        result_code = file_handler.update_all()
+        if result_code != SUCCESS:
+                return CurrentDirectory("", result_code)
+        write = self._db_handler.write_file_data(file_handler.to_dict())
+        if write.error != SUCCESS:
+            return CurrentDirectory("", write.error)
+        return CurrentDirectory("All directories updated successfully.", write.error)
     
     def clear(self) -> CurrentDirectory:
         """Clean the database and the destination directory."""
