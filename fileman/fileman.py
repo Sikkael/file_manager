@@ -206,6 +206,8 @@ class FileManager:
         if result_code != SUCCESS:
             return CurrentDirectory("", result_code)
         write = self._db_handler.write_file_data(file_handler.to_dict())
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(dirname, write.error)
@@ -222,6 +224,9 @@ class FileManager:
         if result_code != SUCCESS:
             return CurrentDirectory("", result_code)
         write = self._db_handler.write_file_data(file_handler.to_dict())
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
+        
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(dirname, write.error)
@@ -238,6 +243,8 @@ class FileManager:
         if result_code != SUCCESS:
                 return CurrentDirectory("", result_code)
         write = self._db_handler.write_file_data(file_handler.to_dict())
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory("All directories updated successfully.", write.error)
@@ -250,10 +257,12 @@ class FileManager:
                 shutil.rmtree(dest_path)
             init_dest_dir(dest_path)
             self._db_handler.write_file_data(__blank_file_infos__)
-            logfs = ("process.log", "error.log", "dup.log", "result.log")
+            logfs = [lf for lf in os.listdir() if lf.endswith(".log")]
             for logf in logfs:
                 if Path(logf).exists():
                     Path(logf).unlink()
+            if self._db_handler.copy_database() != SUCCESS:
+                write_log(f"Error copying database to current directory.", "error.log", verbose=True)
             return CurrentDirectory("", SUCCESS)
         except OSError as e:
             write_log(f"Error cleaning destination directory: {e}", "error.log")

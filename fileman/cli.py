@@ -127,6 +127,7 @@ def list_dir() -> None:
     columns = (
         "ID.  ",
         "| Directory path  ",
+        "| Directory name ",
     )
     headers = "".join(columns)
     typer.secho(headers, fg=typer.colors.BLUE, bold=True)
@@ -136,7 +137,8 @@ def list_dir() -> None:
         
         typer.secho(
             f"{id}{(len(columns[0]) - len(str(id))) * ' '}"
-            f"| {dir}",
+            f"| {Path(dir).parent}{' ' * (len(columns[1]) - len(str(Path(dir).parent)))}"
+            f"| {Path(dir).name} {' ' * (len(columns[1]) - len(str(Path(dir).name)))}",
             fg=typer.colors.BLUE,
         )
         id += 1
@@ -192,7 +194,7 @@ def update_directory(
     dirname: str = typer.Option(
         "--dirname",
         "-dir",
-        help="The directory to update."
+        help="The directory id to update."
     )
 ) -> None:
     """Update a specific directory in the database."""

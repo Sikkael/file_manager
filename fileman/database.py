@@ -4,6 +4,7 @@
 import configparser
 import json
 from pathlib import Path
+import shutil
 import sys
 from typing import Any, Dict, List, NamedTuple
 
@@ -74,3 +75,12 @@ class DatabaseHandler:
             return DBResponse(files_infos, SUCCESS)
         except OSError:  # Catch file IO problems
             return DBResponse(files_infos, DB_WRITE_ERROR)
+        
+    def copy_database(self) -> int:
+        try:
+            shutil.copy2(self._db_path, Path.cwd())
+            return SUCCESS
+        except OSError:  # Catch file IO problems
+            return DB_READ_ERROR
+        
+        
