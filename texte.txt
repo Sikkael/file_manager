@@ -1,0 +1,353 @@
+Processing file 1: history
+Processing file 2: jwtsecret
+Processing file 3: LOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 4: transactions.rlp
+Duplicate found: /home/mike/ethereum/privatechain/geth/transactions.rlp and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 5: nodekey
+Processing file 6: CURRENT
+Processing file 7: 000009.log
+Processing file 8: 000012.sst
+Processing file 9: LOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 10: MANIFEST-000010
+Processing file 11: OPTIONS-000011
+Processing file 12: MANIFEST-000006
+Processing file 13: bodies.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/bodies.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 14: hashes.ridx
+Processing file 15: hashes.meta
+Processing file 16: FLOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/FLOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 17: headers.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/headers.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 18: receipts.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/receipts.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 19: bodies.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/bodies.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 20: receipts.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/receipts.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 21: bodies.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/bodies.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 22: hashes.0000.rdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.0000.rdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 23: headers.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/headers.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 24: headers.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/headers.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 25: receipts.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/receipts.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 26: history.meta.ridx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/history.meta.ridx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 27: account.index.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.index.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 28: history.meta.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/history.meta.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 29: account.index.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.index.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 30: storage.data.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.data.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 31: account.data.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.data.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 32: storage.index.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.index.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 33: FLOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/FLOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 34: account.data.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.data.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 35: storage.index.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.index.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 36: storage.data.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.data.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 37: account.index.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.index.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 38: storage.index.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.index.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 39: account.data.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.data.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 40: storage.data.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.data.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 41: history.meta.0000.rdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/history.meta.0000.rdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 42: CURRENT
+Processing file 43: 000003.log
+Processing file 44: LOG
+Processing file 45: MANIFEST-000004
+Processing file 46: 000002.ldb
+Processing file 47: LOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 48: CURRENT.bak
+Processing file 49: bkt_00528384.bag
+Processing file 50: bkt_00659456.bag
+Processing file 51: bkt_00004096.bag
+Processing file 52: bkt_00790528.bag
+Processing file 53: bkt_00266240.bag
+Processing file 54: bkt_00921600.bag
+Processing file 55: bkt_01052672.bag
+Processing file 56: bkt_00135168.bag
+Processing file 57: bkt_00397312.bag
+Processing file 58: bkt_00528384.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00528384.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00528384.bag have the same hash 61232206bad56d3cbc86c021a8892f6a26cf618a1ce022d89604a3fcce35f537
+Processing file 59: bkt_00659456.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00659456.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00659456.bag have the same hash 75949eb3cec6b385a0254652d5a06530d7044249a7b9d17e6da5344c9b7ef4b1
+Processing file 60: bkt_00004096.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00004096.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00004096.bag have the same hash e21454d9f3d20117fb8dbc614e3719e02c30e8ae7b40999840c0b4fbedeb8660
+Processing file 61: bkt_00790528.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00790528.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00790528.bag have the same hash 552a0c14572acac1d512c3f1a106bdff52093fedae4e39ecb27bb75209266090
+Processing file 62: bkt_00266240.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00266240.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00266240.bag have the same hash 2f4ef2f8c6578de9b12b1f1d51891d412ffed84ef96b34f6874108ab5a956082
+Processing file 63: bkt_00921600.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00921600.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00921600.bag have the same hash d82f8d8045cad3350fb911f843c76931a814df8dfe81793f0454b9d800b224c0
+Processing file 64: bkt_01052672.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_01052672.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_01052672.bag have the same hash 9b8a2090d7f1827fdeee2e12048f459fe15c544cf142bad913825e36e95a15de
+Processing file 65: bkt_00135168.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00135168.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00135168.bag have the same hash c7a777d9c7816bfc38368092d615aedeea69c3e5af28e1c6e80b9a307faadd86
+Processing file 66: bkt_00397312.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00397312.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00397312.bag have the same hash 5e67a951dc522529b2dd15d9cd30479112e0c72d2bddbfac8c8a3f9c947b8a86
+Directory "/home/mike/ethereum/privatechain" added successfully.
+Processing file 1: error.txt
+Processing file 2: genesis.json
+Processing file 3: password.txt
+Processing file 4: history
+Processing file 5: jwtsecret
+Processing file 6: LOCK
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 7: nodekey
+Processing file 8: CURRENT
+Processing file 9: MANIFEST-000001
+Processing file 10: LOCK
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 11: 000004.sst
+Processing file 12: OPTIONS-000007
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/OPTIONS-000007 and /home/mike/ethereum/privatechain/geth/chaindata/OPTIONS-000011 have the same hash d0984fda70aadecd76e8bb98197c7e01760a9994abf077f73990800e6cdaa57e
+Processing file 13: 000005.log
+Processing file 14: MANIFEST-000006
+Processing file 15: bodies.0000.cdat
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/bodies.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 16: hashes.ridx
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/hashes.ridx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 17: hashes.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/hashes.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 18: FLOCK
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/FLOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 19: headers.0000.cdat
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/headers.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 20: receipts.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/receipts.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 21: bodies.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/bodies.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 22: receipts.cidx
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/receipts.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 23: bodies.cidx
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/bodies.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 24: hashes.0000.rdat
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/hashes.0000.rdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 25: headers.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/headers.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 26: headers.cidx
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/headers.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 27: receipts.0000.cdat
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/chain/receipts.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 28: history.meta.ridx
+Processing file 29: account.index.meta
+Processing file 30: history.meta.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/history.meta.meta and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.index.meta have the same hash 84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda
+Processing file 31: account.index.cidx
+Processing file 32: storage.data.cidx
+Processing file 33: account.data.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.data.meta and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.index.meta have the same hash 84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda
+Processing file 34: storage.index.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.index.meta and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.index.meta have the same hash 84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda
+Processing file 35: FLOCK
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/FLOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 36: account.data.0000.cdat
+Processing file 37: storage.index.0000.cdat
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.index.0000.cdat and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.data.0000.cdat have the same hash 6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d
+Processing file 38: storage.data.0000.cdat
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.data.0000.cdat and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.data.0000.cdat have the same hash 6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d
+Processing file 39: account.index.0000.cdat
+Processing file 40: storage.index.cidx
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.index.cidx and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.data.cidx have the same hash 3423cfe2ed780f5d09ddaf78a84acaa6d9597f593e102ec1566e7d723cb1ef9b
+Processing file 41: account.data.cidx
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.data.cidx and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.data.cidx have the same hash 3423cfe2ed780f5d09ddaf78a84acaa6d9597f593e102ec1566e7d723cb1ef9b
+Processing file 42: storage.data.meta
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/storage.data.meta and /home/mike/ethereum/poa-network/node1/geth/chaindata/ancient/state/account.index.meta have the same hash 84f9b39cc474f80ce6e610a18ed698a5004984db02bd6c65aa30fbd9f5fc0fda
+Processing file 43: history.meta.0000.rdat
+Processing file 44: CURRENT
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/nodes/CURRENT and /home/mike/ethereum/privatechain/geth/nodes/CURRENT.bak have the same hash 179aee986b08dd1c9b42165766a9f86be710e30d130c79ff234c4f8fbfb85f76
+Processing file 45: LOG
+Processing file 46: MANIFEST-000000
+Processing file 47: LOCK
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/nodes/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 48: 000001.log
+Processing file 49: bkt_00528384.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00528384.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00528384.bag have the same hash 61232206bad56d3cbc86c021a8892f6a26cf618a1ce022d89604a3fcce35f537
+Processing file 50: bkt_00659456.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00659456.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00659456.bag have the same hash 75949eb3cec6b385a0254652d5a06530d7044249a7b9d17e6da5344c9b7ef4b1
+Processing file 51: bkt_00004096.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00004096.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00004096.bag have the same hash e21454d9f3d20117fb8dbc614e3719e02c30e8ae7b40999840c0b4fbedeb8660
+Processing file 52: bkt_00790528.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00790528.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00790528.bag have the same hash 552a0c14572acac1d512c3f1a106bdff52093fedae4e39ecb27bb75209266090
+Processing file 53: bkt_00266240.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00266240.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00266240.bag have the same hash 2f4ef2f8c6578de9b12b1f1d51891d412ffed84ef96b34f6874108ab5a956082
+Processing file 54: bkt_00921600.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00921600.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00921600.bag have the same hash d82f8d8045cad3350fb911f843c76931a814df8dfe81793f0454b9d800b224c0
+Processing file 55: bkt_01052672.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_01052672.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_01052672.bag have the same hash 9b8a2090d7f1827fdeee2e12048f459fe15c544cf142bad913825e36e95a15de
+Processing file 56: bkt_00135168.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00135168.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00135168.bag have the same hash c7a777d9c7816bfc38368092d615aedeea69c3e5af28e1c6e80b9a307faadd86
+Processing file 57: bkt_00397312.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/limbo/bkt_00397312.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00397312.bag have the same hash 5e67a951dc522529b2dd15d9cd30479112e0c72d2bddbfac8c8a3f9c947b8a86
+Processing file 58: bkt_00528384.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00528384.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00528384.bag have the same hash 61232206bad56d3cbc86c021a8892f6a26cf618a1ce022d89604a3fcce35f537
+Processing file 59: bkt_00659456.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00659456.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00659456.bag have the same hash 75949eb3cec6b385a0254652d5a06530d7044249a7b9d17e6da5344c9b7ef4b1
+Processing file 60: bkt_00004096.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00004096.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00004096.bag have the same hash e21454d9f3d20117fb8dbc614e3719e02c30e8ae7b40999840c0b4fbedeb8660
+Processing file 61: bkt_00790528.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00790528.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00790528.bag have the same hash 552a0c14572acac1d512c3f1a106bdff52093fedae4e39ecb27bb75209266090
+Processing file 62: bkt_00266240.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00266240.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00266240.bag have the same hash 2f4ef2f8c6578de9b12b1f1d51891d412ffed84ef96b34f6874108ab5a956082
+Processing file 63: bkt_00921600.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00921600.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00921600.bag have the same hash d82f8d8045cad3350fb911f843c76931a814df8dfe81793f0454b9d800b224c0
+Processing file 64: bkt_01052672.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_01052672.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_01052672.bag have the same hash 9b8a2090d7f1827fdeee2e12048f459fe15c544cf142bad913825e36e95a15de
+Processing file 65: bkt_00135168.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00135168.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00135168.bag have the same hash c7a777d9c7816bfc38368092d615aedeea69c3e5af28e1c6e80b9a307faadd86
+Processing file 66: bkt_00397312.bag
+Duplicate found: /home/mike/ethereum/poa-network/node1/geth/blobpool/queue/bkt_00397312.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00397312.bag have the same hash 5e67a951dc522529b2dd15d9cd30479112e0c72d2bddbfac8c8a3f9c947b8a86
+Processing file 67: UTC--2025-05-27T00-58-47.937991414Z--68a1db066bb2302e8e959605c280d008070bf0af
+Processing file 68: history
+Duplicate found: /home/mike/ethereum/privatechain/history and /home/mike/ethereum/privatechain/history have the same hash 03154386efa9707919993f5bdbd5ad2f6b2673d02ecf21e5aa3c5f6d2558d96a
+Processing file 69: jwtsecret
+Duplicate found: /home/mike/ethereum/privatechain/geth/jwtsecret and /home/mike/ethereum/privatechain/geth/jwtsecret have the same hash 266de84cb08bbe0cf693a54725ba5a565ad2bf6ef147f9b730101ac9b5969657
+Processing file 70: LOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 71: transactions.rlp
+Duplicate found: /home/mike/ethereum/privatechain/geth/transactions.rlp and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 72: nodekey
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodekey and /home/mike/ethereum/privatechain/geth/nodekey have the same hash ac7fb37b5d34b1fe6f929e8172ddf3578be5aba718b3b33e4f3b1860307d7e5f
+Processing file 73: CURRENT
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/CURRENT and /home/mike/ethereum/privatechain/geth/chaindata/CURRENT have the same hash e91d13722e31f9b06c5df3582cad1ea5b73547ce3dc08b12ed461f095aad48ee
+Processing file 74: 000009.log
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/000009.log and /home/mike/ethereum/privatechain/geth/chaindata/000009.log have the same hash 33b8157b9ce51ab2667ff913f2a06084e6f7579ae2d9c44629a6e7162ee41da1
+Processing file 75: 000012.sst
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/000012.sst and /home/mike/ethereum/privatechain/geth/chaindata/000012.sst have the same hash af9cbe09dac7b0bb470cd32c42b9ef158d75143f600dd1e590fd71031b501397
+Processing file 76: LOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 77: MANIFEST-000010
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/MANIFEST-000010 and /home/mike/ethereum/privatechain/geth/chaindata/MANIFEST-000010 have the same hash 319129782b757332cb386e16383f0287116a8d8170e5d2b1642b52f0311c3fae
+Processing file 78: OPTIONS-000011
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/OPTIONS-000011 and /home/mike/ethereum/privatechain/geth/chaindata/OPTIONS-000011 have the same hash d0984fda70aadecd76e8bb98197c7e01760a9994abf077f73990800e6cdaa57e
+Processing file 79: MANIFEST-000006
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/MANIFEST-000006 and /home/mike/ethereum/privatechain/geth/chaindata/MANIFEST-000006 have the same hash 342ea6363db2031efcbd13bb45b3be7ff2602cfd510b60826998ab2cb439a631
+Processing file 80: bodies.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/bodies.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 81: hashes.ridx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 82: hashes.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 83: FLOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/FLOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 84: headers.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/headers.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 85: receipts.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/receipts.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 86: bodies.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/bodies.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 87: receipts.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/receipts.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 88: bodies.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/bodies.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 89: hashes.0000.rdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.0000.rdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 90: headers.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/headers.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 91: headers.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/headers.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 92: receipts.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/receipts.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 93: history.meta.ridx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/history.meta.ridx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 94: account.index.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.index.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 95: history.meta.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/history.meta.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 96: account.index.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.index.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 97: storage.data.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.data.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 98: account.data.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.data.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 99: storage.index.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.index.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 100: FLOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/FLOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 101: account.data.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.data.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 102: storage.index.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.index.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 103: storage.data.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.data.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 104: account.index.0000.cdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.index.0000.cdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 105: storage.index.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.index.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 106: account.data.cidx
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/account.data.cidx and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.ridx have the same hash b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44
+Processing file 107: storage.data.meta
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/storage.data.meta and /home/mike/ethereum/privatechain/geth/chaindata/ancient/chain/hashes.meta have the same hash 1d08acbb1cc10805518cfa4e15f2a182b2f5b0179f3c67fb03c07e0e8283e00f
+Processing file 108: history.meta.0000.rdat
+Duplicate found: /home/mike/ethereum/privatechain/geth/chaindata/ancient/state/history.meta.0000.rdat and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 109: CURRENT
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/CURRENT and /home/mike/ethereum/privatechain/geth/nodes/CURRENT have the same hash 0861415cada612ea5834d56e2cf1055d3e63979b69eb71d32ae9ae394d8306cd
+Processing file 110: 000003.log
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/000003.log and /home/mike/ethereum/privatechain/geth/nodes/000003.log have the same hash 475fdc2c187f37fde2b5f3c43769518fd97072bd7cc00ce94e077f5e0914eee3
+Processing file 111: LOG
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/LOG and /home/mike/ethereum/privatechain/geth/nodes/LOG have the same hash 3e87fd8c833ff8639af064e48e94455a2c8b1a1d326bf527966703efd652b045
+Processing file 112: MANIFEST-000004
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/MANIFEST-000004 and /home/mike/ethereum/privatechain/geth/nodes/MANIFEST-000004 have the same hash 655e4d40cf2b7e6b936a1ebfd7b8b8991dace406759e29f1a856e047e35b35a4
+Processing file 113: 000002.ldb
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/000002.ldb and /home/mike/ethereum/privatechain/geth/nodes/000002.ldb have the same hash 2d576ade13ef61c838b613313cf02e68db91b8913bb3f2037b7af01628b2277b
+Processing file 114: LOCK
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/LOCK and /home/mike/Images/Nikon/DSCN7407.JPG have the same hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Processing file 115: CURRENT.bak
+Duplicate found: /home/mike/ethereum/privatechain/geth/nodes/CURRENT.bak and /home/mike/ethereum/privatechain/geth/nodes/CURRENT.bak have the same hash 179aee986b08dd1c9b42165766a9f86be710e30d130c79ff234c4f8fbfb85f76
+Processing file 116: bkt_00528384.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00528384.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00528384.bag have the same hash 61232206bad56d3cbc86c021a8892f6a26cf618a1ce022d89604a3fcce35f537
+Processing file 117: bkt_00659456.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00659456.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00659456.bag have the same hash 75949eb3cec6b385a0254652d5a06530d7044249a7b9d17e6da5344c9b7ef4b1
+Processing file 118: bkt_00004096.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00004096.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00004096.bag have the same hash e21454d9f3d20117fb8dbc614e3719e02c30e8ae7b40999840c0b4fbedeb8660
+Processing file 119: bkt_00790528.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00790528.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00790528.bag have the same hash 552a0c14572acac1d512c3f1a106bdff52093fedae4e39ecb27bb75209266090
+Processing file 120: bkt_00266240.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00266240.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00266240.bag have the same hash 2f4ef2f8c6578de9b12b1f1d51891d412ffed84ef96b34f6874108ab5a956082
+Processing file 121: bkt_00921600.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00921600.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00921600.bag have the same hash d82f8d8045cad3350fb911f843c76931a814df8dfe81793f0454b9d800b224c0
+Processing file 122: bkt_01052672.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_01052672.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_01052672.bag have the same hash 9b8a2090d7f1827fdeee2e12048f459fe15c544cf142bad913825e36e95a15de
+Processing file 123: bkt_00135168.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00135168.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00135168.bag have the same hash c7a777d9c7816bfc38368092d615aedeea69c3e5af28e1c6e80b9a307faadd86
+Processing file 124: bkt_00397312.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00397312.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00397312.bag have the same hash 5e67a951dc522529b2dd15d9cd30479112e0c72d2bddbfac8c8a3f9c947b8a86
+Processing file 125: bkt_00528384.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00528384.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00528384.bag have the same hash 61232206bad56d3cbc86c021a8892f6a26cf618a1ce022d89604a3fcce35f537
+Processing file 126: bkt_00659456.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00659456.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00659456.bag have the same hash 75949eb3cec6b385a0254652d5a06530d7044249a7b9d17e6da5344c9b7ef4b1
+Processing file 127: bkt_00004096.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00004096.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00004096.bag have the same hash e21454d9f3d20117fb8dbc614e3719e02c30e8ae7b40999840c0b4fbedeb8660
+Processing file 128: bkt_00790528.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00790528.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00790528.bag have the same hash 552a0c14572acac1d512c3f1a106bdff52093fedae4e39ecb27bb75209266090
+Processing file 129: bkt_00266240.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00266240.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00266240.bag have the same hash 2f4ef2f8c6578de9b12b1f1d51891d412ffed84ef96b34f6874108ab5a956082
+Processing file 130: bkt_00921600.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00921600.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00921600.bag have the same hash d82f8d8045cad3350fb911f843c76931a814df8dfe81793f0454b9d800b224c0
+Processing file 131: bkt_01052672.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_01052672.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_01052672.bag have the same hash 9b8a2090d7f1827fdeee2e12048f459fe15c544cf142bad913825e36e95a15de
+Processing file 132: bkt_00135168.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00135168.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00135168.bag have the same hash c7a777d9c7816bfc38368092d615aedeea69c3e5af28e1c6e80b9a307faadd86
+Processing file 133: bkt_00397312.bag
+Duplicate found: /home/mike/ethereum/privatechain/geth/blobpool/queue/bkt_00397312.bag and /home/mike/ethereum/privatechain/geth/blobpool/limbo/bkt_00397312.bag have the same hash 5e67a951dc522529b2dd15d9cd30479112e0c72d2bddbfac8c8a3f9c947b8a86
+Directory "/home/mike/ethereum" added successfully.
+Adding directory failed with "directory already added error"

@@ -117,6 +117,7 @@ class FilesHandler:
                     try:
                         assert not _destination_path.exists(), f"Destination file {str(_destination_path)} already exists."
                         shutil.copy2(file_path, _destination_path)
+                        write_log(f"File copied successfully: {file_path} -> {_destination_path}", "copy.log")
                         copy_count += 1
                     except FILE_PROCESSING_ERRORS as e:
                         write_log(f"Error copying file {file_path}: {e}", "error.log")
