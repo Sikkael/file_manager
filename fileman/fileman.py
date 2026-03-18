@@ -9,7 +9,7 @@ import sys
 import time
 from typing import Any, Dict, List, NamedTuple, Tuple
 
-from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
+from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, EMPTY_DIR_LIST_ERROR, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
 from fileman.database import DatabaseHandler,__blank_file_infos__
 from fileman.hashfiles import compute_file_hash
 
@@ -173,9 +173,20 @@ class FilesHandler:
         if self._files_stats["total_files"] > 0:
             self._files_stats["average_file_size"] = self._files_stats["total_size"]//self._files_stats["total_files"]
         
-    def get_directories(self) -> List[Dict[str, Any]]:
+    def get_directories(self) -> List[str]:
         """Return the list of directories in the database."""
         return self._directories
+    
+    def get_dir_by_id(self, id: int) -> Tuple[str, int]:
+        """Return a directory by its id."""
+        """First need totranslateid into index"""""
+        index = id - 1
+        if len(self._directories) == 0:
+            return "", EMPTY_DIR_LIST_ERROR
+        if index < 0 or index >= len(self._directories):
+            return "", DIR_NOT_FOUND_ERROR
+        
+        return self._directories[index],SUCCESS
         
         
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
@@ -271,7 +282,18 @@ class FileManager:
     def get_dir_list(self)-> Tuple[List[str], int]:
         """List database directories."""
         read = self._db_handler.read_file_data()
-        if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
+        if read.error:
             return [], read.error
         file_handler = init_files_handler(read.files_infos)
-        return file_handler.get_directories(), SUCCESS
+        _directories = file_handler.get_directories()
+        if len(_directories) == 0:
+            return [], EMPTY_DIR_LIST_ERROR
+        return _directories, SUCCESS
+    
+    def get_dir_by_id(self, id: int) -> Tuple[str, int]:
+        """Get a directory by its id."""
+        read = self._db_handler.read_file_data()
+        if read.error:
+            return "", read.error
+        file_handler = init_files_handler(read.files_infos)
+        return file_handler.get_dir_by_id(id)

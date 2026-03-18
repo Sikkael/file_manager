@@ -118,9 +118,10 @@ def list_dir() -> None:
     """List directories"""
     file_manager = get_file_manager()
     directories, result_code = file_manager.get_dir_list()
-    if len(directories) == 0:
+    if result_code:
         typer.secho(
-            "There are no directories in the database yet", fg=typer.colors.RED
+            f'Directory listing failed with "{ERRORS[result_code]}"',
+            fg=typer.colors.RED
         )
         raise typer.Exit()
     

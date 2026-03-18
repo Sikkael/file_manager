@@ -19,7 +19,9 @@ __version__ = "0.1.0"
     DIR_ALREADY_ADDED_ERROR,
     METADATA_ERROR,
     FILE_HANDLING_ERROR,
-) = range(14)
+    EMPTY_DIR_LIST_ERROR,
+    DIR_ID_ERROR,
+) = range(16)
 
 ERRORS = {
     DIR_NOT_FOUND_ERROR: "directory not found error",
@@ -35,6 +37,8 @@ ERRORS = {
     DEST_DIR_ERROR: "destination directory error",
     METADATA_ERROR: "metadata error",
     FILE_HANDLING_ERROR: "file handling error",
+    EMPTY_DIR_LIST_ERROR: "empty directory list error\nPlease add directory to list.",
+    DIR_ID_ERROR: "directory id error",
 }
 
 (NEW, MOVED, DUPLICATE, ERROR) = range(4)
