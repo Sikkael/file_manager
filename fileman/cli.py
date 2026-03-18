@@ -83,6 +83,7 @@ def add(
       )-> None:
 
     """Add a new directory to the database."""
+    
     file_manager = get_file_manager()
     current_directory = file_manager.add(dirname)
     
@@ -157,24 +158,6 @@ def clear_database() -> None:
     else:
         typer.secho("Database and destination directory cleared successfully.", fg=typer.colors.GREEN)
         
-@app.command(name="add-dir")
-def add_directory(
-         dirname: str = typer.Option( 
-        "--dirname", 
-        "-dir"),
-      )-> None:     
-    file_manager = get_file_manager()
-    result = file_manager.add_directory(dirname)
-    if result.error:
-        typer.secho(
-            f'Adding directory failed with "{ERRORS[result.error]}"',
-            fg=typer.colors.YELLOW if result.error == DIR_ALREADY_ADDED_ERROR else typer.colors.RED,
-        )
-    else:
-        typer.secho(
-            f'Directory "{dirname}" added successfully.',
-            fg=typer.colors.GREEN,
-        )   
         
 @app.command(name="update-all")
 def update_all() -> None:
@@ -191,9 +174,9 @@ def update_all() -> None:
         
 @app.command(name="update")
 def update_directory(
-    dirname: str = typer.Option(
-        "--dirname",
-        "-dir",
+    dir_id: int = typer.Option(
+        "--dir-id",
+        "-id",
         help="The directory id to update."
     )
 ) -> None:
