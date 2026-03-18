@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import sys
 import time
-from typing import Any, Dict, List, NamedTuple
+from typing import Any, Dict, List, NamedTuple, Tuple
 
 from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
 from fileman.database import DatabaseHandler,__blank_file_infos__
@@ -268,10 +268,10 @@ class FileManager:
             write_log(f"Error cleaning destination directory: {e}", "error.log")
             return CurrentDirectory("", DEST_DIR_ERROR)
     
-    def get_dir_list(self)-> List[Dict[str, Any]]:
+    def get_dir_list(self)-> Tuple[List[str], int]:
         """List database directories."""
         read = self._db_handler.read_file_data()
         if read.error == JSON_ERROR or read.error == DB_READ_ERROR:
-            return CurrentDirectory("", read.error)
+            return [], read.error
         file_handler = init_files_handler(read.files_infos)
-        return file_handler.get_directories()
+        return file_handler.get_directories(), SUCCESS

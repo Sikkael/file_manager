@@ -117,7 +117,7 @@ def main(
 def list_dir() -> None:
     """List directories"""
     file_manager = get_file_manager()
-    directories = file_manager.get_dir_list()
+    directories, result_code = file_manager.get_dir_list()
     if len(directories) == 0:
         typer.secho(
             "There are no directories in the database yet", fg=typer.colors.RED
@@ -175,9 +175,26 @@ def update_all() -> None:
 @app.command(name="update")
 def update_directory(
     dir_id: int = typer.Option(
+        -1,
         "--dir-id",
         "-id",
+        prompt="Directory id to update?",
         help="The directory id to update."
     )
 ) -> None:
     """Update a specific directory in the database."""
+    
+    if dir_id < 1:
+        typer.secho(
+            "Invalid directory id. Please provide a positive integer.",
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    file_manager = get_file_manager()
+    directories = file_manager.get_dir_list()
+    if dir_id > len(directories):
+        typer.secho(
+            f"Directory id {dir_id} does not exist. Please provide a valid directory id.",
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
