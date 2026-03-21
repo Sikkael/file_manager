@@ -19,7 +19,8 @@ def get_destination_path(config_file: Path) -> Path:
     config_parser.read(config_file)
     return Path(config_parser["General"]["dest_directory"])
 
-def write_log(message: str, log_file:str ="process.log", verbose:bool=False, append:bool=True)-> None:
+def write_log(message: str, log_file:str ="process.log", verbose:bool=False
+              , append:bool=True)-> None:
     mode = 'a' if append else 'w'
     with open(log_file, mode) as log:
         log.write(message + "\n")
@@ -117,7 +118,7 @@ class FilesHandler:
                     try:
                         assert not _destination_path.exists(), f"Destination file {str(_destination_path)} already exists."
                         shutil.copy2(file_path, _destination_path)
-                        write_log(f"File copied successfully: {file_path} -> {_destination_path}", "copy.log")
+                        write_log(f"File copied successfully: {file_path} -> {_destination_path}", "copy.log", append=True)
                         copy_count += 1
                     except FILE_PROCESSING_ERRORS as e:
                         write_log(f"Error copying file {file_path}: {e}", "error.log")
@@ -177,7 +178,7 @@ class FilesHandler:
         """Return the list of directories in the database."""
         return self._directories
     
-    def get_dir_by_id(self, id: int) -> Tuple[str, int]:
+    def update_dir_by_id(self, id: int) -> Tuple[str, int]:
         """Return a directory by its id."""
         """First need totranslateid into index"""""
         index = id - 1
@@ -185,8 +186,11 @@ class FilesHandler:
             return "", EMPTY_DIR_LIST_ERROR
         if index < 0 or index >= len(self._directories):
             return "", DIR_NOT_FOUND_ERROR
-        
-        return self._directories[index],SUCCESS
+        _dir = self._directories[index]
+        process_code = self._process_directory(Path(_dir))
+        if process_code != SUCCESS:
+            return "", process_code
+        return _dir,SUCCESS
         
         
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
@@ -290,10 +294,10 @@ class FileManager:
             return [], EMPTY_DIR_LIST_ERROR
         return _directories, SUCCESS
     
-    def get_dir_by_id(self, id: int) -> Tuple[str, int]:
-        """Get a directory by its id."""
+    def update_dir_by_id(self, id: int) -> Tuple[str, int]:
+        """Update a directory by its id."""
         read = self._db_handler.read_file_data()
         if read.error:
             return "", read.error
         file_handler = init_files_handler(read.files_infos)
-        return file_handler.get_dir_by_id(id)
+        return file_handler.update_dir_by_id(id)

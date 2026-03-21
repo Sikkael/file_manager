@@ -113,17 +113,8 @@ def main(
 ) -> None:
     return
 
-@app.command(name="list-dir")
-def list_dir() -> None:
+def print_dir_list(directories: List[str]) -> None:
     """List directories"""
-    file_manager = get_file_manager()
-    directories, result_code = file_manager.get_dir_list()
-    if result_code:
-        typer.secho(
-            f'Directory listing failed with "{ERRORS[result_code]}"',
-            fg=typer.colors.RED
-        )
-        raise typer.Exit()
     
     typer.secho("\ndirectories:\n", fg=typer.colors.BLUE, bold=True)
     columns = (
@@ -145,6 +136,21 @@ def list_dir() -> None:
         )
         id += 1
     typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+    
+
+@app.command(name="list-dir")
+def list_dir() -> None:
+    file_manager = get_file_manager()
+    directories, result_code = file_manager.get_dir_list()
+    if result_code:
+        typer.secho(
+            f'Directory listing failed with "{ERRORS[result_code]}"',
+            fg=typer.colors.RED
+        )
+        raise typer.Exit()
+    
+    print_dir_list(directories)
+
 
 @app.command(name="clear")
 def clear_database() -> None:
@@ -176,26 +182,44 @@ def update_all() -> None:
 @app.command(name="update")
 def update_directory(
     dir_id: int = typer.Option(
-        -1,
+        -4678,
         "--dir-id",
         "-id",
-        prompt="Directory id to update?",
         help="The directory id to update."
     )
 ) -> None:
     """Update a specific directory in the database."""
+    file_manager = get_file_manager()
+    directories, code = file_manager.get_dir_list()
+    if code:
+        typer.secho(
+            f'Failed to retrieve directory list with "{ERRORS[code]}"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
     
+    if dir_id == -4678:
+        print_dir_list(directories)
+        dir_id = int(typer.prompt("Directory id to update?"))
+        
     if dir_id < 1:
         typer.secho(
             "Invalid directory id. Please provide a positive integer.",
             fg=typer.colors.RED,
         )
         raise typer.Exit(1)
-    file_manager = get_file_manager()
-    directories = file_manager.get_dir_list()
+    
     if dir_id > len(directories):
         typer.secho(
             f"Directory id {dir_id} does not exist. Please provide a valid directory id.",
             fg=typer.colors.RED,
         )
         raise typer.Exit(1)
+    dirname, result_code = file_manager.update_dir_by_id(dir_id)
+    if result_code:
+        typer.secho(
+            f'Updating failed with "{ERRORS[result_code]}"',
+            fg=typer.colors.RED,
+        )   
+    else:
+        typer.secho(f'Directory "{dirname}" updated successfully.', fg=typer.colors.GREEN)
