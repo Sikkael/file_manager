@@ -164,8 +164,21 @@ def clear_database() -> None:
         )
     else:
         typer.secho("Database and destination directory cleared successfully.", fg=typer.colors.GREEN)
-        
-        
+
+@app.command(name="clear-log")
+def clear_log() -> None:
+    """Clear the log file."""
+    file_manager = get_file_manager()
+    try:
+        file_manager.clear_log()
+    except Exception as e:
+        typer.secho(
+            f'Clearing log failed with "{str(e)}"',
+            fg=typer.colors.RED,
+        )
+    else:
+        typer.secho("Log file cleared successfully.", fg=typer.colors.GREEN)
+
 @app.command(name="update-all")
 def update_all() -> None:
     """Update all directories in the database."""

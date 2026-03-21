@@ -2,6 +2,7 @@
 # fileman/fileman.py
 
 import configparser
+import datetime
 import os
 from pathlib import Path
 import shutil
@@ -26,7 +27,9 @@ def write_log(message: str, log_file:str ="process.log", verbose:bool=False
         log.write(message + "\n")
         if verbose:
             print(message)
-        
+
+def convert_2_datetime(timestamp:str)->datetime:
+    return datetime.datetime.strptime(timestamp, "%a %b %d %H:%M:%S %Y")
 
 def resolve_path(path: str, fname:Path) -> Path:
     _pth = os.path.join(path, fname.suffix)
@@ -161,7 +164,16 @@ class FilesHandler:
         if data["size"] < self._files_stats["smallest_file_size"]:
             self._files_stats["smallest_file_size"] = data["size"]
             self._files_stats["smallest_file"] = data["file_path"]
-        
+        if (convert_2_datetime(data["created"])) < (convert_2_datetime(self._files_stats["oldest_file_date"])):
+            self._files_stats["oldest_file_date"] = data["created"]
+            self._files_stats["oldest_file"] = data["file_path"]
+        if (convert_2_datetime(data["created"])) > (convert_2_datetime(self._files_stats["newest_file_date"])):
+            self._files_stats["newest_file_date"] = data["created"]
+            self._files_stats["newest_file"] = data["file_path"]
+        print(f"File {data['file_path']} has {len(data['duplicates'])} duplicates.")
+        if len(data["duplicates"]) > self._files_stats["highest_file_duplication_count"]:
+            self._files_stats["highest_file_duplication_count"] = len(data["duplicates"])
+            self._files_stats["most_duplicated_file"] = data["file_path"]
         if data['ext'] not in self._files_stats['extensions']:
             self._files_stats['extensions'][data['ext']] = 1
         else:
@@ -264,6 +276,13 @@ class FileManager:
             return CurrentDirectory("", write.error)
         return CurrentDirectory("All directories updated successfully.", write.error)
     
+    def clear_log(self) -> None:
+        logfs = [lf for lf in os.listdir() if lf.endswith(".log")]
+        for logf in logfs:
+            if Path(logf).exists():
+               Path(logf).unlink()
+            
+    
     def clear(self) -> CurrentDirectory:
         """Clean the database and the destination directory."""
         dest_path = get_destination_path(config.CONFIG_FILE_PATH)
@@ -273,9 +292,7 @@ class FileManager:
             init_dest_dir(dest_path)
             self._db_handler.write_file_data(__blank_file_infos__)
             logfs = [lf for lf in os.listdir() if lf.endswith(".log")]
-            for logf in logfs:
-                if Path(logf).exists():
-                    Path(logf).unlink()
+            self.clear_log()
             if self._db_handler.copy_database() != SUCCESS:
                 write_log(f"Error copying database to current directory.", "error.log", verbose=True)
             return CurrentDirectory("", SUCCESS)

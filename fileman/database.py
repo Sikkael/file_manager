@@ -23,7 +23,14 @@ _file_stats = {
     "smallest_file":"",
     "smallest_file_size":sys.maxsize,
     "average_file_size":0,
-    "extensions": {}
+    "extensions": {},
+    "oldest_file":"",
+    "oldest_file_date":"Mon Feb  8 03:44:42 2100",
+    "newest_file":"",
+    "newest_file_date":"Mon Feb 3 03:44:42 1902",
+    "highest_file_duplication_count":0,
+    "most_duplicated_file":""
+
     }
 
 __blank_file_infos__ = {
