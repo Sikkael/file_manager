@@ -236,3 +236,17 @@ def update_directory(
         )   
     else:
         typer.secho(f'Directory "{dirname}" updated successfully.', fg=typer.colors.GREEN)
+        
+        
+@app.command(name="remove-dups")
+def remove_duplicates() -> None:
+    """Remove duplicates from the destination directory."""
+    file_manager = get_file_manager()
+    message,code = file_manager.remove_duplicates()
+    if code:
+        typer.secho(
+            f'Removing duplicates failed with "{ERRORS[code]}"',
+            fg=typer.colors.RED,
+        )
+    else:
+        typer.secho(message, fg=typer.colors.GREEN)

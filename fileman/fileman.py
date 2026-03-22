@@ -133,6 +133,9 @@ class FilesHandler:
                     write_log(f"Duplicate found: {file_path} and {self._files_metadata[h]['file_path']} have the same hash {h}", "dup.log", verbose=True)
                     if str(file_path) not in self._files_metadata[h]["duplicates"] and self._files_metadata[h]["file_path"] != str(file_path):
                        self._files_metadata[h]["duplicates"].append(str(file_path))
+                       self._files_stats["duplicate_files_count"] += 1
+                       self._update_stats(self._files_metadata[h])
+                       
         self._final_stats()
         write_log(f"Finished processing directory {dirname}. \nTotal files: {count} \nCopied: {copy_count} \nDuplicates: {dup_count}", "result.log", append=False)
         return SUCCESS       
@@ -170,7 +173,6 @@ class FilesHandler:
         if (convert_2_datetime(data["created"])) > (convert_2_datetime(self._files_stats["newest_file_date"])):
             self._files_stats["newest_file_date"] = data["created"]
             self._files_stats["newest_file"] = data["file_path"]
-        print(f"File {data['file_path']} has {len(data['duplicates'])} duplicates.")
         if len(data["duplicates"]) > self._files_stats["highest_file_duplication_count"]:
             self._files_stats["highest_file_duplication_count"] = len(data["duplicates"])
             self._files_stats["most_duplicated_file"] = data["file_path"]
@@ -318,3 +320,19 @@ class FileManager:
             return "", read.error
         file_handler = init_files_handler(read.files_infos)
         return file_handler.update_dir_by_id(id)
+    
+    def remove_duplicates(self)-> Tuple[str,int]:
+        """Delete duplicate files in the destination directory."""
+        read = self._db_handler.read_file_data()
+        if read.error:
+            return "", read.error
+        file_handler = init_files_handler(read.files_infos)
+        for file_info in file_handler._files_metadata.values():
+            for dup in file_info["duplicates"]:
+                try:
+                    Path(dup).unlink()
+                    write_log(f"Deleted duplicate file: {dup}", "delete.log", verbose=True)
+                except OSError as e:
+                    write_log(f"Error deleting file {dup}: {e}", "error.log")
+                    return "", FILE_HANDLING_ERROR
+        return "Duplicate files deleted successfully.", SUCCESS

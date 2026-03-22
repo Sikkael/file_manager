@@ -28,6 +28,7 @@ _file_stats = {
     "oldest_file_date":"Mon Feb  8 03:44:42 2100",
     "newest_file":"",
     "newest_file_date":"Mon Feb 3 03:44:42 1902",
+    "duplicate_files_count":0,
     "highest_file_duplication_count":0,
     "most_duplicated_file":""
 
