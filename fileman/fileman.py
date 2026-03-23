@@ -335,4 +335,13 @@ class FileManager:
                 except OSError as e:
                     write_log(f"Error deleting file {dup}: {e}", "error.log")
                     return "", FILE_HANDLING_ERROR
+            file_info["duplicates"] = []
+        file_handler._files_stats["duplicate_files_count"] = 0
+        file_handler._files_stats["highest_file_duplication_count"] = 0
+        file_handler._files_stats["most_duplicated_file"] = ""
+        write = self._db_handler.write_file_data(file_handler.to_dict())
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
+        if write.error != SUCCESS:
+            return "", write.error
         return "Duplicate files deleted successfully.", SUCCESS
