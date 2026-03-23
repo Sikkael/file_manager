@@ -72,19 +72,20 @@ class FilesHandler:
     
     def _add_directory(self, dirname:str) -> int:
         """Add a new directory to the database."""
-        if not Path(dirname).exists():
+        _dir_path = Path(dirname)
+        if not _dir_path.exists():
            write_log(f"This directory does not exists --> {dirname}", "error.log")
            return DIR_NOT_FOUND_ERROR
         
         if dirname in self._directories:
            return DIR_ALREADY_ADDED_ERROR
         
-        self._directories.append(dirname)    
+        self._directories.append(str(_dir_path))    
            
         _top_dirs_ = self._parent_directories
-        if len(_top_dirs_) == len([d for d in _top_dirs_ if not Path(dirname).is_relative_to(d)]):
-            self._parent_directories = [d for d in _top_dirs_ if not Path(d).is_relative_to(dirname)]
-            self._parent_directories.append(dirname)
+        if len(_top_dirs_) == len([d for d in _top_dirs_ if not _dir_path.is_relative_to(d)]):
+            self._parent_directories = [d for d in _top_dirs_ if not Path(d).is_relative_to(_dir_path)]
+            self._parent_directories.append(str(_dir_path))
         
         return SUCCESS
     
@@ -153,7 +154,14 @@ class FilesHandler:
     def update_all(self) -> int:
         """Update all directories in the database."""
         for dirname in self._parent_directories:
-            process_code = self._process_directory(Path(dirname))
+            if os.path.exists(dirname):
+                write_log(f"Updating directory: {dirname}", verbose=True)
+                process_code = self._process_directory(Path(dirname))
+            else:
+                write_log(f"Directory not found during update: {dirname}", "error.log")
+                self._directories.remove(dirname)
+                self._parent_directories.remove(dirname)
+                continue
             if process_code != SUCCESS:
                 return process_code
         return SUCCESS
@@ -327,11 +335,13 @@ class FileManager:
         if read.error:
             return "", read.error
         file_handler = init_files_handler(read.files_infos)
+        delete_count = 0
         for file_info in file_handler._files_metadata.values():
             for dup in file_info["duplicates"]:
                 try:
                     Path(dup).unlink()
                     write_log(f"Deleted duplicate file: {dup}", "delete.log", verbose=True)
+                    delete_count += 1
                 except OSError as e:
                     write_log(f"Error deleting file {dup}: {e}", "error.log")
                     return "", FILE_HANDLING_ERROR
@@ -344,4 +354,5 @@ class FileManager:
             write_log(f"Error copying database to current directory.", "error.log", verbose=True)
         if write.error != SUCCESS:
             return "", write.error
+        write_log(f"Deleted {delete_count} duplicate files successfully.", "result.log", verbose=True, append=False)  
         return "Duplicate files deleted successfully.", SUCCESS
