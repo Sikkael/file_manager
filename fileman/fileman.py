@@ -397,4 +397,4 @@ class FileManager:
             write_log(f"Error copying database to current directory.", "error.log", verbose=True)
         if write.error != SUCCESS:
             return "", write.error
-        return f"Directory {dir} removed successfully.", SUCCESS   
+        return f"Directory {_dir} removed successfully.", SUCCESS   

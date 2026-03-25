@@ -275,12 +275,7 @@ def remove_directory(
         print_dir_list(directories)
         dir_id = int(typer.prompt("Directory id to remove?"))
         
-    if (1 > dir_id or dir_id > len(directories)):
-        typer.secho(
-            f"Directory id {dir_id} does not exist. Please provide a valid directory id.",
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
+    
     dirname, result_code = file_manager.remove_dir_by_id(dir_id)
     if result_code:
         typer.secho(
