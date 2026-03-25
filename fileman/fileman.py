@@ -213,6 +213,23 @@ class FilesHandler:
         if process_code != SUCCESS:
             return "", process_code
         return _dir,SUCCESS
+    
+    def remove_dir_by_id(self, id: int) -> Tuple[str, int]:
+        """Remove a directory by its id."""
+        index = id - 1
+        if len(self._directories) == 0:
+            return "", EMPTY_DIR_LIST_ERROR
+        if index < 0 or index >= len(self._directories):
+            return "", DIR_NOT_FOUND_ERROR
+        _dir = self._directories[index]
+        _dict_2_del = {k:v for k,v in self._files_metadata.items() if v["parent"] == _dir}
+        for k in _dict_2_del.keys():
+            dest_file_path = ""
+            del self._files_metadata[k]
+        self._directories.remove(_dir)
+        if _dir in self._parent_directories:
+            self._parent_directories.remove(_dir)
+        return f"Directory {str(Path(_dir).name)} removed successfully.", SUCCESS
         
         
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
@@ -356,3 +373,25 @@ class FileManager:
             return "", write.error
         write_log(f"Deleted {delete_count} duplicate files successfully.", "result.log", verbose=True, append=False)  
         return "Duplicate files deleted successfully.", SUCCESS
+    
+    def remove_dir_by_id(self, id: int) -> Tuple[str, int]:
+        """Remove a directory by its id."""
+        read = self._db_handler.read_file_data()
+        if read.error:
+            return "", read.error
+        file_handler = init_files_handler(read.files_infos)
+        index = id - 1
+        if len(file_handler._directories) == 0:
+            return "", EMPTY_DIR_LIST_ERROR
+        if index < 0 or index >= len(file_handler._directories):
+            return "", DIR_NOT_FOUND_ERROR
+        _dir = file_handler._directories[index]
+        file_handler._directories.remove(_dir)
+        if _dir in file_handler._parent_directories:
+            file_handler._parent_directories.remove(_dir)
+        write = self._db_handler.write_file_data(file_handler.to_dict())
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
+        if write.error != SUCCESS:
+            return "", write.error
+        return f"Directory {str(Path(_dir).name)} removed successfully.", SUCCESS   

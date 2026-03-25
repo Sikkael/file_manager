@@ -250,3 +250,42 @@ def remove_duplicates() -> None:
         )
     else:
         typer.secho(message, fg=typer.colors.GREEN)
+        
+@app.command(name="remove-dir")
+def remove_directory(
+    dir_id: int = typer.Option(
+        -4679,
+        "--dir-id",
+        "-id",
+        help="Remove files from directory with specified id in destination directory."
+        "The directory will be removed from the database if the operation is successful."
+    )
+) -> None:
+    """Remove a specific directory from the database and the files corresponding to it from the destination directory."""
+    file_manager = get_file_manager()
+    directories, code = file_manager.get_dir_list()
+    if code:
+        typer.secho(
+            f'Failed to remove directory in list and files in destination directory with "{ERRORS[code]}"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    
+    if dir_id == -4679:
+        print_dir_list(directories)
+        dir_id = int(typer.prompt("Directory id to remove?"))
+        
+    if (1 > dir_id or dir_id > len(directories)):
+        typer.secho(
+            f"Directory id {dir_id} does not exist. Please provide a valid directory id.",
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    dirname, result_code = file_manager.remove_dir_by_id(dir_id)
+    if result_code:
+        typer.secho(
+            f'Removing failed with "{ERRORS[result_code]}"',
+            fg=typer.colors.RED,
+        )   
+    else:
+        typer.secho(f'Directory "{dirname}" removed successfully.', fg=typer.colors.GREEN)
