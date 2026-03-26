@@ -11,7 +11,7 @@ import time
 from typing import Any, Dict, List, NamedTuple, Tuple
 
 from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, EMPTY_DIR_LIST_ERROR, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
-from fileman.database import DatabaseHandler,__blank_file_infos__
+from fileman.database import DatabaseHandler,__blank_file_infos__, _blank_file_stats
 from fileman.hashfiles import compute_file_hash
 
 def get_destination_path(config_file: Path) -> Path:
@@ -166,6 +166,17 @@ class FilesHandler:
                 return process_code
         return SUCCESS
     
+    def _refresh_stats(self) -> None:
+        """Refresh the statistics after processing files."""
+        self._files_stats = _blank_file_stats
+        self._files_stats["total_files"] = len(self._files_metadata)
+        for k in self._files_metadata.keys():
+              self._files_stats["total_size"]+= self._files_metadata[k]["size"]
+              self._files_stats["biggest_file"], 
+              self._files_stats["biggest_file_size"] = (self._files_metadata[k]["file_path"], 
+              self._files_metadata[k]["size"]) if self._files_metadata[k]["size"] > self._files_stats["biggest_file_size"] else (self._files_stats["biggest_file"], 
+              self._files_stats["biggest_file_size"])
+        
     def _update_stats(self, data:Dict[str, Any]) -> None:
         
         self._files_stats["total_size"] += data["size"]
@@ -223,19 +234,28 @@ class FilesHandler:
             return "", DIR_NOT_FOUND_ERROR
         _dir = self._directories[index]
         _dict_2_del = {k:v for k,v in self._files_metadata.items() if v["parent"] == _dir}
+        delete_count = 0
         for k in _dict_2_del.keys():
-            dest_file_path = Path(self._files_metadata[k]["file_path"].replace(str(Path(self._files_metadata[k]["parent"])), f"{self._files_metadata[k]["ext"]}/{str(self._destination_path)}"))
+            dest_file_path = Path(self._files_metadata[k]["file_path"].replace(str(Path(self._files_metadata[k]["parent"])), 
+                                  f"{str(self._destination_path)}/{self._files_metadata[k]['ext']}"))
             if dest_file_path.exists():
                 try:
                     dest_file_path.unlink()
+                    del self._files_metadata[k]
                     write_log(f"Deleted file: {dest_file_path}", "delete.log", verbose=True)
+                    delete_count += 1
                 except OSError as e:
                     write_log(f"Error deleting file {dest_file_path}: {e}", "error.log")
                     return "", FILE_HANDLING_ERROR
-            del self._files_metadata[k]
+            else:
+                write_log(f"File not found during deletion: {dest_file_path}", "error.log")
+                
         self._directories.remove(_dir)
         if _dir in self._parent_directories:
             self._parent_directories.remove(_dir)
+        mess = f"Directory {_dir} and its files removed successfully. \
+        \nTotal files deleted: {delete_count}"
+        write_log(mess, "result.log", verbose=True, append=False)  
         return _dir, SUCCESS
         
         

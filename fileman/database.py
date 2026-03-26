@@ -15,7 +15,7 @@ DEFAULT_DB_FILE_PATH = Path.home().joinpath(
     "." + Path.home().stem + "_fileman.json"
 )
 
-_file_stats = {
+_blank_file_stats = {
     "total_files": 0, 
     "total_size": 0, 
     "biggest_file":"",
@@ -39,7 +39,7 @@ __blank_file_infos__ = {
     "latest_index": 0,
     "parent_directories": [],
     "directories": [],
-    "files_stats": _file_stats,
+    "files_stats": _blank_file_stats,
     "files_metadata": {}
 }
 
