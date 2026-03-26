@@ -114,6 +114,7 @@ class FilesHandler:
                         "modified": time.ctime(os.path.getmtime(file_path)),
                         "hash": h,
                         "name": _destination_path.name,
+                        "destination_path": str(_destination_path),
                         "ext": file_path.suffix,
                         "duplicates": []
                         }
@@ -236,8 +237,7 @@ class FilesHandler:
         _dict_2_del = {k:v for k,v in self._files_metadata.items() if v["parent"] == _dir}
         delete_count = 0
         for k in _dict_2_del.keys():
-            dest_file_path = Path(self._files_metadata[k]["file_path"].replace(str(Path(self._files_metadata[k]["parent"])), 
-                                  f"{str(self._destination_path)}/{self._files_metadata[k]['ext']}"))
+            dest_file_path = Path(self._files_metadata[k]["destination_path"])
             if dest_file_path.exists():
                 try:
                     dest_file_path.unlink()
