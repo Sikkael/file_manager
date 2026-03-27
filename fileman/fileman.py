@@ -12,6 +12,7 @@ from typing import Any, Dict, List, NamedTuple, Tuple
 
 from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, EMPTY_DIR_LIST_ERROR, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
 from fileman.database import DatabaseHandler,__blank_file_infos__, _blank_file_stats
+from fileman.files_stats import FilesStats
 from fileman.hashfiles import compute_file_hash
 
 def get_destination_path(config_file: Path) -> Path:
@@ -53,7 +54,7 @@ def init_dest_dir(dest_path: Path) -> int:
 
 class FilesHandler:
     
-    def __init__(self,latest_index,directories:List,parent_directories:List, files_stats:Dict[str, Any], files_metadata:Dict[str, Any]):
+    def __init__(self,latest_index,directories:List,parent_directories:List, files_stats:FilesStats, files_metadata:Dict[str, Any]):
         self._latest_index = latest_index
         self._directories = directories
         self._parent_directories = parent_directories
@@ -66,7 +67,7 @@ class FilesHandler:
             "latest_index": self._latest_index,
             "directories": self._directories,
             "parent_directories": self._parent_directories,
-            "files_stats": self._files_stats,
+            "files_stats": self._files_stats.to_dict(),
             "files_metadata": self._files_metadata
         }
     
@@ -128,17 +129,16 @@ class FilesHandler:
                     except FILE_PROCESSING_ERRORS as e:
                         write_log(f"Error copying file {file_path}: {e}", "error.log")
                         return FILE_HANDLING_ERROR
-                    self._update_stats(self._files_metadata[h])
+                    
                     
                 else:
                     dup_count += 1
                     write_log(f"Duplicate found: {file_path} and {self._files_metadata[h]['file_path']} have the same hash {h}", "dup.log", verbose=True)
                     if str(file_path) not in self._files_metadata[h]["duplicates"] and self._files_metadata[h]["file_path"] != str(file_path):
                        self._files_metadata[h]["duplicates"].append(str(file_path))
-                       self._files_stats["duplicate_files_count"] += 1
-                       self._update_stats(self._files_metadata[h])
                        
-        self._final_stats()
+                       
+        self._refresh_stats()
         write_log(f"Finished processing directory {dirname}. \nTotal files: {count} \nCopied: {copy_count} \nDuplicates: {dup_count}", "result.log", append=False)
         return SUCCESS       
         
@@ -169,45 +169,28 @@ class FilesHandler:
     
     def _refresh_stats(self) -> None:
         """Refresh the statistics after processing files."""
-        self._files_stats = _blank_file_stats
-        self._files_stats["total_files"] = len(self._files_metadata)
+        self._files_stats = FilesStats()
+        self._files_stats.total_files = len(self._files_metadata)
         for k in self._files_metadata.keys():
-              self._files_stats["total_size"]+= self._files_metadata[k]["size"]
-              self._files_stats["biggest_file"], 
-              self._files_stats["biggest_file_size"] = (self._files_metadata[k]["file_path"], 
-              self._files_metadata[k]["size"]) if self._files_metadata[k]["size"] > self._files_stats["biggest_file_size"] else (self._files_stats["biggest_file"], 
-              self._files_stats["biggest_file_size"])
-        
-    def _update_stats(self, data:Dict[str, Any]) -> None:
-        
-        self._files_stats["total_size"] += data["size"]
-        if data["size"] > self._files_stats["biggest_file_size"]:
-            self._files_stats["biggest_file_size"] = data["size"]
-            self._files_stats["biggest_file"] = data["file_path"]
-        if data["size"] < self._files_stats["smallest_file_size"]:
-            self._files_stats["smallest_file_size"] = data["size"]
-            self._files_stats["smallest_file"] = data["file_path"]
-        if (convert_2_datetime(data["created"])) < (convert_2_datetime(self._files_stats["oldest_file_date"])):
-            self._files_stats["oldest_file_date"] = data["created"]
-            self._files_stats["oldest_file"] = data["file_path"]
-        if (convert_2_datetime(data["created"])) > (convert_2_datetime(self._files_stats["newest_file_date"])):
-            self._files_stats["newest_file_date"] = data["created"]
-            self._files_stats["newest_file"] = data["file_path"]
-        if len(data["duplicates"]) > self._files_stats["highest_file_duplication_count"]:
-            self._files_stats["highest_file_duplication_count"] = len(data["duplicates"])
-            self._files_stats["most_duplicated_file"] = data["file_path"]
-        if data['ext'] not in self._files_stats['extensions']:
-            self._files_stats['extensions'][data['ext']] = 1
-        else:
-            self._files_stats['extensions'][data['ext']] += 1
-    
-                
-    def _final_stats(self) -> None:
-        """Calculate final statistics after processing all files."""
-        self._files_stats["total_files"] = len(self._files_metadata)
-        if self._files_stats["total_files"] > 0:
-            self._files_stats["average_file_size"] = self._files_stats["total_size"]//self._files_stats["total_files"]
-        
+              self._files_stats.total_size += self._files_metadata[k]["size"]
+              if self._files_metadata[k]["size"] > self._files_stats.biggest_file_size:
+                    self._files_stats.biggest_file_size = self._files_metadata[k]["size"]
+                    self._files_stats.biggest_file = self._files_metadata[k]["file_path"]
+              if self._files_metadata[k]["size"] < self._files_stats.smallest_file_size:
+                    self._files_stats.smallest_file_size = self._files_metadata[k]["size"]
+                    self._files_stats.smallest_file = self._files_metadata[k]["file_path"]
+              if (convert_2_datetime(self._files_metadata[k]["created"])) < (convert_2_datetime(self._files_stats.oldest_file_date)):
+                    self._files_stats.oldest_file_date = self._files_metadata[k]["created"]
+                    self._files_stats.oldest_file = self._files_metadata[k]["file_path"]
+              if (convert_2_datetime(self._files_metadata[k]["created"])) > (convert_2_datetime(self._files_stats.newest_file_date)):
+                    self._files_stats.newest_file_date = self._files_metadata[k]["created"]
+                    self._files_stats.newest_file = self._files_metadata[k]["file_path"]
+              if len(self._files_metadata[k]["duplicates"]) > self._files_stats.highest_file_duplication_count:
+                    self._files_stats.highest_file_duplication_count = len(self._files_metadata[k]["duplicates"])
+                    self._files_stats.most_duplicated_file = self._files_metadata[k]["file_path"]
+              self._files_stats.exts = self._files_metadata[k]["ext"]
+        self._files_stats.average_file_size = self._files_stats.total_size//self._files_stats.total_files if self._files_stats.total_files > 0 else 0
+  
     def get_directories(self) -> List[str]:
         """Return the list of directories in the database."""
         return self._directories
@@ -251,6 +234,7 @@ class FilesHandler:
                 write_log(f"File not found during deletion: {dest_file_path}", "error.log")
                 
         self._directories.remove(_dir)
+        self._refresh_stats()
         if _dir in self._parent_directories:
             self._parent_directories.remove(_dir)
         mess = f"Directory {_dir} and its files removed successfully. \

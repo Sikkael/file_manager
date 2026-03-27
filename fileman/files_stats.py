@@ -201,9 +201,16 @@ class FilesStats:
             raise ValueError("most_duplicated_file must be a string")
         self._most_duplicated_file = value
 
-files_stats = FilesStats()
-
-num = int(input("Enter the number: "))
-files_stats.total_files = num
-
-print(files_stats.to_dict())
+    @property
+    def exts(self):
+        return self._exts
+    
+    @exts.setter
+    def exts(self, value):
+        if not isinstance(value, str):
+            raise ValueError("exts must be a string")
+        if value not in self._exts:
+            self._exts[value] = 1
+        else:
+            self._exts[value] += 1
+        
