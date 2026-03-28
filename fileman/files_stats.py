@@ -68,8 +68,7 @@ class FilesStats:
     def total_files(self, value):
         if not isinstance(value, int):
             raise ValueError("total_files must be an integer")
-        val = value if value%2 == 0 else 0
-        self._total_files = val
+        self._total_files = value
         
     @property
     def total_size(self):

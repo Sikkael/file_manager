@@ -284,3 +284,48 @@ def remove_directory(
         )   
     else:
         typer.secho(f'Directory "{dirname}" removed successfully.', fg=typer.colors.GREEN)
+        
+@app.command(name="get-stats")
+def get_stats() -> None:
+    """Get statistics about the files in the destination directory."""
+    file_manager = get_file_manager()
+    stats, code = file_manager.get_stats()
+    if code:
+        typer.secho(
+            f'Getting stats failed with "{ERRORS[code]}"',
+            fg=typer.colors.RED,
+        )   
+    else:
+        
+        typer.secho(f"{stats}", fg=typer.colors.GREEN)
+        
+@app.command(name="get-duplicates")
+def get_duplicates() -> None:
+    """Get the list of duplicate files in the destination directory."""
+    file_manager = get_file_manager()
+    duplicates, code = file_manager.get_duplicates()
+    if code:
+        typer.secho(
+            f'Getting duplicates failed with "{ERRORS[code]}"',
+            fg=typer.colors.RED,
+        )   
+    else:
+        if not duplicates:
+            typer.secho("No duplicate files found.", fg=typer.colors.GREEN)
+        else:
+            typer.secho("Duplicate files:", fg=typer.colors.GREEN, bold=True)
+            for dup in duplicates:
+                typer.secho(dup, fg=typer.colors.GREEN)
+                
+@app.command(name="up-stats")
+def update_stats() -> None:
+    """Update the statistics about the files in the destination directory."""
+    file_manager = get_file_manager()
+    message, code = file_manager.update_stats()
+    if code:
+        typer.secho(
+            f'Updating stats failed with "{ERRORS[code]}"',
+            fg=typer.colors.RED,
+        )   
+    else:
+        typer.secho(message, fg=typer.colors.GREEN)

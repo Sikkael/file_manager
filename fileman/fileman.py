@@ -167,6 +167,22 @@ class FilesHandler:
                 return process_code
         return SUCCESS
     
+    def _set_stats_values(self):
+        self._files_stats.total_files = len(self._files_metadata)
+        self._files_stats.total_size = sum([self._files_metadata[k]["size"] 
+                                       for k in self._files_metadata.keys()])
+        self._files_stats.average_file_size = self._files_stats.total_size//self._files_stats.total_files
+        self._files_stats.biggest_file_size = max([self._files_metadata[k]["size"] for k in self._files_metadata.keys()])
+        self._files_stats.biggest_file = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
+        self._files_stats.smallest_file_size = min([self._files_metadata[k]["size"] for k in self._files_metadata.keys()])
+        self._files_stats.smallest_file = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
+        self._files_stats.oldest_file_date = min([convert_2_datetime(self._files_metadata[k]["created"]) for k in self._files_metadata.keys()])
+        self._files_stats.newest_file_date = max([convert_2_datetime(self._files_metadata[k]["created"]) for k in self._files_metadata.keys()])
+        self._files_stats.duplicate_files_count = sum([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()])
+        self._files_stats.highest_file_duplication_count = max([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()])
+        self._files_stats.most_duplicated_file = max(self._files_metadata.keys(), key=lambda k: len(self._files_metadata[k]["duplicates"])) if self._files_metadata else ""
+        self._files_stats.exts = list(set([self._files_metadata[k]["ext"] for k in self._files_metadata.keys()]))
+    
     def _refresh_stats(self) -> None:
         """Refresh the statistics after processing files."""
         self._files_stats = FilesStats()
@@ -185,6 +201,7 @@ class FilesHandler:
               if (convert_2_datetime(self._files_metadata[k]["created"])) > (convert_2_datetime(self._files_stats.newest_file_date)):
                     self._files_stats.newest_file_date = self._files_metadata[k]["created"]
                     self._files_stats.newest_file = self._files_metadata[k]["file_path"]
+              self._files_stats.duplicate_files_count += len(self._files_metadata[k]["duplicates"])
               if len(self._files_metadata[k]["duplicates"]) > self._files_stats.highest_file_duplication_count:
                     self._files_stats.highest_file_duplication_count = len(self._files_metadata[k]["duplicates"])
                     self._files_stats.most_duplicated_file = self._files_metadata[k]["file_path"]
@@ -373,9 +390,8 @@ class FileManager:
                     write_log(f"Error deleting file {dup}: {e}", "error.log")
                     return "", FILE_HANDLING_ERROR
             file_info["duplicates"] = []
-        file_handler._files_stats["duplicate_files_count"] = 0
-        file_handler._files_stats["highest_file_duplication_count"] = 0
-        file_handler._files_stats["most_duplicated_file"] = ""
+        file_handler._refresh_stats()
+        
         write = self._db_handler.write_file_data(file_handler.to_dict())
         if self._db_handler.copy_database() != SUCCESS:
             write_log(f"Error copying database to current directory.", "error.log", verbose=True)
@@ -402,3 +418,37 @@ class FileManager:
         if write.error != SUCCESS:
             return "", write.error
         return f"Directory {_dir} removed successfully.", SUCCESS   
+    
+    def get_stats(self) -> Tuple[Dict[str, Any], int]:
+        """Get the statistics of the files in the database."""
+        read = self._db_handler.read_file_data()
+        if read.error:
+            return {}, read.error
+        file_handler = init_files_handler(read.files_infos)
+        file_handler._refresh_stats()
+        write = self._db_handler.write_file_data(file_handler.to_dict())
+        if write.error != SUCCESS:
+            return "", write.error
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
+        if write.error != SUCCESS:
+            return "", write.error
+        return file_handler.to_dict(), SUCCESS
+    
+    def update_stats(self) -> Tuple[Dict[str,Any], int]:
+        """Update the statistics of the files in the database."""
+        read = self._db_handler.read_file_data()
+        if read.error:
+            return {}, read.error
+        file_handler = init_files_handler(read.files_infos)
+        file_handler._set_stats_values()
+        write = {},SUCCESS
+        #write = self._db_handler.write_file_data(file_handler.to_dict())
+        if write[1]!= SUCCESS:
+            return {}, write.error
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
+        if write.error != SUCCESS:
+            return {}, write.error
+        return file_handler.to_dict(), SUCCESS
+         
