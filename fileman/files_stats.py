@@ -217,64 +217,60 @@ class StatsManager:
         self._files_stats = FilesStats()
         
         
-    def _refresh_stats(self) -> None:
+    def refresh_stats(self) -> None:
+        self._set_total_files()
+        self._set_total_size()
+        self._set_biggest_file()
+        self._set_smallest_file()
+        self._set_average_file_size()
+        self._set_oldest_file()
+        self._set_newest_file()
+        self._set_duplicate_files_count()
+        self._set_highest_file_duplication_count()
+        self._set_most_duplicated_file()
+        self._set_exts()
+        return self._files_stats
+    
+    def get_stats(self) -> FilesStats:
+        return self._files_stats
         
-        self._files_stats.total_size = sum([self._files_metadata[k]["size"] 
-                                        for k in self._files_metadata.keys()])
-        _biggest_file_key_ = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
-        self._files_stats.biggest_file = self._files_metadata[_biggest_file_key_]["file_path"] if _biggest_file_key_ else ""
-        self._files_stats.biggest_file_size = self._files_metadata[_biggest_file_key_]["size"] if _biggest_file_key_ else 0
-        _smallest_file_key_ = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
-        self._files_stats.smallest_file = self._files_metadata[_smallest_file_key_]["file_path"] if _smallest_file_key_ else ""
-        self._files_stats.smallest_file_size = self._files_metadata[_smallest_file_key_]["size"] if _smallest_file_key_ else 0
-        self._files_stats.average_file_size = self._files_stats.total_size // self._files_stats.total_files if self._files_stats.total_files > 0 else 0
-        _oldest_file_key_ = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["created"]) if self._files_metadata else ""
-        self._files_stats.oldest_file = self._files_metadata[_oldest_file_key_]["file_path"] if _oldest_file_key_ else ""
-        self._files_stats.oldest_file_date = self._files_metadata[_oldest_file_key_]["date"] if _oldest_file_key_ else "Mon Feb  8 03:44:42 2100"
-        _newest_file_key_ = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["created"]) if self._files_metadata else ""
-        self._files_stats.newest_file = self._files_metadata[_newest_file_key_]["file_path"] if _newest_file_key_ else ""
-        self._files_stats.newest_file_date = self._files_metadata[_newest_file_key_]["created"] if _newest_file_key_ else "Mon Feb 3 03:44:42 1902"
-        self._files_stats.duplicate_files_count = sum([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()])
-        self._files_stats.highest_file_duplication_count = max([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()]) if self._files_metadata else 0
-        self._files_stats.most_duplicated_file = self._files_metadata[max(self._files_metadata.keys(), key=lambda k: len(self._files_metadata[k]["duplicates"]))]["file_path"] if self._files_metadata else ""
-        
-    def set_total_files(self) -> None:
+    def _set_total_files(self) -> None:
         self._files_stats.total_files = len(self._files_metadata)
         
-    def set_total_size(self) -> None:
+    def _set_total_size(self) -> None:
         self._files_stats.total_size = sum([self._files_metadata[k]["size"] 
                                         for k in self._files_metadata.keys()])
-    def set_biggest_file(self) -> None:
+    def _set_biggest_file(self) -> None:
         _biggest_file_key_ = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
         self._files_stats.biggest_file = self._files_metadata[_biggest_file_key_]["file_path"] if _biggest_file_key_ else ""
         self._files_stats.biggest_file_size = self._files_metadata[_biggest_file_key_]["size"] if _biggest_file_key_ else 0
     
-    def set_smallest_file(self) -> None:    
+    def _set_smallest_file(self) -> None:    
         _smallest_file_key_ = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
         self._files_stats.smallest_file = self._files_metadata[_smallest_file_key_]["file_path"] if _smallest_file_key_ else ""
         self._files_stats.smallest_file_size = self._files_metadata[_smallest_file_key_]["size"] if _smallest_file_key_ else 0  
    
-    def set_average_file_size(self) -> None:
+    def _set_average_file_size(self) -> None:
          self._files_stats.average_file_size = self._files_stats.total_size // self._files_stats.total_files if self._files_stats.total_files > 0 else 0
    
-    def set_oldest_file(self) -> None:
-        _oldest_file_key_ = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["date"]) if self._files_metadata else ""
+    def _set_oldest_file(self) -> None:
+        _oldest_file_key_ = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["created"]) if self._files_metadata else ""
         self._files_stats.oldest_file = self._files_metadata[_oldest_file_key_]["file_path"] if _oldest_file_key_ else ""
-        self._files_stats.oldest_file_date = self._files_metadata[_oldest_file_key_]["date"] if _oldest_file_key_ else "Mon Feb  8 03:44:42 2100"
+        self._files_stats.oldest_file_date = self._files_metadata[_oldest_file_key_]["created"] if _oldest_file_key_ else "Mon Feb  8 03:44:42 2100"
    
-    def set_newest_file(self) -> None:        
-        _newest_file_key_ = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["date"]) if self._files_metadata else ""
+    def _set_newest_file(self) -> None:        
+        _newest_file_key_ = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["created"]) if self._files_metadata else ""
         self._files_stats.newest_file = self._files_metadata[_newest_file_key_]["file_path"] if _newest_file_key_ else ""
-        self._files_stats.newest_file_date = self._files_metadata[_newest_file_key_]["date"] if _newest_file_key_ else "Mon Feb 3 03:44:42 1902"        
+        self._files_stats.newest_file_date = self._files_metadata[_newest_file_key_]["created"] if _newest_file_key_ else "Mon Feb 3 03:44:42 1902"        
         
-    def set_duplicate_files_count(self) -> None:
+    def _set_duplicate_files_count(self) -> None:
         self._files_stats.duplicate_files_count = sum([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()])
         
-    def set_highest_file_duplication_count(self) -> None:
+    def _set_highest_file_duplication_count(self) -> None:
         self._files_stats.highest_file_duplication_count = max([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()]) if self._files_metadata else 0    
     
-    def set_most_duplicated_file(self) -> None:
+    def _set_most_duplicated_file(self) -> None:
         self._files_stats.most_duplicated_file = self._files_metadata[max(self._files_metadata.keys(), key=lambda k: len(self._files_metadata[k]["duplicates"]))]["file_path"] if self._files_metadata else ""
             
-    def set_exts(self) -> None:
+    def _set_exts(self) -> None:
         self._files_stats.exts = dict(Counter({k:self._files_metadata[k]["ext"] for k in self._files_metadata}.values()))  
