@@ -10,7 +10,7 @@ import sys
 import time
 from typing import Any, Dict, List, NamedTuple, Tuple
 
-from fileman import DB_READ_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, EMPTY_DIR_LIST_ERROR, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
+from fileman import DB_READ_ERROR, DB_WRITE_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, EMPTY_DIR_LIST_ERROR, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
 from fileman.database import DatabaseHandler,__blank_file_infos__, _blank_file_stats
 from fileman.files_stats import FilesStats
 from fileman.hashfiles import compute_file_hash
@@ -172,16 +172,12 @@ class FilesHandler:
         self._files_stats.total_size = sum([self._files_metadata[k]["size"] 
                                        for k in self._files_metadata.keys()])
         self._files_stats.average_file_size = self._files_stats.total_size//self._files_stats.total_files
-        self._files_stats.biggest_file_size = max([self._files_metadata[k]["size"] for k in self._files_metadata.keys()])
-        self._files_stats.biggest_file = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
-        self._files_stats.smallest_file_size = min([self._files_metadata[k]["size"] for k in self._files_metadata.keys()])
-        self._files_stats.smallest_file = min(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
-        self._files_stats.oldest_file_date = min([convert_2_datetime(self._files_metadata[k]["created"]) for k in self._files_metadata.keys()])
-        self._files_stats.newest_file_date = max([convert_2_datetime(self._files_metadata[k]["created"]) for k in self._files_metadata.keys()])
-        self._files_stats.duplicate_files_count = sum([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()])
-        self._files_stats.highest_file_duplication_count = max([len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()])
-        self._files_stats.most_duplicated_file = max(self._files_metadata.keys(), key=lambda k: len(self._files_metadata[k]["duplicates"])) if self._files_metadata else ""
-        self._files_stats.exts = list(set([self._files_metadata[k]["ext"] for k in self._files_metadata.keys()]))
+        
+        _biggest_file_ = max(self._files_metadata.keys(), key=lambda k: self._files_metadata[k]["size"]) if self._files_metadata else ""
+        self._files_stats.biggest_file_size = self._files_metadata[_biggest_file_]["size"] if _biggest_file_ else 0
+        self._files_stats.biggest_file = self._files_metadata[_biggest_file_]["file_path"] if _biggest_file_ else ""
+        
+       
     
     def _refresh_stats(self) -> None:
         """Refresh the statistics after processing files."""
@@ -259,12 +255,25 @@ class FilesHandler:
         write_log(mess, "result.log", verbose=True, append=False)  
         return _dir, SUCCESS
         
-        
+def init_files_stats(files_stats:Dict[str, Any]) -> FilesStats:
+    """Initialize the files stats."""
+    return FilesStats(files_stats["total_files"], files_stats["total_size"], files_stats["average_file_size"],
+                    files_stats["biggest_file_size"], files_stats["biggest_file"], files_stats["smallest_file_size"], 
+                    files_stats["smallest_file"], files_stats["oldest_file_date"], 
+                    files_stats["oldest_file"], files_stats["newest_file_date"], 
+                    files_stats["newest_file"], files_stats["duplicate_files_count"], 
+                    files_stats["highest_file_duplication_count"], 
+                    files_stats["most_duplicated_file"], 
+                    files_stats["exts"])    
+    
+
 def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
     """Initialize the files handler."""
+    """Initialize the files stats first."""
+    files_stats = init_files_stats(files_infos["files_stats"])
     return FilesHandler(latest_index=files_infos["latest_index"],directories=files_infos["directories"], 
                         parent_directories=files_infos["parent_directories"],
-                        files_stats= files_infos["files_stats"], 
+                        files_stats= files_stats, 
                         files_metadata=files_infos["files_metadata"])
 class CurrentDirectory(NamedTuple):
     dirname: str
@@ -435,7 +444,7 @@ class FileManager:
             return "", write.error
         return file_handler.to_dict(), SUCCESS
     
-    def update_stats(self) -> Tuple[Dict[str,Any], int]:
+    def update_stats(self) -> Tuple[str, int]:
         """Update the statistics of the files in the database."""
         read = self._db_handler.read_file_data()
         if read.error:
@@ -448,7 +457,6 @@ class FileManager:
             return {}, write.error
         if self._db_handler.copy_database() != SUCCESS:
             write_log(f"Error copying database to current directory.", "error.log", verbose=True)
-        if write.error != SUCCESS:
-            return {}, write.error
-        return file_handler.to_dict(), SUCCESS
+            return {}, DB_WRITE_ERROR   
+        return "Files stats updated successfully.", SUCCESS
          

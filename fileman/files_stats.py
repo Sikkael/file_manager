@@ -13,7 +13,7 @@ _blank_file_stats = {
     "smallest_file":"",
     "smallest_file_size":sys.maxsize,
     "average_file_size":0,
-    "extensions": {},
+    "exts": {},
     "oldest_file":"",
     "oldest_file_date":"Mon Feb  8 03:44:42 2100",
     "newest_file":"",
