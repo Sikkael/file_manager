@@ -280,8 +280,7 @@ class StatsManager:
         
     def _set_duplicate_files_(self) -> None:
         _duplicate_files = [len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()]
-        
-        
+    
         if _duplicate_files:
             self._files_stats.duplicate_files_count = sum(_duplicate_files)
             self._files_stats.highest_file_duplication_count = max(_duplicate_files)
