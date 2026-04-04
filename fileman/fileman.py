@@ -369,9 +369,10 @@ class FileManager:
         for file_info in file_handler._files_metadata.values():
             for dup in file_info["duplicates"]:
                 try:
-                    Path(dup).unlink()
-                    write_log(f"Deleted duplicate file: {dup}", "delete.log", verbose=True)
-                    delete_count += 1
+                    if Path(dup).exists():
+                       Path(dup).unlink()
+                       write_log(f"Deleted duplicate file: {dup}", "delete.log", verbose=True)
+                       delete_count += 1
                 except OSError as e:
                     write_log(f"Error deleting file {dup}: {e}", "error.log")
                     return "", FILE_HANDLING_ERROR
@@ -429,7 +430,7 @@ class FileManager:
         file_handler = init_files_handler(read.files_infos)
         file_handler._refresh_stats()
         write = {},SUCCESS
-        #write = self._db_handler.write_file_data(file_handler.to_dict())
+        write = self._db_handler.write_file_data(file_handler.to_dict())
         if write[1]!= SUCCESS:
             return {}, write.error
         if self._db_handler.copy_database() != SUCCESS:
