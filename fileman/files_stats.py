@@ -270,9 +270,14 @@ class StatsManager:
         _duplicate_files = [len(self._files_metadata[k]["duplicates"]) for k in self._files_metadata.keys()]
 
         self._files_stats.duplicate_files_count = sum(_duplicate_files)
+        
         self._files_stats.highest_file_duplication_count = max(_duplicate_files)
+        
         self._files_stats.most_duplicated_file = self._files_metadata[max(self._files_metadata.keys(), 
                                                  key=lambda
                                                  k: 
-                                                 len(self._files_metadata[k]["duplicates"]))]["file_path"] if self._files_stats.highest_file_duplication_count > 0 and _duplicate_files.count(self._files_stats.highest_file_duplication_count)==1 else ""
-       
+                                                 len(self._files_metadata[k]["duplicates"]))]["file_path"] \
+                                                 if self._files_stats.highest_file_duplication_count > 0 \
+                                                 and _duplicate_files.count(self._files_stats.highest_file_duplication_count)==1 else ""
+        
+        print(v for k, v in self._files_metadata.items() if len(v["duplicates"])==self._files_stats.highest_file_duplication_count)
