@@ -130,7 +130,6 @@ class FilesHandler:
                         write_log(f"Error copying file {file_path}: {e}", "error.log")
                         return FILE_HANDLING_ERROR
                     
-                    
                 else:
                     dup_count += 1
                     write_log(f"Duplicate found: {file_path} and {self._files_metadata[h]['file_path']} have the same hash {h}", "dup.log", verbose=True)
@@ -138,7 +137,7 @@ class FilesHandler:
                        self._files_metadata[h]["duplicates"].append(str(file_path))
                        
                        
-        self._refresh_stats()
+        self.refresh_stats()
         write_log(f"Finished processing directory {dirname}. \nTotal files: {count} \nCopied: {copy_count} \nDuplicates: {dup_count}", "result.log", append=False)
         return SUCCESS       
         
@@ -167,7 +166,7 @@ class FilesHandler:
                 return process_code
         return SUCCESS
     
-    def _refresh_stats(self):
+    def refresh_stats(self):
         stats_manager = StatsManager(self._files_metadata, self._directories)
         self._files_stats  = stats_manager.refresh_stats()
         
@@ -216,7 +215,7 @@ class FilesHandler:
                 write_log(f"File not found during deletion: {dest_file_path}", "error.log")
                 
         self._directories.remove(_dir)
-        self._refresh_stats()
+        self.refresh_stats()
         if _dir in self._parent_directories:
             self._parent_directories.remove(_dir)
         mess = f"Directory {_dir} and its files removed successfully. \
@@ -377,7 +376,7 @@ class FileManager:
                     write_log(f"Error deleting file {dup}: {e}", "error.log")
                     return "", FILE_HANDLING_ERROR
             file_info["duplicates"] = []
-        file_handler._refresh_stats()
+        file_handler.refresh_stats()
         
         write = self._db_handler.write_file_data(file_handler.to_dict())
         if self._db_handler.copy_database() != SUCCESS:
@@ -412,7 +411,7 @@ class FileManager:
         if read.error:
             return {}, read.error
         file_handler = init_files_handler(read.files_infos)
-        file_handler._refresh_stats()
+        file_handler.refresh_stats()
         write = self._db_handler.write_file_data(file_handler.to_dict())
         if write.error != SUCCESS:
             return "", write.error
@@ -428,7 +427,7 @@ class FileManager:
         if read.error:
             return {}, read.error
         file_handler = init_files_handler(read.files_infos)
-        file_handler._refresh_stats()
+        file_handler.refresh_stats()
         write = {},SUCCESS
         write = self._db_handler.write_file_data(file_handler.to_dict())
         if write[1]!= SUCCESS:
