@@ -41,15 +41,7 @@ def resolve_path(path: str, fname:Path) -> Path:
     
          
     
-def init_dest_dir(dest_path: Path) -> int:
-    """Initialize the destination directory."""
-    if dest_path.exists():
-       return DIR_EXIST_ERROR
-    try:
-        dest_path.mkdir(parents=True, exist_ok=True)
-        return SUCCESS
-    except OSError:
-        return DEST_DIR_ERROR
+
 
 
 class FilesHandler:
@@ -321,7 +313,7 @@ class FileManager:
         try:
             if dest_path.exists():
                 shutil.rmtree(dest_path)
-            init_dest_dir(dest_path)
+            config.init_dest_dir(dest_path)
             self._db_handler.write_file_data(__blank_file_infos__)
             self.clear_log()
             if self._db_handler.copy_database() != SUCCESS:

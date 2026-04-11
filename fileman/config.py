@@ -7,30 +7,43 @@ from pathlib import Path
 import typer
 
 from fileman import (
-    CONFIG_FILE_ERROR, DB_WRITE_ERROR, DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, FILE_ERROR, SUCCESS, __app__name__
+    CONFIG_FILE_ERROR, DB_WRITE_ERROR, DEST_DIR_ERROR, DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, FILE_ERROR, SUCCESS, __app__name__
 )
 
-from fileman.database import init_database
-from fileman.fileman import init_dest_dir
+from fileman.repositories import init_repos
+
+
 
 CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))
 CONFIG_FILE_PATH = CONFIG_DIR_PATH / "config.ini"
-DEFAULT_DEST_FOLDER_PATH = Path.home().joinpath(
+DEFAULT_APP_FOLDER_PATH = Path.home().joinpath(
     "." + Path.home().stem + "_fileman"
 )
 
+DB_FILENAME = "." + Path.home().stem + "_fileman.json"
 
-def init_app(db_path: str, dest_path:str) -> int:
+
+def init_app(app_folder_path: str) -> int:
     """Initialize the application."""
     config_code = _init_config_file()
     if config_code != SUCCESS:
         return config_code
-    ressource_code = _create_ressource(db_path,dest_path)
+    ressource_code = _create_ressource(app_folder_path)
     
     if ressource_code != SUCCESS:
         return ressource_code
     
     return SUCCESS
+
+def init_dest_dir(app_folder_path: Path) -> int:
+    """Initialize the destination directory."""
+    if app_folder_path.exists():
+       return DIR_EXIST_ERROR
+    try:
+        app_folder_path.mkdir(parents=True, exist_ok=True)
+        return SUCCESS
+    except OSError:
+        return DEST_DIR_ERROR
 
 def _init_config_file() -> int:
     try:
@@ -43,19 +56,18 @@ def _init_config_file() -> int:
         return FILE_ERROR
     return SUCCESS
 
-def _create_ressource(db_path: str, dest_path:str) -> int:
-   
-    if init_database(Path(db_path)) != SUCCESS:
-            return DB_WRITE_ERROR
-    if init_dest_dir(Path(dest_path)) != SUCCESS:
+def _create_ressource(app_folder_path: str) -> int:
+    
+    if init_dest_dir(Path(app_folder_path)) != SUCCESS:
         return DIR_EXIST_ERROR
+    db_path = Path(app_folder_path).joinpath(DB_FILENAME)
+    if init_repos(db_path) != SUCCESS:
+            return DB_WRITE_ERROR
+    
         
     config_parser = configparser.ConfigParser()
-    config_parser["General"] = {
-                                  "database": db_path, 
-                                  "dest_directory": dest_path,                            
-            
-                              }
+    config_parser["General"]["app_folder_path"] = str(app_folder_path)
+    config_parser["General"]["database"] = str(DB_FILENAME)
     try:
         with CONFIG_FILE_PATH.open("w") as file:
             config_parser.write(file)    

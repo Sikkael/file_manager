@@ -15,7 +15,6 @@ from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__
 app = typer.Typer()
 
 # TODO: Rendre la journalisaton des fichiers optionnelle lors de l'ajout d'un répertoire
-# TODO: Ajouter une commande pour supprimer un répertoire de la base de données
 # TODO: Rendre la jjournalisation plus performante (par lots)
 # TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
 
@@ -46,24 +45,17 @@ def _version_callback(value: bool) -> None:
 
 @app.command()
 def init(
-    db_path: str = typer.Option(
-        str(database.DEFAULT_DB_FILE_PATH),
-        "--db-path",
-        "-db",
-        prompt="fileman database location?",
-        help="Path to the fileman database file.",
     
-    ),
-    dest_path: str = typer.Option(
-        config.DEFAULT_DEST_FOLDER_PATH,
-        "--dest-path",
-        "-dp",
-        prompt="fileman destination dir location?",
-        help="Path to the destination dir.",)
+     app_folder_path: str = typer.Option(
+        config.DEFAULT_APP_FOLDER_PATH,
+        "--app-path",
+        "-ap",
+        prompt="fileman app dir location?",
+        help="Path to the app dir.",)
     
 ) -> None:
     """Initialize the fileman database."""
-    app_init_error = config.init_app(db_path,dest_path)
+    app_init_error = config.init_app(app_folder_path)
     if app_init_error:
         typer.secho(
             f'App initialisation failed with "{ERRORS[app_init_error]}"',
@@ -72,7 +64,7 @@ def init(
         raise typer.Exit(1)
     
     else:
-        typer.secho(f"The fileman database is {db_path}\nThe destination path is {dest_path}", fg=typer.colors.GREEN)
+        typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
         
             
 @app.command()

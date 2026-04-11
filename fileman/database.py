@@ -11,53 +11,13 @@ from typing import Any, Dict, List, NamedTuple
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
 
 
-DEFAULT_DB_FILE_PATH = Path.home().joinpath(
-    "." + Path.home().stem + "_fileman.json"
-)
-
-_blank_file_stats = {
-    "total_files": 0, 
-    "total_size": 0, 
-    "biggest_file":"",
-    "biggest_file_size":-sys.maxsize,
-    "smallest_file":"",
-    "smallest_file_size":sys.maxsize,
-    "average_file_size":0,
-    "exts": {},
-    "oldest_file":"",
-    "oldest_file_date":"Mon Feb  8 03:44:42 2100",
-    "newest_file":"",
-    "newest_file_date":"Mon Feb 3 03:44:42 1902",
-    "duplicate_files_count":0,
-    "highest_file_duplication_count":0,
-    "most_duplicated_file":""
-
-    }
-
-__blank_file_infos__ = {
-    "version": "1.0",
-    "latest_index": 0,
-    "parent_directories": [],
-    "directories": [],
-    "files_stats": _blank_file_stats,
-    "files_metadata": {}
-}
-
 def get_database_path(config_file: Path) -> Path:
     """Return the current path to the database."""
     config_parser = configparser.ConfigParser()
     config_parser.read(config_file)
     return Path(config_parser["General"]["database"])
 
-def init_database(db_path: Path) -> int:
-    """Create the database.""" 
-    try:
-        with db_path.open("w") as db:
-           json.dump(__blank_file_infos__, db, indent=4)
-        return SUCCESS
-    except OSError:
-        return DB_WRITE_ERROR
-    
+
 class DBResponse(NamedTuple):
     files_infos: Dict[str, Any]
     error: int
