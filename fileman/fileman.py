@@ -12,22 +12,12 @@ from typing import Any, Counter, Dict, List, NamedTuple, Tuple
 
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, DEST_DIR_ERROR,  DIR_NOT_FOUND_ERROR, DIR_EXIST_ERROR, DUPLICATE, EMPTY_DIR_LIST_ERROR, FILE_HANDLING_ERROR, FILE_PROCESSING_ERRORS, JSON_ERROR, NEW, SUCCESS, DIR_ALREADY_ADDED_ERROR, config
 from fileman.database import DatabaseHandler,__blank_file_infos__, _blank_file_stats
+from fileman.directories import CurrentDirectory
 from fileman.files_stats import FilesStats, StatsManager    
 from fileman.hashfiles import compute_file_hash
+from fileman.logger import write_log
+from fileman.repositories import get_destination_path
 
-def get_destination_path(config_file: Path) -> Path:
-    """Return the current path to the dest_directory."""
-    config_parser = configparser.ConfigParser()
-    config_parser.read(config_file)
-    return Path(config_parser["General"]["dest_directory"])
-
-def write_log(message: str, log_file:str ="process.log", verbose:bool=False
-              , append:bool=True)-> None:
-    mode = 'a' if append else 'w'
-    with open(log_file, mode) as log:
-        log.write(message + "\n")
-        if verbose:
-            print(message)
 
 def str_2_datetime(timestamp:str)->datetime:
     return datetime.datetime.strptime(timestamp, "%a %b %d %H:%M:%S %Y")
@@ -235,9 +225,7 @@ def init_files_handler(files_infos:Dict[str, Any]) -> FilesHandler:
                         parent_directories=files_infos["parent_directories"],
                         files_stats= files_stats, 
                         files_metadata=files_infos["files_metadata"])
-class CurrentDirectory(NamedTuple):
-    dirname: str
-    error: int
+
 
 
 class FileManager:

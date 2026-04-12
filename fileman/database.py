@@ -25,7 +25,7 @@ class DBResponse(NamedTuple):
 class DatabaseHandler:
     def __init__(self, db_path: Path) -> None:
         self._db_path = db_path
-
+    
     def read_file_data(self) -> DBResponse:
         try:
             with self._db_path.open("r") as db:
@@ -51,4 +51,5 @@ class DatabaseHandler:
         except OSError:  # Catch file IO problems
             return DB_READ_ERROR
         
-        
+    def get_database_path(self) -> Path:
+        return self._db_path

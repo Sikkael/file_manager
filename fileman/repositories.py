@@ -1,12 +1,18 @@
 
 
 
+import configparser
 from pathlib import Path
 import sys
+from typing import Any, Dict, List
 
-from fileman import DB_WRITE_ERROR, SUCCESS
+from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
 from fileman.database import DatabaseHandler
-from fileman.irepository import AbstractRepository
+from fileman.abstract_repository import AbstractRepository
+from fileman.directories import CurrentDirectory
+from fileman.files_stats import FilesStats
+from fileman.logger import write_log
+
 
 _blank_file_stats = {
     "total_files": 0, 
@@ -37,13 +43,12 @@ __blank_file_infos__ = {
 }
 
 
-
 def init_repos(db_path: Path) -> int:
     """Create the repository.""" 
     try:
         db_handler = DatabaseHandler(db_path)
         repository = Repository(db_handler)
-        repository.add(__blank_file_infos__)
+        repository.init()
         return SUCCESS
     except OSError:
         return DB_WRITE_ERROR
@@ -51,12 +56,49 @@ def init_repos(db_path: Path) -> int:
     
 class Repository(AbstractRepository):
     
-    def __init__(self, db_handler):
+    def __init__(self,db_handler: DatabaseHandler,latest_index:int,directories:List, 
+                 parent_directories:List, files_stats:FilesStats, files_metadata:Dict[str, Any]):
         self._db_handler = db_handler
+        self._latest_index = latest_index
+        self._directories = directories
+        self._parent_directories = parent_directories
+        self._files_stats = files_stats
+        self._files_metadata = files_metadata
+        
     
-    def add(self, item):
+    def add(self, dirname: str) -> CurrentDirectory:
         # Implementation for adding a directory to the repository
-        pass
+        """Add a new directory to the database."""
+        _dir_path = Path(dirname)
+        if not _dir_path.exists():
+           
+           return DIR_NOT_FOUND_ERROR
+        
+        if dirname in self._directories:
+           return DIR_ALREADY_ADDED_ERROR
+        
+        self._directories.append(str(_dir_path))    
+           
+        _top_dirs_ = self._parent_directories
+        if len(_top_dirs_) == len([d for d in _top_dirs_ if not _dir_path.is_relative_to(d)]):
+            self._parent_directories = [d for d in _top_dirs_ if not Path(d).is_relative_to(_dir_path)]
+            self._parent_directories.append(str(_dir_path))
+    
+        write = self._db_handler.write_file_data({
+            "latest_index": self._latest_index,
+            "directories": self._directories,
+            "parent_directories": self._parent_directories,
+            "files_stats": self._files_stats.to_dict(),
+            "files_metadata": self._files_metadata
+        })
+        
+        if self._db_handler.copy_database() != SUCCESS:
+            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
+        if write.error != SUCCESS:
+            return CurrentDirectory("", write.error)
+        return CurrentDirectory(dirname, write.error)
+        
+        
     
     def get(self):
         # Implementation for retrieving directories from the repository
@@ -70,3 +112,6 @@ class Repository(AbstractRepository):
         # Implementation for deleting a directory from the repository
         pass
 
+    def init(self):
+        """Initialize the repository with blank data."""
+        self._db_handler.write_file_data(__blank_file_infos__)
