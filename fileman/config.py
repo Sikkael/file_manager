@@ -57,17 +57,17 @@ def _init_config_file() -> int:
     return SUCCESS
 
 def _create_ressource(app_folder_path: str) -> int:
-    
+    # creating application folder and database file
     if init_dest_dir(Path(app_folder_path)) != SUCCESS:
         return DIR_EXIST_ERROR
+    # database file is created in the application folder
     db_path = Path(app_folder_path).joinpath(DB_FILENAME)
     if init_repos(db_path) != SUCCESS:
             return DB_WRITE_ERROR
     
-        
+    # writing config file with the app folder path and database path
     config_parser = configparser.ConfigParser()
-    config_parser["General"]["app_folder_path"] = str(app_folder_path)
-    config_parser["General"]["database"] = str(DB_FILENAME)
+    config_parser["General"] = {"app_folder_path": app_folder_path, "database": str(db_path)}
     try:
         with CONFIG_FILE_PATH.open("w") as file:
             config_parser.write(file)    

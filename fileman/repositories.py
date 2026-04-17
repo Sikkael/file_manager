@@ -56,15 +56,8 @@ def init_repos(db_path: Path) -> int:
     
 class Repository(AbstractRepository):
     
-    def __init__(self,db_handler: DatabaseHandler,latest_index:int,directories:List, 
-                 parent_directories:List, files_stats:FilesStats, files_metadata:Dict[str, Any]):
+    def __init__(self,db_handler: DatabaseHandler) -> None:
         self._db_handler = db_handler
-        self._latest_index = latest_index
-        self._directories = directories
-        self._parent_directories = parent_directories
-        self._files_stats = files_stats
-        self._files_metadata = files_metadata
-        
     
     def add(self, dirname: str) -> CurrentDirectory:
         # Implementation for adding a directory to the repository
@@ -97,8 +90,6 @@ class Repository(AbstractRepository):
         if write.error != SUCCESS:
             return CurrentDirectory("", write.error)
         return CurrentDirectory(dirname, write.error)
-        
-        
     
     def get(self):
         # Implementation for retrieving directories from the repository
@@ -112,6 +103,9 @@ class Repository(AbstractRepository):
         # Implementation for deleting a directory from the repository
         pass
 
-    def init(self):
+    def init(self)-> int:
         """Initialize the repository with blank data."""
-        self._db_handler.write_file_data(__blank_file_infos__)
+        db_reponse = self._db_handler.write_file_data(__blank_file_infos__)
+        if db_reponse.error != SUCCESS:
+            return DB_WRITE_ERROR
+        return SUCCESS
