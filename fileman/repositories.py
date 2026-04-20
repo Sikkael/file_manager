@@ -62,6 +62,10 @@ class Repository(AbstractRepository):
     def add(self, dirname: str) -> CurrentDirectory:
         # Implementation for adding a directory to the repository
         """Add a new directory to the database."""
+        # Try to get dirname from database. If directory already
+        # in database, return DIR_ALREADY_ADDED_ERROR
+        # If directory does not exist, return DIR_NOT_FOUND_ERROR
+        
         _dir_path = Path(dirname)
         if not _dir_path.exists():
            
