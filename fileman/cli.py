@@ -1,5 +1,5 @@
 """This module provides the RP fileman CLI."""
-# rptodo/cli.py
+# fileman/cli.py
 
 import os
 from pathlib import Path
