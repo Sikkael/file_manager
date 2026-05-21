@@ -15,7 +15,7 @@ from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__
 app = typer.Typer()
 
 # TODO: Rendre la journalisaton des fichiers optionnelle lors de l'ajout d'un répertoire
-# TODO: Rendre la jjournalisation plus performante (par lots)
+# TODO: Rendre la journalisation plus performante (par lots)
 # TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
 
 
