@@ -1,16 +1,23 @@
+from abc import ABC, abstractmethod
+from fileman.abstract_model import AbstractModel
+from typing import Any
 
 
-class AbstractRepository:
+class AbstractRepository(ABC):
     
-    def add(self, model):
+    @abstractmethod
+    def add(self, model: AbstractModel)->AbstractModel:
+        raise NotImplementedError("Subclasses must implement this method.")
+
+    @abstractmethod
+    def get(self, item_id: Any) -> AbstractModel:
         raise NotImplementedError("Subclasses must implement this method.")
     
-    def get(self):
+    @abstractmethod
+    def update(self, item: AbstractModel)->AbstractModel:
         raise NotImplementedError("Subclasses must implement this method.")
     
-    def update(self, item):
-        raise NotImplementedError("Subclasses must implement this method.")
-    
-    def delete(self, item):
+    @abstractmethod
+    def delete(self, item: AbstractModel)->bool:
         raise NotImplementedError("Subclasses must implement this method.")
     

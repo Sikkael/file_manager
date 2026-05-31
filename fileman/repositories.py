@@ -7,6 +7,7 @@ import sys
 from typing import Any, Dict, List
 
 from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
+from fileman.abstract_model import AbstractModel
 from fileman.database import DatabaseHandler
 from fileman.abstract_repository import AbstractRepository
 from fileman.directories import CurrentDirectory
@@ -59,7 +60,7 @@ class Repository(AbstractRepository):
     def __init__(self,db_handler: DatabaseHandler) -> None:
         self._db_handler = db_handler
     
-    def add(self, dirname: str) -> CurrentDirectory:
+    def add(self, model: AbstractModel) -> AbstractModel:
         # Implementation for adding a directory to the repository
         """Add a new directory to the database."""
         # Try to get dirname from database. If directory already
@@ -95,17 +96,17 @@ class Repository(AbstractRepository):
             return CurrentDirectory("", write.error)
         return CurrentDirectory(dirname, write.error)
     
-    def get(self):
+    def get(self, item_id: Any) -> AbstractModel:
         # Implementation for retrieving directories from the repository
-        pass
+        return AbstractModel()
     
-    def update(self, item):
+    def update(self, item: AbstractModel) -> AbstractModel:
         # Implementation for updating a directory in the repository
-        pass
+        return AbstractModel()
     
-    def delete(self, item):
+    def delete(self, item: AbstractModel) -> bool:
         # Implementation for deleting a directory from the repository
-        pass
+        return False
 
     def init(self)-> int:
         """Initialize the repository with blank data."""
