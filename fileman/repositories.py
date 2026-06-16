@@ -7,7 +7,7 @@ import sys
 from typing import Any, Dict, List
 
 from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
-from fileman.abstract_model import AbstractModel
+from fileman.abstract_models import AbstractModel
 from fileman.database import DatabaseHandler
 from fileman.abstract_repository import AbstractRepository
 from fileman.directories import CurrentDirectory

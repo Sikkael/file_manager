@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-class AbstractModel:
+
+class AbstractModel(ABC):
     """Abstract model for the fileman application."""
     
     @abstractmethod
