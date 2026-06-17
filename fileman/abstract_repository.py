@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from fileman.abstract_models import AbstractModel
+from fileman.models import AbstractModel
 from typing import Any
 
 
