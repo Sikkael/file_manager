@@ -21,5 +21,10 @@ class BaseModel:
         
         return data_dict
     
+class CurrentDirectory(BaseModel):
+    dirname: str
+    files: list = []
+    stats: dict = {}
+    error: int = 0
 
 
