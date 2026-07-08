@@ -5,12 +5,11 @@ import sys
 from typing import Any, Dict, List
 
 from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
-from fileman.models import AbstractModel
 from fileman.database import DatabaseHandler
-from fileman.abstract_repository import AbstractRepository
 from fileman.directories import CurrentDirectory
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
+from fileman.models import AbstractModel
 
 
 _blank_file_stats = {
@@ -51,28 +50,32 @@ def init_repos(db_path: Path) -> int:
         return SUCCESS
     except OSError:
         return DB_WRITE_ERROR
-    
-class AbstractRepository(ABC):
-    
-    
+
 class GenericRepository(ABC):
     
     @abstractmethod
-    def add(self, model: AbstractModel)->AbstractModel:
+    def add(self, entry: AbstractModel)->AbstractModel:
         raise NotImplementedError("Subclasses must implement this method.")
 
     @abstractmethod
-    def get(self, item_id: Any) -> AbstractModel:
+    def get_by_id(self, id:int) -> AbstractModel:
         raise NotImplementedError("Subclasses must implement this method.")
     
     @abstractmethod
-    def update(self, item: AbstractModel)->AbstractModel:
+    def update(self, entry: AbstractModel)->AbstractModel:
         raise NotImplementedError("Subclasses must implement this method.")
     
     @abstractmethod
-    def delete(self, item: AbstractModel)->bool:
+    def delete_by_id(self, id: int)->bool:
         raise NotImplementedError("Subclasses must implement this method.")
     
+    
+    
+class GenericJsonRepository(GenericRepository):
+    
+    def __init__(self, db_handler: DatabaseHandler):
+        self._db_handler = db_handler
+        
     def init(self)-> int:
         """Initialize the repository with blank data."""
         db_reponse = self._db_handler.write_file_data(__blank_file_infos__)
