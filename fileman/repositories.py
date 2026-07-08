@@ -1,6 +1,4 @@
-
-
-
+from abc import ABC, abstractmethod
 import configparser
 from pathlib import Path
 import sys
@@ -48,66 +46,33 @@ def init_repos(db_path: Path) -> int:
     """Create the repository.""" 
     try:
         db_handler = DatabaseHandler(db_path)
-        repository = Repository(db_handler)
+        repository = GenericRepository(db_handler)
         repository.init()
         return SUCCESS
     except OSError:
         return DB_WRITE_ERROR
     
+class AbstractRepository(ABC):
     
-class Repository(AbstractRepository):
     
-    def __init__(self,db_handler: DatabaseHandler) -> None:
-        self._db_handler = db_handler
+class GenericRepository(ABC):
     
-    def add(self, model: AbstractModel) -> AbstractModel:
-        # Implementation for adding a directory to the repository
-        """Add a new directory to the database."""
-        # Try to get dirname from database. If directory already
-        # in database, return DIR_ALREADY_ADDED_ERROR
-        # If directory does not exist, return DIR_NOT_FOUND_ERROR
-        
-        _dir_path = Path(dirname)
-        if not _dir_path.exists():
-           
-           return DIR_NOT_FOUND_ERROR
-        
-        if dirname in self._directories:
-           return DIR_ALREADY_ADDED_ERROR
-        
-        self._directories.append(str(_dir_path))    
-           
-        _top_dirs_ = self._parent_directories
-        if len(_top_dirs_) == len([d for d in _top_dirs_ if not _dir_path.is_relative_to(d)]):
-            self._parent_directories = [d for d in _top_dirs_ if not Path(d).is_relative_to(_dir_path)]
-            self._parent_directories.append(str(_dir_path))
-    
-        write = self._db_handler.write_file_data({
-            "latest_index": self._latest_index,
-            "directories": self._directories,
-            "parent_directories": self._parent_directories,
-            "files_stats": self._files_stats.to_dict(),
-            "files_metadata": self._files_metadata
-        })
-        
-        if self._db_handler.copy_database() != SUCCESS:
-            write_log(f"Error copying database to current directory.", "error.log", verbose=True)
-        if write.error != SUCCESS:
-            return CurrentDirectory("", write.error)
-        return CurrentDirectory(dirname, write.error)
-    
-    def get(self, item_id: Any) -> AbstractModel:
-        # Implementation for retrieving directories from the repository
-        return AbstractModel()
-    
-    def update(self, item: AbstractModel) -> AbstractModel:
-        # Implementation for updating a directory in the repository
-        return AbstractModel()
-    
-    def delete(self, item: AbstractModel) -> bool:
-        # Implementation for deleting a directory from the repository
-        return False
+    @abstractmethod
+    def add(self, model: AbstractModel)->AbstractModel:
+        raise NotImplementedError("Subclasses must implement this method.")
 
+    @abstractmethod
+    def get(self, item_id: Any) -> AbstractModel:
+        raise NotImplementedError("Subclasses must implement this method.")
+    
+    @abstractmethod
+    def update(self, item: AbstractModel)->AbstractModel:
+        raise NotImplementedError("Subclasses must implement this method.")
+    
+    @abstractmethod
+    def delete(self, item: AbstractModel)->bool:
+        raise NotImplementedError("Subclasses must implement this method.")
+    
     def init(self)-> int:
         """Initialize the repository with blank data."""
         db_reponse = self._db_handler.write_file_data(__blank_file_infos__)
