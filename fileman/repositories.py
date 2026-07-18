@@ -81,6 +81,13 @@ class GenericJsonRepository(GenericRepository[T]):
         self._db_handler = db_handler
         self._model_cls = model_cls
 
-    
+    def add(self, entry: T) -> T:
+        """Add a new entry to the repository."""
+        
+        result = self._db_handler.add_entry(entry)
+        if result is None:
+            raise Exception("Failed to add entry to the database.")
+        entry.id = result.get("id")
+        return entry
     
     
