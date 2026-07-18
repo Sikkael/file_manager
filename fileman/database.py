@@ -23,10 +23,31 @@ class DBResponse(NamedTuple):
     files_infos: Dict[str, Any]
     error: int
 
+class DatabaseError(Exception):
+    """Custom exception for database errors."""
+    pass
+
 class DatabaseHandler:
     def __init__(self, db_path: Path) -> None:
+        
+        if not db_path.exists():
+            raise DatabaseError(f"Database file does not exist: {db_path}")
+        
         self._db_path = db_path
-    
+        self._data_ = {}
+        
+    def load_database(self) -> None:
+        """Load the database from the JSON file."""
+        try:
+            with self._db_path.open("r") as db:
+                try:
+                    self._data_ = json.load(db)
+                    
+                except json.JSONDecodeError:  # Catch wrong JSON format
+                    raise DatabaseError(f"Invalid JSON format in database file: {self._db_path}")
+        except OSError:  # Catch file IO problems
+            raise DatabaseError(f"Error reading database file: {self._db_path}")
+        
     def read_file_data(self) -> DBResponse:
         try:
             with self._db_path.open("r") as db:
@@ -37,29 +58,9 @@ class DatabaseHandler:
         except OSError:  # Catch file IO problems
             return DBResponse({}, DB_READ_ERROR)
 
-    def add_entry(self, entry: AbstractModel) -> Dict[str, Any]:
+    def add_entry(self, entry: AbstractModel) -> AbstractModel:
         """Add a new entry to the database."""
-        db_response = self.read_file_data()
-        if db_response.error != SUCCESS:
-            return {}  # Return None if reading the database failed
-
-        files_infos = db_response.files_infos
-        files_metadata = files_infos.get("files_metadata", {})
-        latest_index = files_infos.get("latest_index", 0)
-
-        # Increment the latest index and assign it to the new entry
-        latest_index += 1
-        entry["id"] = latest_index
-        files_metadata[str(latest_index)] = entry
-
-        # Update the files_infos dictionary
-        files_infos["latest_index"] = latest_index
-        files_infos["files_metadata"] = files_metadata
-
-        # Write the updated data back to the database
-        write_response = self.write_file_data(files_infos)
-        if write_response.error != SUCCESS:
-            return None  # Return None if writing to the database failed
+        
 
         return entry  # Return the newly added entry with its ID    
     
