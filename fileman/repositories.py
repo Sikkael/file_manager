@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 import configparser
 from pathlib import Path
 import sys
-from typing import Any, Dict, List
 
 from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
 from fileman.database import DatabaseHandler
@@ -10,7 +9,10 @@ from fileman.directories import CurrentDirectory
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
 from fileman.models import AbstractModel
+from typing import Generic, Type, TypeVar
 
+
+T = TypeVar("T", bound=AbstractModel)
 
 _blank_file_stats = {
     "total_files": 0, 
@@ -51,10 +53,12 @@ def init_repos(db_path: Path) -> int:
     except OSError:
         return DB_WRITE_ERROR
 
-class GenericRepository(ABC):
+T = TypeVar("T", bound=AbstractModel)
+
+class GenericRepository(Generic[T], ABC):
     
     @abstractmethod
-    def add(self, entry: AbstractModel)->AbstractModel:
+    def add(self, entry: T)->T:
         raise NotImplementedError("Subclasses must implement this method.")
 
     @abstractmethod
@@ -71,14 +75,12 @@ class GenericRepository(ABC):
     
     
     
-class GenericJsonRepository(GenericRepository):
+class GenericJsonRepository(GenericRepository[T]):
     
-    def __init__(self, db_handler: DatabaseHandler):
+    def __init__(self, db_handler: DatabaseHandler, model_cls: Type[T]):
         self._db_handler = db_handler
-        
-    def init(self)-> int:
-        """Initialize the repository with blank data."""
-        db_reponse = self._db_handler.write_file_data(__blank_file_infos__)
-        if db_reponse.error != SUCCESS:
-            return DB_WRITE_ERROR
-        return SUCCESS
+        self._model_cls = model_cls
+
+    
+    
+    
