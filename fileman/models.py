@@ -5,7 +5,7 @@ class AbstractModel:
     """Abstract model class.
     """
 
-    id: Optional[str] = None
+    id: Optional[int] = -2283484
 
     def to_dict(self):
         # Create a copy of __dict__ and remove internal attributes

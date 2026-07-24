@@ -35,6 +35,7 @@ class DatabaseHandler:
         
         self._db_path = db_path
         self._data_ = {}
+        self.load_database()  # Load the database upon initialization
         
     def load_database(self) -> None:
         """Load the database from the JSON file."""
@@ -60,9 +61,12 @@ class DatabaseHandler:
 
     def add_entry(self, entry: AbstractModel) -> AbstractModel:
         """Add a new entry to the database."""
-        
-
+        _data_ = self._data_.get(entry.__class__.__name__, {})
+        entry.id = max(_data_.keys(), default=0) + 1  # Assign a new ID
+        _data_[entry.id] = entry.to_dict()  # Store the entry as a dictionary
+        self._data_[entry.__class__.__name__] = _data_  
         return entry  # Return the newly added entry with its ID    
+    
     
     def write_file_data(self, files_infos: Dict[str,Any]) -> DBResponse:
         try:
