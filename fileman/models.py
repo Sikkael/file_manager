@@ -1,5 +1,5 @@
+from dataclasses import dataclass
 from typing import Optional
-
 
 class AbstractModel:
     """Abstract model class.
@@ -17,11 +17,9 @@ class AbstractModel:
         
         return data_dict
 
-class BaseModel:
+class BaseModel(AbstractModel):
     """Base model class.
     """
-
-    id: Optional[str] = None
 
     def to_dict(self):
         # Create a copy of __dict__ and remove internal attributes
@@ -39,4 +37,9 @@ class CurrentDirectory(BaseModel):
     stats: dict = {}
     error: int = 0
 
-
+@dataclass
+class Result:
+    """Result model class.
+    """
+    error: int = 0
+    model: Optional[BaseModel] = None

@@ -67,6 +67,14 @@ class DatabaseHandler:
         self._data_[entry.__class__.__name__] = _data_  
         return entry  # Return the newly added entry with its ID    
     
+    def save(self) -> int:
+        """Save the current state of the database to the JSON file."""
+        try:
+            with self._db_path.open("w") as db:
+                json.dump(self._data_, db, indent=4)
+            return SUCCESS
+        except OSError:  # Catch file IO problems
+            return DB_WRITE_ERROR
     
     def write_file_data(self, files_infos: Dict[str,Any]) -> DBResponse:
         try:
