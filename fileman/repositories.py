@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 
 from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
-from fileman.database import DatabaseHandler
+from fileman.database import DBResponse, DatabaseHandler
 from fileman.directories import CurrentDirectory
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
@@ -90,6 +90,25 @@ class GenericJsonRepository(GenericRepository[T]):
         entry.id = result.id
         save_status = self._db_handler.save()
         if save_status != SUCCESS:
-            return Result(error=DB_WRITE_ERROR, model=None)
+            return Result(error=DB_WRITE_ERROR, model=entry)
         return Result(error=SUCCESS, model=entry)
+    
+    def _retrieve_from_db(self, id: int) -> Result:
+        
+        db_response = self._db_handler.select(self._model_cls)
+        
+        
+        return Result(error=SUCCESS, model=None)
 
+    def get_by_id(self, id: int) -> Result:
+        """Retrieve an entry by its ID."""
+        db_response = self._db_handler.select(self._model_cls)
+        if db_response.error != SUCCESS:
+            return Result(error=db_response.error, model=None)
+        
+        entry_data = db_response.data.get(id)
+        if entry_data is None:
+            return Result(error=DIR_NOT_FOUND_ERROR, model=None)
+        
+        entry = self._model_cls(**entry_data)
+        return Result(error=SUCCESS, model=entry)

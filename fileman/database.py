@@ -20,7 +20,7 @@ def get_database_path(config_file: Path) -> Path:
 
 
 class DBResponse(NamedTuple):
-    files_infos: Dict[str, Any]
+    data: Dict[Any, Any]
     error: int
 
 class DatabaseError(Exception):
@@ -76,13 +76,11 @@ class DatabaseHandler:
         except OSError:  # Catch file IO problems
             return DB_WRITE_ERROR
     
-    def write_file_data(self, files_infos: Dict[str,Any]) -> DBResponse:
-        try:
-            with self._db_path.open("w") as db:
-                json.dump(files_infos, db, indent=4)
-            return DBResponse(files_infos, SUCCESS)
-        except OSError:  # Catch file IO problems
-            return DBResponse(files_infos, DB_WRITE_ERROR)
+    def select(self, model_cls: type) -> DBResponse:
+        """Select entries of a specific model class from the database."""
+        if model_cls.__name__ not in self._data_:
+            return DBResponse({}, DB_READ_ERROR)  # Return empty if no entries exist for the model class
+        return DBResponse(self._data_.get(model_cls.__name__, {}), SUCCESS)
         
     def copy_database(self) -> int:
         try:
