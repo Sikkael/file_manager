@@ -8,11 +8,11 @@ from fileman.database import DBResponse, DatabaseHandler
 from fileman.directories import CurrentDirectory
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
-from fileman.models import  BaseModel, Result
-from typing import Generic, Type, TypeVar
+from fileman.models import  BaseModel, Collection, Directory, Result
+from typing import Generic, List, Optional, Type, TypeVar
 
 
-T = TypeVar("T", bound=BaseModel)
+
 
 _blank_file_stats = {
     "total_files": 0, 
@@ -54,7 +54,7 @@ def init_repos(db_path: Path) -> int:
         return DB_WRITE_ERROR
 
 
-
+T = TypeVar("T", bound=BaseModel)
 class GenericRepository(Generic[T], ABC):
     
     @abstractmethod
@@ -66,7 +66,7 @@ class GenericRepository(Generic[T], ABC):
         raise NotImplementedError("Subclasses must implement this method.")
     
     @abstractmethod
-    def update(self, entry: AbstractModel)->Result:
+    def update(self, entry:T)->Result:
         raise NotImplementedError("Subclasses must implement this method.")
     
     @abstractmethod
@@ -95,20 +95,81 @@ class GenericJsonRepository(GenericRepository[T]):
     
     def _retrieve_from_db(self, id: int) -> Result:
         
-        db_response = self._db_handler.select(self._model_cls)
+        db_response = self._db_handler.select(self._model_cls, int(id))
         
+        if db_response.error != SUCCESS:
+            return Result(error=db_response.error, model=None)
+        model = self._model_cls(**db_response.data)
+        return Result(error=SUCCESS, model=model)
+        
+    def get_by_id(self, id: int) -> Result:
+        """Retrieve an entry by its ID."""
+        return self._retrieve_from_db(id)
+    
+    
+    def update(self, entry: T) -> Result:
+        """Update an existing entry in the repository."""
+        
+        # Update the entry in the database
+        updated_entry = self._db_handler.add_entry(entry)  # This will overwrite the existing entry
+        save_status = self._db_handler.save()
+        if save_status != SUCCESS:
+            return Result(error=DB_WRITE_ERROR, model=updated_entry)
+        
+        return Result(error=SUCCESS, model=entry)
+    
+    def _construct_lst_from_db(self) -> List[T]:
+        """Retrieve all entries of the model class from the database."""
+        db_response = self._db_handler.select_all(self._model_cls, None)  # Assuming None retrieves all entries
+        if db_response.error != SUCCESS:
+            return []
+        return [self._model_cls(**data) for data in db_response.data.values()]
+        
+        
+    def list(self) -> Result:
+        """List entries in the repository based on filters."""
+        entries = Collection(lst=self._construct_lst_from_db())
+        
+        # I will apply filters here eventually
+        ''''' Apply filters here'''
+        
+        return Result(error=SUCCESS, model=entries)
+    
+    def delete_by_id(self, id: int) -> Result:
+        """Delete an entry by its ID."""
+        db_code = self._db_handler.delete_entry(self._model_cls, id)
+        if db_code != SUCCESS:
+            return Result(error=db_code, model=None)
+        
+        save_status = self._db_handler.save()
+        
+        if save_status != SUCCESS:
+            return Result(error=DB_WRITE_ERROR, model=None)
         
         return Result(error=SUCCESS, model=None)
 
-    def get_by_id(self, id: int) -> Result:
-        """Retrieve an entry by its ID."""
-        db_response = self._db_handler.select(self._model_cls)
-        if db_response.error != SUCCESS:
-            return Result(error=db_response.error, model=None)
+class DirectoryReposityBase(GenericRepository[Directory], ABC):
+    """Directory repository.
+    """
+    @abstractmethod
+    def get_by_name(self, name: str) -> Optional[Directory]:
+        raise NotImplementedError()
+    
+class DirectoryReposity(GenericJsonRepository[Directory],DirectoryReposityBase):
+    """Directory repository.
+    """
+    def __init__(self, db_handler: DatabaseHandler):
+        super().__init__(db_handler, Directory)
+    
+    def get_by_pathname(self, name: str) -> Result:
+        """Retrieve a directory by its name."""
+        db_response = self._db_handler.select_all(Directory, lambda d: d.get('dirname') == name)
         
-        entry_data = db_response.data.get(id)
-        if entry_data is None:
+        if db_response.error != SUCCESS or not db_response.data:
             return Result(error=DIR_NOT_FOUND_ERROR, model=None)
         
-        entry = self._model_cls(**entry_data)
-        return Result(error=SUCCESS, model=entry)
+        # Assuming only one directory with the given name exists
+        dir_data = next(iter(db_response.data.values()))
+        directory = Directory(**dir_data)
+        return Result(error=SUCCESS, model=directory)
+    

@@ -18,26 +18,6 @@ app = typer.Typer()
 # TODO: Rendre la journalisation plus performante (par lots)
 # TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
 
-
-def get_file_manager() -> fileman.FileManager:
-    if config.CONFIG_FILE_PATH.exists():
-        db_path = database.get_database_path(config.CONFIG_FILE_PATH)
-        
-    else:
-        typer.secho(
-            'Config file not found. Please, run "fileman init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    if not db_path.exists():
-        typer.secho(
-            'Database not found. Please, run "fileman init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-        
-    return fileman.FileManager(db_path)
-
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app__name__} v{__version__}")
