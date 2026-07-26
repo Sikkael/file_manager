@@ -4,6 +4,9 @@
 __app__name__ = "fileman"
 __version__ = "0.1.1"
 
+from fileman.settings import Settings
+
+
 (
     SUCCESS,
     DIR_NOT_FOUND_ERROR,
@@ -44,3 +47,13 @@ ERRORS = {
 (NEW, MOVED, DUPLICATE, ERROR) = range(4)
 
 FILE_PROCESSING_ERRORS = (OSError, FileNotFoundError, PermissionError)
+
+def create_app(config_path: str = str()) -> None:
+    """Create the fileman application."""
+    from fileman.config import init_app
+    
+    settings = Settings()
+    app_init_error = init_app(config_path)
+    if app_init_error:
+        raise RuntimeError(f"App initialisation failed with {ERRORS[app_init_error]}")
+    

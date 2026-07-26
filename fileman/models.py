@@ -29,7 +29,7 @@ class BaseModel(AbstractModel):
 class Directory(BaseModel):
     """Directory model class.
     """
-    dirname: str
+    dirpath: str
     files: list = []
     stats: dict = {}
     

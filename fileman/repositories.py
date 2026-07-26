@@ -161,14 +161,14 @@ class DirectoryReposity(GenericJsonRepository[Directory],DirectoryReposityBase):
     def __init__(self, db_handler: DatabaseHandler):
         super().__init__(db_handler, Directory)
     
-    def get_by_pathname(self, name: str) -> Result:
-        """Retrieve a directory by its name."""
-        db_response = self._db_handler.select_all(Directory, lambda d: d.get('dirname') == name)
+    def get_by_dirpath(self, name: str) -> Result:
+        """Retrieve a directory by its path."""
+        db_response = self._db_handler.select_all(Directory, lambda d: d.get('dirpath') == name)
         
         if db_response.error != SUCCESS or not db_response.data:
             return Result(error=DIR_NOT_FOUND_ERROR, model=None)
         
-        # Assuming only one directory with the given name exists
+        # Assuming only one directory with the given path exists
         dir_data = next(iter(db_response.data.values()))
         directory = Directory(**dir_data)
         return Result(error=SUCCESS, model=directory)

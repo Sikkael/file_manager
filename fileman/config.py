@@ -25,13 +25,9 @@ DB_FILENAME = "." + Path.home().stem + "_fileman.json"
 
 def init_app(app_folder_path: str) -> int:
     """Initialize the application."""
-    config_code = _init_config_file()
+    config_code = _init_config_file(app_folder_path)
     if config_code != SUCCESS:
         return config_code
-    ressource_code = _create_ressource(app_folder_path)
-    
-    if ressource_code != SUCCESS:
-        return ressource_code
     
     return SUCCESS
 
@@ -45,15 +41,21 @@ def init_dest_dir(app_folder_path: Path) -> int:
     except OSError:
         return DEST_DIR_ERROR
 
-def _init_config_file() -> int:
+def _init_config_file(app_folder_path: str) -> int:
     try:
         CONFIG_DIR_PATH.mkdir(exist_ok=True)
     except OSError:
         return DIR_NOT_FOUND_ERROR
     try:
         CONFIG_FILE_PATH.touch(exist_ok=True)
+        db_path = Path(app_folder_path).joinpath(DB_FILENAME)
+        # writing config file with the app folder path and database path
+        config_parser = configparser.ConfigParser()
+        config_parser["General"] = {"app_folder_path": app_folder_path, "database": str(db_path)}
+        with CONFIG_FILE_PATH.open("w") as file:
+                    config_parser.write(file) 
     except OSError:
-        return FILE_ERROR
+        return CONFIG_FILE_ERROR
     return SUCCESS
 
 def _create_ressource(app_folder_path: str) -> int:
