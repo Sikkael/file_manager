@@ -27,7 +27,7 @@ def _version_callback(value: bool) -> None:
 def init(
     
      app_folder_path: str = typer.Option(
-        config.DEFAULT_APP_FOLDER_PATH,
+        str(),
         "--app-path",
         "-ap",
         prompt="fileman app dir location?",
