@@ -10,7 +10,7 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, database, fileman)
+from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, create_app, database, fileman)
 
 app = typer.Typer()
 
@@ -35,16 +35,9 @@ def init(
     
 ) -> None:
     """Initialize the fileman database."""
-    app_init_error = config.init_app(app_folder_path)
-    if app_init_error:
-        typer.secho(
-            f'App initialisation failed with "{ERRORS[app_init_error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
+    create_app(app_folder_path)
     
-    else:
-        typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
+    typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
         
             
 @app.command()

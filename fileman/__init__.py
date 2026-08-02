@@ -4,7 +4,7 @@
 __app__name__ = "fileman"
 __version__ = "0.1.1"
 
-from fileman.settings import Settings
+
 
 
 (
@@ -48,12 +48,25 @@ ERRORS = {
 
 FILE_PROCESSING_ERRORS = (OSError, FileNotFoundError, PermissionError)
 
-def create_app(app_folder_path: str = str()) -> None:
-    """Create the fileman application."""
-    from fileman.config import init_app
+class BaseSettings:
+    """Base settings class for the application."""
     
-    settings = Settings()
-    app_init_error = init_app(app_folder_path)
+    def __init__(self, app_folder_path: str = str()) -> None:
+        self.app_folder_path = app_folder_path
+        
+    def init_app(self) -> int:
+        """Initialize the application."""
+        raise NotImplementedError("Subclasses should implement this method.")
+    
+def create_app(settings:BaseSettings, app_folder_path: str = str()) -> None:
+    """Create the fileman application."""
+    
+    if not app_folder_path:
+        settings = BaseSettings()
+    else:
+        settings = BaseSettings(app_folder_path)
+    
+    app_init_error = settings.init_app()
     if app_init_error:
         raise RuntimeError(f"App initialisation failed with {ERRORS[app_init_error]}")
     

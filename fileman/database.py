@@ -110,3 +110,5 @@ class DatabaseHandler:
         
     def get_database_path(self) -> Path:
         return self._db_path
+    
+    
