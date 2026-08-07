@@ -10,14 +10,27 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, create_app, database, fileman)
-from fileman.settings import Settings
+from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, database, fileman)
+
+
 
 app = typer.Typer()
 
 # TODO: Rendre la journalisaton des fichiers optionnelle lors de l'ajout d'un répertoire
 # TODO: Rendre la journalisation plus performante (par lots)
 # TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
+
+def create_app(settings:Settings, app_folder_path: str = str()) -> None:
+    """Create the fileman application."""
+    
+    if not app_folder_path:
+        settings = Settings()
+    else:
+        settings = Settings(app_folder_path)
+    
+    app_init_error = settings.init_app()
+    if app_init_error:
+        raise RuntimeError(f"App initialisation failed with {ERRORS[app_init_error]}")
 
 def _version_callback(value: bool) -> None:
     if value:
@@ -36,8 +49,7 @@ def init(
     
 ) -> None:
     """Initialize the fileman database."""
-    settings = Settings(app_folder_path)
-    create_app(settings, app_folder_path)
+    
     
     typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
         

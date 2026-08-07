@@ -6,7 +6,6 @@ __version__ = "0.1.1"
 
 
 
-
 (
     SUCCESS,
     DIR_NOT_FOUND_ERROR,
@@ -47,26 +46,3 @@ ERRORS = {
 (NEW, MOVED, DUPLICATE, ERROR) = range(4)
 
 FILE_PROCESSING_ERRORS = (OSError, FileNotFoundError, PermissionError)
-
-class BaseSettings:
-    """Base settings class for the application."""
-    
-    def __init__(self, app_folder_path: str = str()) -> None:
-        self.app_folder_path = app_folder_path
-        
-    def init_app(self) -> int:
-        """Initialize the application."""
-        raise NotImplementedError("Subclasses should implement this method.")
-    
-def create_app(settings:BaseSettings, app_folder_path: str = str()) -> None:
-    """Create the fileman application."""
-    
-    if not app_folder_path:
-        settings = BaseSettings()
-    else:
-        settings = BaseSettings(app_folder_path)
-    
-    app_init_error = settings.init_app()
-    if app_init_error:
-        raise RuntimeError(f"App initialisation failed with {ERRORS[app_init_error]}")
-    
