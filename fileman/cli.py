@@ -11,6 +11,7 @@ from typing import List, Optional
 
 
 from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, create_app, database, fileman)
+from fileman.settings import Settings
 
 app = typer.Typer()
 
@@ -35,7 +36,8 @@ def init(
     
 ) -> None:
     """Initialize the fileman database."""
-    create_app(app_folder_path)
+    settings = Settings(app_folder_path)
+    create_app(settings, app_folder_path)
     
     typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
         
