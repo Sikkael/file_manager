@@ -11,7 +11,7 @@ from typing import List, Optional
 
 
 from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, SUCCESS, __app__name__, __version__, config, database, fileman)
-from fileman.settings import Settings, init_settings
+from fileman.settings import Settings, init_settings, load_settings
 
 
 
@@ -32,7 +32,16 @@ def create_app(app_folder_path: str = str()) -> None:
         )
         raise typer.Exit(1)
     # Create the destination directory if it doesn't exist
-    
+    settings = load_settings()
+    if not Path(settings.app_folder_path).exists():
+        try:
+            Path(settings.app_folder_path).mkdir(parents=True, exist_ok=False)
+        except OSError:
+            typer.secho(
+                f"Failed to create destination directory at {settings.app_folder_path}",
+                fg=typer.colors.RED,
+            )
+            raise typer.Exit(1)
     
 
 def _version_callback(value: bool) -> None:
