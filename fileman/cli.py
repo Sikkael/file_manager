@@ -10,7 +10,8 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, __app__name__, __version__, config, database, fileman)
+from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, SUCCESS, __app__name__, __version__, config, database, fileman)
+from fileman.settings import Settings, init_settings
 
 
 
@@ -20,17 +21,19 @@ app = typer.Typer()
 # TODO: Rendre la journalisation plus performante (par lots)
 # TODO: Rendre la journalisation plus détaillée (fichiers modifiés, ajoutés, supprimés)
 
-def create_app(settings:Settings, app_folder_path: str = str()) -> None:
+def create_app(app_folder_path: str = str()) -> None:
     """Create the fileman application."""
+    # Initialize the application settings"""
+    init_code = init_settings(app_folder_path)
+    if init_code != SUCCESS:
+        typer.secho(
+            f"Initialization failed with error code {init_code}: {ERRORS[init_code]}",
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    # Create the destination directory if it doesn't exist
     
-    if not app_folder_path:
-        settings = Settings()
-    else:
-        settings = Settings(app_folder_path)
     
-    app_init_error = settings.init_app()
-    if app_init_error:
-        raise RuntimeError(f"App initialisation failed with {ERRORS[app_init_error]}")
 
 def _version_callback(value: bool) -> None:
     if value:
@@ -41,14 +44,16 @@ def _version_callback(value: bool) -> None:
 def init(
     
      app_folder_path: str = typer.Option(
-        str(),
+        Path.home().joinpath(
+    "." + Path.home().stem + "_fileman"),
         "--app-path",
         "-ap",
         prompt="fileman app dir location?",
-        help="Path to the app dir.",)
+        help="Path to the app dir.")
     
 ) -> None:
     """Initialize the fileman database."""
+    
     
     
     typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
