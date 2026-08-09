@@ -10,7 +10,7 @@ import typer
 from typing import List, Optional
 
 
-from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, SUCCESS, __app__name__, __version__, config, database, fileman)
+from fileman import (DIR_ALREADY_ADDED_ERROR, ERRORS, SUCCESS, __app__name__, __version__, config, database)
 from fileman.settings import Settings, init_settings, load_settings
 
 
@@ -82,19 +82,19 @@ def init(
 @app.command()
 def add(
          dirname: str = typer.Option( 
+        "test,",
         "--dirname", 
         "-dir"),
       )-> None:
 
     """Add a new directory to the database."""
     
-    file_manager = get_file_manager()
-    current_directory = file_manager.add(dirname)
+    error = 1
     
-    if current_directory.error:
+    if error:
         typer.secho(
-            f'Adding directory failed with "{ERRORS[current_directory.error]}"',
-            fg=typer.colors.YELLOW if current_directory.error == DIR_ALREADY_ADDED_ERROR else typer.colors.RED,
+            f'Adding directory failed with "{ERRORS[error]}"',
+            fg=typer.colors.YELLOW if error == DIR_ALREADY_ADDED_ERROR else typer.colors.RED,
         )
         raise typer.Exit(1)
     else:

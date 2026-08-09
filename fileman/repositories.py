@@ -41,15 +41,6 @@ __blank_file_infos__ = {
 }
 
 
-def init_repos(db_path: Path) -> int:
-    """Create the repository.""" 
-    try:
-        db_handler = DatabaseHandler(db_path)
-        repository = GenericRepository(db_handler)
-        repository.init()
-        return SUCCESS
-    except OSError:
-        return DB_WRITE_ERROR
 
 
 T = TypeVar("T", bound=BaseModel)
