@@ -1,6 +1,8 @@
 from ast import List
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
+
+from fileman.functions import GetFileNames
 
 class AbstractModel:
     """Abstract model class.
@@ -13,7 +15,8 @@ class BaseModel(AbstractModel):
     """Base model class.
     """
     
-    id: Optional[int] = -2283484
+    def __init__(self, id: Optional[int] = None) -> None:
+        self.id = id 
     
     def to_dict(self):
         # Create a copy of __dict__ and remove internal attributes
@@ -29,9 +32,11 @@ class BaseModel(AbstractModel):
 class Directory(BaseModel):
     """Directory model class.
     """
-    dirpath: str
-    files: list = []
-    stats: dict = {}
+    def __init__(self, id: Optional[int] = None, dirpath: str = "", files: list[str] = [], stats: dict = {}) -> None:
+        super().__init__(id)
+        self.dirpath = dirpath
+        self.files = files
+        self.stats = stats
 
     
 class Collection(AbstractModel):
@@ -45,3 +50,13 @@ class Result:
     """
     error: int = 0
     model: Optional[AbstractModel] = None
+    
+    
+def directory_builder(dirpath: str) -> Directory:
+    """Build a Directory model instance."""
+    if not dirpath:
+        raise ValueError("Directory path cannot be empty.")
+    
+    files = GetFileNames(dirpath)
+    
+    return Directory(dirpath=dirpath, files=files, stats={})

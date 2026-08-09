@@ -7,8 +7,9 @@ from pathlib import Path
 import shutil
 from typing import Any, Dict, NamedTuple
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
-from fileman.function import get_all_subclasses
+from fileman.functions import get_all_subclasses
 from fileman.models import BaseModel
+from fileman.settings import Settings
 
 
 def get_database_path(config_file: Path) -> Path:
@@ -24,8 +25,14 @@ def create_database(db_path: Path) -> None:
            
             with db_path.open("w") as db:
                 json.dump(get_all_subclasses(BaseModel), db)  # Initialize with an empty JSON object
+            shutil.copy2(db_path, Path.cwd())
         except OSError as e:
             raise OSError(f"Failed to create database at {db_path}: {e}")
+        
+def create_db_handler(settings: Settings) -> "DatabaseHandler":
+    """Create a DatabaseHandler instance."""
+    
+    return DatabaseHandler(Path(settings.database_connection_str))
         
 class DBResponse(NamedTuple):
     data: Dict[Any, Any]
@@ -72,7 +79,7 @@ class DatabaseHandler:
         _data_ = self._data_.get(entry.__class__.__name__, {})
         
         if entry.id not in _data_:
-           entry.id = max(_data_.keys(), default=0) + 1  # Assign a new ID
+           entry.id = int(max(_data_.keys(), default=0)) + 1  # Assign a new ID
         
         _data_[entry.id] = entry.to_dict()  # Store the entry as a dictionary
         self._data_[entry.__class__.__name__] = _data_  
@@ -83,6 +90,7 @@ class DatabaseHandler:
         try:
             with self._db_path.open("w") as db:
                 json.dump(self._data_, db, indent=4)
+            shutil.copy2(self._db_path, Path.cwd())
             return SUCCESS
         except OSError:  # Catch file IO problems
             return DB_WRITE_ERROR

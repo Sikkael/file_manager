@@ -141,7 +141,7 @@ class DirectoryReposityBase(GenericRepository[Directory], ABC):
     """Directory repository.
     """
     @abstractmethod
-    def get_by_name(self, name: str) -> Optional[Directory]:
+    def get_by_dirpath(self, name: str) -> Result:
         raise NotImplementedError()
     
 class DirectoryReposity(GenericJsonRepository[Directory],DirectoryReposityBase):
