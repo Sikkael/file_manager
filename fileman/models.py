@@ -32,14 +32,8 @@ class Directory(BaseModel):
     dirpath: str
     files: list = []
     stats: dict = {}
-    
-    
-class CurrentDirectory(BaseModel):
-    dirname: str
-    files: list = []
-    stats: dict = {}
-    error: int = 0
 
+    
 class Collection(AbstractModel):
       
       def __init__(self, lst: list = []) -> None:

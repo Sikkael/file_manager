@@ -46,22 +46,17 @@ def load_settings() -> Settings:
     config_parser.read(Settings.CONFIG_FILE_PATH)
     app_folder_path = config_parser["General"]["app_folder_path"]
     return Settings(app_folder_path=app_folder_path)
+
 class Settings:
     """Application settings class, holds all app settings.
     """
     CONFIG_DIR_PATH = Path(typer.get_app_dir(__app__name__))
     CONFIG_FILE_PATH = CONFIG_DIR_PATH / "config.ini"
-    DEFAULT_APP_FOLDER_PATH = Path.home().joinpath(
-    "." + Path.home().stem + "_fileman"
-   )
-
-    DEFAULT_DB_CONNECTION_STR = DEFAULT_APP_FOLDER_PATH.joinpath("." + Path.home().stem + "_fileman.json")
     
-    def __init__(self, app_folder_path: str = str(DEFAULT_APP_FOLDER_PATH)) -> None:
+    def __init__(self, app_folder_path: str ) -> None:
         
         self.app_folder_path = app_folder_path
         self.database_connection_str: str = str(Path(self.app_folder_path).joinpath("." + Path.home().stem + "_fileman.json"))
-        
         
     def init_app(self) -> int:
         """Initialize the application."""

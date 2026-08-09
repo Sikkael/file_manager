@@ -5,10 +5,9 @@ import configparser
 import json
 from pathlib import Path
 import shutil
-import sys
-from typing import Any, Dict, List, NamedTuple
-
+from typing import Any, Dict, NamedTuple
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
+from fileman.function import get_all_subclasses
 from fileman.models import BaseModel
 
 
@@ -18,7 +17,16 @@ def get_database_path(config_file: Path) -> Path:
     config_parser.read(config_file)
     return Path(config_parser["General"]["database"])
 
-
+def create_database(db_path: Path) -> None:
+    """Create a new database file if it doesn't exist."""
+    if not db_path.exists():
+        try:
+           
+            with db_path.open("w") as db:
+                json.dump(get_all_subclasses(BaseModel), db)  # Initialize with an empty JSON object
+        except OSError as e:
+            raise OSError(f"Failed to create database at {db_path}: {e}")
+        
 class DBResponse(NamedTuple):
     data: Dict[Any, Any]
     error: int

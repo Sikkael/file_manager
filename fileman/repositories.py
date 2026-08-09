@@ -2,10 +2,8 @@ from abc import ABC, abstractmethod
 import configparser
 from pathlib import Path
 import sys
-
 from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
 from fileman.database import DBResponse, DatabaseHandler
-from fileman.directories import CurrentDirectory
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
 from fileman.models import  BaseModel, Collection, Directory, Result

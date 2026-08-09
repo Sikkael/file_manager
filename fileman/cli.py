@@ -42,6 +42,17 @@ def create_app(app_folder_path: str = str()) -> None:
                 fg=typer.colors.RED,
             )
             raise typer.Exit(1)
+    # Create the database if it doesn't exist
+    print(f"Database path: {settings.database_connection_str}")
+    if not Path(settings.database_connection_str).exists():
+        try:
+            database.create_database(Path(settings.database_connection_str))
+        except OSError:
+            typer.secho(
+                f"Failed to create database at {settings.database_connection_str}",
+                fg=typer.colors.RED,
+            )
+            raise typer.Exit(1)
     
 
 def _version_callback(value: bool) -> None:
@@ -63,7 +74,7 @@ def init(
 ) -> None:
     """Initialize the fileman database."""
     
-    
+    create_app(app_folder_path)
     
     typer.secho(f"The fileman folder location is {app_folder_path}", fg=typer.colors.GREEN)
         
