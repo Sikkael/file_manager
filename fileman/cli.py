@@ -112,6 +112,15 @@ def add(
             fg=typer.colors.GREEN,
         )
     
+@app.command()
+def reset()-> None:
+    """Reset the fileman database."""
+    
+    settings = load_settings()
+    
+    
+     
+    
 
 @app.callback()
 def main(
