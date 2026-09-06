@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import configparser
 from pathlib import Path
 import sys
-from fileman import DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
+from fileman import DB_READ_ERROR, DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
 from fileman.database import DBResponse, DatabaseHandler
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
@@ -117,6 +117,12 @@ class GenericJsonRepository(GenericRepository[T]):
         
     def list(self) -> Result:
         """List entries in the repository based on filters."""
+        
+        lst=self._construct_lst_from_db()
+        
+        if not lst:
+            return Result(error=DB_READ_ERROR, model=None)
+        
         entries = Collection(lst=self._construct_lst_from_db())
         
         # I will apply filters here eventually

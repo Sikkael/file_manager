@@ -141,8 +141,7 @@ def print_dir_list(directories: List[str]) -> None:
     typer.secho("\ndirectories:\n", fg=typer.colors.BLUE, bold=True)
     columns = (
         "ID.  ",
-        "| Directory path  ",
-        "| Directory name ",
+        "| Directory path  ",      
     )
     headers = "".join(columns)
     typer.secho(headers, fg=typer.colors.BLUE, bold=True)
@@ -162,16 +161,9 @@ def print_dir_list(directories: List[str]) -> None:
 
 @app.command(name="list-dir")
 def list_dir() -> None:
-    file_manager = get_file_manager()
-    directories, result_code = file_manager.get_dir_list()
-    if result_code:
-        typer.secho(
-            f'Directory listing failed with "{ERRORS[result_code]}"',
-            fg=typer.colors.RED
-        )
-        raise typer.Exit()
     
-    print_dir_list(directories)
+    
+    #print_dir_list(directories)
 
 
 @app.command(name="clear")
