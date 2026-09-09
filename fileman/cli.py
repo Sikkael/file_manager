@@ -159,10 +159,10 @@ def print_dir_list(directories: List[str]) -> None:
     typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
     
 
-@app.command(name="list-dir")
-def list_dir() -> None:
+@app.command(name="list")
+def list() -> None:
     
-    
+    print("Listing directories in the database...")
     #print_dir_list(directories)
 
 
