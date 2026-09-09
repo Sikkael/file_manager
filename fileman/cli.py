@@ -11,8 +11,8 @@ from typing import List, Optional
 
 
 from fileman import (DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, ERRORS, SUCCESS, __app__name__, __version__, config, database)
-from fileman.models import Result, directory_builder
-from fileman.repositories import DirectoryReposity
+from fileman.models import Result, build_directory
+from fileman.repositories import DirectoryReposity, get_directory_repository
 from fileman.settings import Settings, init_settings, load_settings
 
 
@@ -90,13 +90,9 @@ def add(
 
     """Add a new directory to the database."""
              
-    dir = directory_builder(dirname)
+    dir = build_directory(dirname)
     
-    settings = load_settings()
-    
-    db_handler = database.create_db_handler(settings)
-    
-    dir_repos = DirectoryReposity(db_handler)
+    dir_repos = get_directory_repository()
     
     result = dir_repos.add(dir) if dir_repos.get_by_dirpath(dirname).error else Result(error=DIR_ALREADY_ADDED_ERROR, model=None)
      

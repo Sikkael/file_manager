@@ -52,7 +52,7 @@ class Result:
     model: Optional[AbstractModel] = None
     
     
-def directory_builder(dirpath: str) -> Directory:
+def build_directory(dirpath: str) -> Directory:
     """Build a Directory model instance."""
     if not dirpath:
         raise ValueError("Directory path cannot be empty.")

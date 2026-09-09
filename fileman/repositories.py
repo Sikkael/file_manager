@@ -3,11 +3,14 @@ import configparser
 from pathlib import Path
 import sys
 from fileman import DB_READ_ERROR, DB_WRITE_ERROR, DIR_ALREADY_ADDED_ERROR, DIR_NOT_FOUND_ERROR, SUCCESS, config
+from fileman import database
 from fileman.database import DBResponse, DatabaseHandler
 from fileman.files_stats import FilesStats
 from fileman.logger import write_log
-from fileman.models import  BaseModel, Collection, Directory, Result
+from fileman.models import  BaseModel, Collection, Directory, Result, build_directory
 from typing import Generic, List, Optional, Type, TypeVar
+
+from fileman.settings import load_settings
 
 
 
@@ -167,4 +170,13 @@ class DirectoryReposity(GenericJsonRepository[Directory],DirectoryReposityBase):
         dir_data = next(iter(db_response.data.values()))
         directory = Directory(**dir_data)
         return Result(error=SUCCESS, model=directory)
+    
+def get_directory_repository() -> DirectoryReposity:
+    """Get the directory repository instance."""
+    
+    settings = load_settings()
+        
+    db_handler = database.create_db_handler(settings)
+        
+    return DirectoryReposity(db_handler)
     
