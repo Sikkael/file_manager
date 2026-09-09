@@ -159,6 +159,7 @@ def print_dir_list(directories: List[str]) -> None:
 def list() -> None:
     
     print("Listing directories in the database...")
+    directories = get_directory_repository()
     #print_dir_list(directories)
 
 
