@@ -1,5 +1,6 @@
 from ast import List
 from dataclasses import dataclass
+import os
 from typing import Any, Optional
 
 from fileman.functions import GetFileNames
@@ -54,8 +55,13 @@ class Result:
     
 def build_directory(dirpath: str) -> Directory:
     """Build a Directory model instance."""
+    
+    if not isinstance(dirpath, str):
+        raise TypeError("Directory path must be a string.")
     if not dirpath:
         raise ValueError("Directory path cannot be empty.")
+    if not os.path.exists(dirpath):
+        raise FileNotFoundError(f"Directory path does not exist: {dirpath}")
     
     files = GetFileNames(dirpath)
     
